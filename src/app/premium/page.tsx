@@ -37,7 +37,7 @@ export default function PremiumPage() {
                     ))}
                 </ul>
 
-                <NeonButton className="w-full mb-4" size="lg" glow="lime">
+                <NeonButton className="w-full mb-4" size="lg">
                     Instantly Upgrade
                 </NeonButton>
                 <button onClick={() => router.back()} className="w-full text-xs text-slate-500 hover:text-white">
