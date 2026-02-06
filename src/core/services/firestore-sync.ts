@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
 export const useFirestoreSync = () => {
-    const { xp, level, streak, milestones, setXp, setStreak, unlockMilestone } = useUserStore();
+    const { xp, level, streak, milestones } = useUserStore();
 
     // 1. Listen for Auth State
     useEffect(() => {
