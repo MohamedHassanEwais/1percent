@@ -13,8 +13,10 @@ interface FlashcardFrontProps {
 export function FlashcardFront({ card, onFlip }: FlashcardFrontProps) {
     // Auto-play audio on mount
     useEffect(() => {
-        // In real implementation, this would point to real URLs
-        // if (card.audioUrl) new Audio(card.audioUrl).play();
+        if (card.audioUrl) {
+            const audio = new Audio(card.audioUrl);
+            audio.play().catch(e => console.log("Audio play failed (interaction required):", e));
+        }
     }, [card]);
 
     return (

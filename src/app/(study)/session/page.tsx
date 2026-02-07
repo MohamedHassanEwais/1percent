@@ -20,20 +20,23 @@ export default function SessionPage() {
     const [isFlipped, setIsFlipped] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const addXp = useUserStore((state) => state.addXp); // Connect to store
+    const { addXp, targetLevel, setTargetLevel } = useUserStore(); // Connect to store
 
     // Load Queue on Mount
     useEffect(() => {
-        async function loadSession() {
-            // Seed database if empty
-            await wordsRepo.seedDatabase();
-
-            const newQueue = await wordsRepo.getSessionQueue(10);
-            setQueue(newQueue);
-            setIsLoading(false);
-        }
         loadSession();
-    }, []);
+    }, [targetLevel]); // Reload when level changes
+
+    async function loadSession() {
+        setIsLoading(true);
+        // Seed database if empty
+        await wordsRepo.seedDatabase();
+
+        const newQueue = await wordsRepo.getSessionQueue(10, targetLevel);
+        setQueue(newQueue);
+        setCurrentIndex(0); // Reset index
+        setIsLoading(false);
+    }
 
     const handleFlip = () => {
         setIsFlipped(true);
@@ -67,17 +70,8 @@ export default function SessionPage() {
         );
     }
 
-    if (queue.length === 0) {
-        return (
-            <div className="flex h-screen flex-col items-center justify-center bg-black text-white p-6 text-center">
-                <h2 className="text-2xl font-bold mb-4">No cards due for review!</h2>
-                <NeonButton onClick={() => router.push("/map")}>Return to Galaxy</NeonButton>
-            </div>
-        );
-    }
-
     const currentItem = queue[currentIndex];
-    const progress = (currentIndex / queue.length) * 100;
+    const progress = queue.length > 0 ? (currentIndex / queue.length) * 100 : 0;
 
     return (
         <div className="relative h-screen w-full overflow-hidden bg-black text-white flex flex-col items-center justify-center p-4">
@@ -91,24 +85,45 @@ export default function SessionPage() {
                 />
             </div>
 
-            {/* 2. The Card Area */}
-            <div className="w-full max-w-md aspect-[3/4] perspective-1000 relative">
-                <AnimatePresence mode="wait">
-                    {!isFlipped ? (
-                        <FlashcardFront
-                            key={`front-${currentItem.card.id}`}
-                            card={currentItem.card}
-                            onFlip={handleFlip}
-                        />
-                    ) : (
-                        <FlashcardBack
-                            key={`back-${currentItem.card.id}`}
-                            card={currentItem.card}
-                            onRate={handleRate}
-                        />
-                    )}
-                </AnimatePresence>
+            {/* Level Selector - Top Right */}
+            <div className="absolute top-4 right-4 z-50">
+                <select
+                    value={targetLevel}
+                    onChange={(e) => setTargetLevel(e.target.value as any)}
+                    className="bg-zinc-900 border border-zinc-700 text-xs rounded px-2 py-1 text-zinc-400 focus:outline-none focus:border-primary"
+                >
+                    {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
+                        <option key={lvl} value={lvl}>{lvl} Level</option>
+                    ))}
+                </select>
             </div>
+
+            {/* 2. The Card Area */}
+            {queue.length > 0 ? (
+                <div className="w-full max-w-md aspect-[3/4] perspective-1000 relative">
+                    <AnimatePresence mode="wait">
+                        {!isFlipped ? (
+                            <FlashcardFront
+                                key={`front-${currentItem.card.id}`}
+                                card={currentItem.card}
+                                onFlip={handleFlip}
+                            />
+                        ) : (
+                            <FlashcardBack
+                                key={`back-${currentItem.card.id}`}
+                                card={currentItem.card}
+                                onRate={handleRate}
+                            />
+                        )}
+                    </AnimatePresence>
+                </div>
+            ) : (
+                <div className="flex flex-col items-center justify-center text-center max-w-md p-6">
+                    <h2 className="text-xl font-bold mb-2 text-zinc-200">No cards found for {targetLevel} level!</h2>
+                    <p className="text-zinc-500 mb-6">Try selecting a different level or complete existing reviews.</p>
+                    <NeonButton onClick={() => router.push("/map")}>Return to Galaxy</NeonButton>
+                </div>
+            )}
 
         </div>
     );

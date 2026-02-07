@@ -1,6 +1,6 @@
 import { db } from "@/lib/db/dexie";
 import { calculateNextReview, initializeWordProgress } from "@/core/algorithms/srs";
-import { VocabularyCard, WordProgress } from "@/core/domain/types";
+import { VocabularyCard, WordProgress, CEFRLevel } from "@/core/domain/types";
 
 export class WordsRepository {
 
@@ -18,23 +18,35 @@ export class WordsRepository {
 
                 // Map flat structure (from transform.js) to VocabularyCard
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const cards: VocabularyCard[] = seedData.map((item: any, index: number) => ({
-                    id: item.word,
-                    word: item.word,
-                    normalized: item.word.toLowerCase(),
-                    rank: item.rank || index + 1,
+                const cards: VocabularyCard[] = seedData.map((item: any, index: number) => {
+                    const rank = item.rank || index + 1;
 
-                    // Content
-                    phonetic: typeof item.phonetics === 'string' ? item.phonetics : (item.phonetics?.uk?.[0] || ""),
-                    audioUrl: typeof item.audio === 'string' ? item.audio : (item.phonetics?.uk_audio || ""),
-                    translation: item.translation || "",
-                    definition: item.definition || "",
-                    exampleSentence: item.exampleSentence || "",
-                    imageUrl: `https://source.unsplash.com/random/400x300/?${item.word},abstract`,
+                    // Derive Level from Rank (Approximate)
+                    let level: CEFRLevel = 'A1';
+                    if (rank > 500) level = 'A2';
+                    if (rank > 1000) level = 'B1';
+                    if (rank > 2000) level = 'B2';
+                    if (rank > 3000) level = 'C1';
+                    if (rank > 4000) level = 'C2';
 
-                    level: 'N/A', // Default or derive if available
-                    tags: []
-                }));
+                    return {
+                        id: item.word,
+                        word: item.word,
+                        normalized: item.word.toLowerCase(),
+                        rank: rank,
+
+                        // Content
+                        phonetic: typeof item.phonetics === 'string' ? item.phonetics : (item.phonetics?.uk?.[0] || ""),
+                        audioUrl: typeof item.audio === 'string' ? item.audio : (item.phonetics?.uk_audio || ""),
+                        translation: item.translation || "",
+                        definition: item.definition || "",
+                        exampleSentence: item.exampleSentence || "",
+                        imageUrl: `https://source.unsplash.com/random/400x300/?${item.word},abstract`,
+
+                        level: level,
+                        tags: []
+                    };
+                });
 
                 await db.words.bulkAdd(cards);
                 console.log(`[WordsRepo] Seeded ${cards.length} words.`);
@@ -77,12 +89,14 @@ export class WordsRepository {
 
     /**
      * Generates a session queue.
-     * ...
+     * Use filters to focus on specific levels
      */
-    async getSessionQueue(limit: number = 10): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+    async getSessionQueue(limit: number = 10, targetLevel?: CEFRLevel): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
         const now = Date.now();
 
         // 1. Get Due Reviews
+        // Note: For now, we review ALL due cards regardless of current level filter to prevent backlog.
+        // If strict filtering is desired, we would need to map wordId -> card -> check level.
         const dueProgress = await db.progress
             .where('nextReview').belowOrEqual(now)
             .and(p => p.status !== 'new')
@@ -95,20 +109,31 @@ export class WordsRepository {
             if (queue.length >= limit) break;
             const card = await db.words.get(p.wordId);
             if (card) {
+                // Optional: strictly filter reviews by level too
+                if (targetLevel && targetLevel !== 'N/A' && card.level !== targetLevel) {
+                    continue;
+                }
                 queue.push({ card, progress: p });
             }
         }
 
-        // 2. Fill remaining slots with New Words
+        // 2. Fill remaining slots with New Words (Filtered by Level)
         if (queue.length < limit) {
             const remaining = limit - queue.length;
 
             // Get IDs of words already in progress
             const progressIds = await db.progress.toCollection().primaryKeys();
 
-            // Find words NOT in progress (New) - Ordered by Rank
-            const newWords = await db.words
-                .where('rank').above(0) // All words have rank > 0
+            let newWordsCollection = db.words.orderBy('rank');
+
+            // Apply level filter if specified
+            if (targetLevel && targetLevel !== 'N/A') {
+                // Dexie doesn't verify complex queries easily without compound index.
+                // We'll filter in JS for flexibility since dataset is small-ish (<5000)
+                newWordsCollection = db.words.where('level').equals(targetLevel);
+            }
+
+            const newWords = await newWordsCollection
                 .filter(w => !progressIds.includes(w.id))
                 .limit(remaining)
                 .toArray();

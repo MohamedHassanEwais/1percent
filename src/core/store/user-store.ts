@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { CEFRLevel } from "@/core/domain/types";
 
 interface UserState {
     xp: number;
@@ -8,10 +9,14 @@ interface UserState {
     nextLevelXp: number;
     milestones: string[]; // IDs of unlocked milestones
 
+    // Preferences
+    targetLevel: CEFRLevel;
+
     // Actions
     addXp: (amount: number) => void;
     incrementStreak: () => void;
     unlockMilestone: (id: string) => void;
+    setTargetLevel: (level: CEFRLevel) => void;
 }
 
 export const useUserStore = create<UserState>()(
@@ -22,6 +27,7 @@ export const useUserStore = create<UserState>()(
             streak: 0,
             nextLevelXp: 500,
             milestones: [],
+            targetLevel: 'A1', // Default to beginner
 
             addXp: (amount) => set((state) => {
                 const newXp = state.xp + amount;
@@ -43,6 +49,8 @@ export const useUserStore = create<UserState>()(
             unlockMilestone: (id) => set((state) => ({
                 milestones: [...state.milestones, id]
             })),
+
+            setTargetLevel: (level) => set({ targetLevel: level }),
         }),
         {
             name: 'user-storage', // unique name
