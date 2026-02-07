@@ -5,18 +5,37 @@ import { NeonButton } from "@/components/ui/NeonButton";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "@/lib/firebase"; // Ensure this exports the initialized auth instance
 
 export default function LoginPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleLogin = (provider: 'google' | 'guest') => {
+    const handleGoogleLogin = async () => {
         setIsLoading(true);
-        // Simulate Login Delay
+        setError(null);
+        try {
+            const provider = new GoogleAuthProvider();
+            await signInWithPopup(auth, provider);
+            // Auth state listener in layout/provider handles session, but we redirect manually for UX
+            router.push("/map");
+        } catch (err: any) {
+            console.error("Google Sign-In Error:", err);
+            setError(err.message || "Failed to sign in with Google.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleGuestLogin = () => {
+        setIsLoading(true);
+        // Simulate Login Delay for Guest
         setTimeout(() => {
             setIsLoading(false);
-            router.push("/map"); // Go to Galaxy
-        }, 1500);
+            router.push("/map");
+        }, 1000);
     };
 
     return (
@@ -35,11 +54,17 @@ export default function LoginPage() {
                     <p className="text-sm text-slate-400">Sign in to sync your neural progress.</p>
                 </div>
 
+                {error && (
+                    <div className="bg-red-500/10 border border-red-500/50 text-red-500 text-xs p-2 rounded text-center">
+                        {error}
+                    </div>
+                )}
+
                 <div className="space-y-3">
                     <NeonButton
                         variant="outline"
-                        className="w-full bg-white text-black hover:bg-white/90 border-transparent"
-                        onClick={() => handleLogin('google')}
+                        className="w-full bg-white text-black hover:bg-white/90 border-transparent flex items-center justify-center"
+                        onClick={handleGoogleLogin}
                         disabled={isLoading}
                     >
                         {/* Google Icon SVG */}
@@ -59,7 +84,7 @@ export default function LoginPage() {
                     <NeonButton
                         variant="secondary"
                         className="w-full"
-                        onClick={() => handleLogin('guest')}
+                        onClick={handleGuestLogin}
                         isLoading={isLoading}
                     >
                         Guest User
