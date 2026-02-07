@@ -3,8 +3,11 @@
 import { GalaxyCanvas } from "@/features/galaxy/GalaxyCanvas";
 import { GlassCard } from "@/components/ui/GlassCard";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 export default function GalaxyMapPage() {
+    const router = useRouter();
+
     return (
         <div className="relative h-screen w-full overflow-hidden bg-black text-white">
             {/* 1. The Dynamic Galaxy Background */}
@@ -26,9 +29,12 @@ export default function GalaxyMapPage() {
                 </GlassCard>
             </div>
 
-            {/* 3. Action Bar (Bottom) */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 pointer-events-auto">
-                <button className="bg-[#CCFF00] text-black font-heading font-bold text-lg px-12 py-4 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.6)] hover:scale-105 transition-transform active:scale-95">
+            {/* 3. Action Bar (Bottom) - Moved up to avoid nav overlap */}
+            <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 pointer-events-auto w-full max-w-xs flex justify-center">
+                <button
+                    onClick={() => router.push('/session')}
+                    className="bg-[#CCFF00] text-black font-heading font-bold text-lg px-12 py-4 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.6)] hover:scale-105 transition-transform active:scale-95 w-full"
+                >
                     LAUNCH SESSION 🚀
                 </button>
             </div>
