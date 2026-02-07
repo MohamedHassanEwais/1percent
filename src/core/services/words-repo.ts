@@ -17,18 +17,23 @@ export class WordsRepository {
                 const seedData = (await import("@/lib/data/seed.json")).default;
 
                 // Map flat structure (from transform.js) to VocabularyCard
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const cards: VocabularyCard[] = seedData.map((item: any, index: number) => ({
                     id: item.word,
                     word: item.word,
-                    // Handle both flat and potential legacy nested structure if distinct types used
-                    phonetics: typeof item.phonetics === 'string' ? item.phonetics : (item.phonetics?.uk?.[0] || ""),
-                    audio: typeof item.audio === 'string' ? item.audio : (item.phonetics?.uk_audio || ""),
+                    normalized: item.word.toLowerCase(),
+                    rank: item.rank || index + 1,
+
+                    // Content
+                    phonetic: typeof item.phonetics === 'string' ? item.phonetics : (item.phonetics?.uk?.[0] || ""),
+                    audioUrl: typeof item.audio === 'string' ? item.audio : (item.phonetics?.uk_audio || ""),
+                    translation: item.translation || "",
                     definition: item.definition || "",
                     exampleSentence: item.exampleSentence || "",
-                    translation: item.translation || "",
                     imageUrl: `https://source.unsplash.com/random/400x300/?${item.word},abstract`,
-                    difficulty: 0,
-                    rank: item.rank || index + 1
+
+                    level: 'N/A', // Default or derive if available
+                    tags: []
                 }));
 
                 await db.words.bulkAdd(cards);
@@ -44,17 +49,22 @@ export class WordsRepository {
         if (!phraseCheck) {
             try {
                 const phraseData = (await import("@/lib/data/seed_phrases.json")).default;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const phrases: VocabularyCard[] = phraseData.map((item: any) => ({
                     id: item.word,
                     word: item.word,
-                    phonetics: item.phonetics || "",
-                    audio: item.audio || "",
+                    normalized: item.word.toLowerCase(),
+                    rank: item.rank,
+
+                    phonetic: item.phonetics || "",
+                    audioUrl: item.audio || "",
+                    translation: item.translation || "عبارة",
                     definition: item.definition || "",
                     exampleSentence: item.exampleSentence || "",
-                    translation: item.translation || "عبارة",
                     imageUrl: `https://source.unsplash.com/random/400x300/?abstract,geometric`,
-                    difficulty: 0,
-                    rank: item.rank
+
+                    level: 'N/A',
+                    tags: []
                 }));
                 await db.words.bulkAdd(phrases);
                 console.log(`[WordsRepo] Seeded ${phrases.length} phrases.`);

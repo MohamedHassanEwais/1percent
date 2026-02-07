@@ -5,7 +5,7 @@ export interface StarNode {
     z: number; // For depth parallax
     size: number;
     color: string;
-    status: 'locked' | 'unlocked' | 'mastered';
+    status: 'locked' | 'unlocked' | 'learning' | 'mastered';
 }
 
 /**

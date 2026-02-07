@@ -11,12 +11,10 @@ interface FlashcardFrontProps {
 }
 
 export function FlashcardFront({ card, onFlip }: FlashcardFrontProps) {
-    const audioRef = useRef<HTMLAudioElement | null>(null);
-
     // Auto-play audio on mount
     useEffect(() => {
         // In real implementation, this would point to real URLs
-        // if (card.audioUrl) audioRef.current?.play();
+        // if (card.audioUrl) new Audio(card.audioUrl).play();
     }, [card]);
 
     return (
@@ -42,7 +40,7 @@ export function FlashcardFront({ card, onFlip }: FlashcardFrontProps) {
                 <div className="flex-1 flex items-center justify-center">
                     <p className="text-xl text-center leading-relaxed font-medium text-slate-300">
                         {/* Simple replace logic for demo */}
-                        {card.exampleSentence.replace(/<highlight>.*?<\/highlight>/g, " _______ ")}
+                        {card.exampleSentence.replace(/<highlight>.*?<\/highlight>/g, ' _______ ')}
                     </p>
                 </div>
 

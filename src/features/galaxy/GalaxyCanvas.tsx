@@ -70,7 +70,7 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
                         const progress = progressMap.get(word.id);
 
                         if (progress) {
-                            if (progress.box >= 5) {
+                            if (progress.status === 'graduated') {
                                 star.status = 'mastered';
                                 star.color = '#CCFF00'; // Lime
                             } else {

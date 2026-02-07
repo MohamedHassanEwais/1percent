@@ -42,7 +42,7 @@ export function FlashcardBack({ card, onRate }: FlashcardBackProps) {
                     </div>
 
                     <p className="text-sm text-slate-300 italic px-4 border-l-2 border-primary/30">
-                        "{card.definition}"
+                        &quot;{card.definition}&quot;
                     </p>
                 </div>
 

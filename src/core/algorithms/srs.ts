@@ -13,7 +13,8 @@ import { WordProgress, ReviewLog } from "../domain/types";
  * @returns Updated WordProgress object.
  */
 export function calculateNextReview(current: WordProgress, rating: 1 | 2 | 3 | 4): WordProgress {
-    let { interval, easeFactor, repetitions } = current;
+    let { interval, repetitions } = current;
+    const { easeFactor } = current;
     const now = Date.now();
 
     // 1. Calculate new Interval & Repetitions
