@@ -2,14 +2,15 @@ import { VocabularyCard } from "@/core/domain/types";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { NeonButton } from "@/components/ui/NeonButton";
 import { motion } from "framer-motion";
-import { Image as ImageIcon } from "lucide-react";
+import { Image as ImageIcon, CheckCircle } from "lucide-react";
 
 interface FlashcardBackProps {
     card: VocabularyCard;
     onRate: (rating: 1 | 2 | 3 | 4) => void;
+    mode?: 'new' | 'review';
 }
 
-export function FlashcardBack({ card, onRate }: FlashcardBackProps) {
+export function FlashcardBack({ card, onRate, mode = 'review' }: FlashcardBackProps) {
     return (
         <motion.div
             initial={{ rotateY: 90, opacity: 0 }}
@@ -47,26 +48,40 @@ export function FlashcardBack({ card, onRate }: FlashcardBackProps) {
                 </div>
 
                 {/* SRS Actions */}
-                <div className="mt-6 grid grid-cols-4 gap-2">
-                    <NeonButton onClick={() => onRate(1)} variant="danger" size="sm" className="flex flex-col h-auto py-3 gap-1">
-                        <span className="text-xs opacity-70">Forgot</span>
-                        <span className="text-lg font-bold">AGAIN</span>
-                    </NeonButton>
+                <div className="mt-6">
+                    {mode === 'new' ? (
+                        <NeonButton
+                            onClick={() => onRate(3)} // Default to 'Good' for new words to schedule for tomorrow
+                            variant="primary"
+                            size="lg"
+                            className="w-full py-4"
+                        >
+                            <CheckCircle className="mr-2 h-5 w-5" />
+                            I GOT IT
+                        </NeonButton>
+                    ) : (
+                        <div className="grid grid-cols-4 gap-2">
+                            <NeonButton onClick={() => onRate(1)} variant="danger" size="sm" className="flex flex-col h-auto py-3 gap-1">
+                                <span className="text-xs opacity-70">Forgot</span>
+                                <span className="text-lg font-bold">AGAIN</span>
+                            </NeonButton>
 
-                    <NeonButton onClick={() => onRate(2)} variant="ghost" size="sm" className="bg-white/5 flex flex-col h-auto py-3 gap-1 border border-white/10">
-                        <span className="text-xs opacity-70">Hard</span>
-                        <span className="text-lg font-bold">2d</span>
-                    </NeonButton>
+                            <NeonButton onClick={() => onRate(2)} variant="ghost" size="sm" className="bg-white/5 flex flex-col h-auto py-3 gap-1 border border-white/10">
+                                <span className="text-xs opacity-70">Hard</span>
+                                <span className="text-lg font-bold">2d</span>
+                            </NeonButton>
 
-                    <NeonButton onClick={() => onRate(3)} variant="secondary" size="sm" className="flex flex-col h-auto py-3 gap-1">
-                        <span className="text-xs opacity-70">Good</span>
-                        <span className="text-lg font-bold">4d</span>
-                    </NeonButton>
+                            <NeonButton onClick={() => onRate(3)} variant="secondary" size="sm" className="flex flex-col h-auto py-3 gap-1">
+                                <span className="text-xs opacity-70">Good</span>
+                                <span className="text-lg font-bold">4d</span>
+                            </NeonButton>
 
-                    <NeonButton onClick={() => onRate(4)} variant="primary" size="sm" className="flex flex-col h-auto py-3 gap-1">
-                        <span className="text-xs opacity-70">Easy</span>
-                        <span className="text-lg font-bold">7d</span>
-                    </NeonButton>
+                            <NeonButton onClick={() => onRate(4)} variant="primary" size="sm" className="flex flex-col h-auto py-3 gap-1">
+                                <span className="text-xs opacity-70">Easy</span>
+                                <span className="text-lg font-bold">7d</span>
+                            </NeonButton>
+                        </div>
+                    )}
                 </div>
 
             </GlassCard>

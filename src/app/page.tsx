@@ -3,18 +3,28 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { auth } from "@/lib/firebase";
 
 export default function SplashScreen() {
   const router = useRouter();
 
   useEffect(() => {
-    // Simulate check for auth or existing session
-    const timer = setTimeout(() => {
-      // Redirect to walkthrough for now (later checks logic)
-      router.push("/welcome");
-    }, 2500);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      // If user is already logged in, redirect to Map immediately (skip welcome)
+      if (user) {
+        // Small delay to let the logo breathe, but faster than guest
+        setTimeout(() => {
+          router.push("/map");
+        }, 1500);
+      } else {
+        // No user, go to Onboarding after animation
+        setTimeout(() => {
+          router.push("/welcome");
+        }, 2500);
+      }
+    });
 
-    return () => clearTimeout(timer);
+    return () => unsubscribe();
   }, [router]);
 
   return (

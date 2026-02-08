@@ -29,13 +29,19 @@ export default function GalaxyMapPage() {
                 </GlassCard>
             </div>
 
-            {/* 3. Action Bar (Bottom) - Moved up to avoid nav overlap */}
-            <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 pointer-events-auto w-full max-w-xs flex justify-center">
+            {/* 3. Action Bar (Bottom) */}
+            <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 pointer-events-auto w-full max-w-sm flex gap-4 px-4">
                 <button
-                    onClick={() => router.push('/session')}
-                    className="bg-[#CCFF00] text-black font-heading font-bold text-lg px-12 py-4 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.6)] hover:scale-105 transition-transform active:scale-95 w-full"
+                    onClick={() => router.push('/session?mode=new')}
+                    className="flex-1 bg-cyan-400 text-black font-heading font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.6)] hover:scale-105 transition-transform active:scale-95"
                 >
-                    LAUNCH SESSION 🚀
+                    LEARN NEW 🚀
+                </button>
+                <button
+                    onClick={() => router.push('/session?mode=review')}
+                    className="flex-1 bg-[#CCFF00] text-black font-heading font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(204,255,0,0.6)] hover:scale-105 transition-transform active:scale-95"
+                >
+                    REVIEW 🧠
                 </button>
             </div>
         </div>

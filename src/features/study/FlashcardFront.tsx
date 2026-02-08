@@ -42,10 +42,18 @@ export function FlashcardFront({ card, onFlip, status = 'new' }: FlashcardFrontP
 
                 {/* Top: Audio Visuals */}
                 <div className="flex justify-center py-10">
-                    <div className="relative flex h-32 w-32 items-center justify-center rounded-full bg-white/5 shadow-inner animate-pulse">
-                        <Volume2 className="h-12 w-12 text-primary" />
+                    <div
+                        className="relative flex h-32 w-32 items-center justify-center rounded-full bg-white/5 shadow-inner cursor-pointer hover:bg-white/10 transition-colors group"
+                        onClick={(e) => {
+                            e.stopPropagation(); // Prevent flip if we want to be safe, though flip is on button below
+                            const audio = new Audio(card.audioUrl);
+                            audio.play().catch(console.error);
+                        }}
+                    >
+                        <Volume2 className="h-12 w-12 text-primary group-hover:scale-110 transition-transform" />
                         {/* Simulated Audio Waves */}
                         <div className="absolute inset-0 rounded-full border border-primary/30 animate-[ping_2s_infinite]" />
+                        <span className="absolute -bottom-8 text-xs text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">Tap to Replay</span>
                     </div>
                 </div>
 

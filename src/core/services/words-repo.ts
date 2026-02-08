@@ -138,12 +138,47 @@ export class WordsRepository {
      * Generates a session queue.
      * Use filters to focus on specific levels
      */
-    async getSessionQueue(limit: number = 10, targetLevel?: CEFRLevel): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+    /**
+     * Generates a session queue for NEW words only.
+     */
+    async getNewWordsQueue(limit: number = 10, targetLevel: CEFRLevel = 'A1'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+        const queue: { card: VocabularyCard; progress?: WordProgress }[] = [];
+
+        // Get IDs of words already in progress
+        const progressIds = await db.progress.toCollection().primaryKeys();
+
+        let newWordsCollection = db.words.orderBy('rank');
+
+        // Apply level filter if specified
+        if (targetLevel && targetLevel !== 'N/A') {
+            newWordsCollection = db.words.where('level').equals(targetLevel);
+        }
+
+        // Fetch and Sort
+        let candidateWords = await newWordsCollection
+            .filter(w => !progressIds.includes(w.id))
+            .toArray();
+
+        // Explicitly sort by rank (Order of Difficulty)
+        candidateWords.sort((a, b) => a.rank - b.rank);
+
+        // Take the top N
+        const newWords = candidateWords.slice(0, limit);
+
+        for (const card of newWords) {
+            queue.push({ card, progress: initializeWordProgress(card.id) });
+        }
+
+        return queue;
+    }
+
+    /**
+     * Generates a session queue for REVIEW words only.
+     */
+    async getReviewQueue(limit: number = 10): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
         const now = Date.now();
 
-        // 1. Get Due Reviews
-        // Note: For now, we review ALL due cards regardless of current level filter to prevent backlog.
-        // If strict filtering is desired, we would need to map wordId -> card -> check level.
+        // Get Due Reviews
         const dueProgress = await db.progress
             .where('nextReview').belowOrEqual(now)
             .and(p => p.status !== 'new')
@@ -156,47 +191,26 @@ export class WordsRepository {
             if (queue.length >= limit) break;
             const card = await db.words.get(p.wordId);
             if (card) {
-                // Optional: strictly filter reviews by level too
-                if (targetLevel && targetLevel !== 'N/A' && card.level !== targetLevel) {
-                    continue;
-                }
                 queue.push({ card, progress: p });
             }
         }
 
-        // 2. Fill remaining slots with New Words (Filtered by Level)
-        if (queue.length < limit) {
-            const remaining = limit - queue.length;
-
-            // Get IDs of words already in progress
-            const progressIds = await db.progress.toCollection().primaryKeys();
-
-            let newWordsCollection = db.words.orderBy('rank');
-
-            // Apply level filter if specified
-            if (targetLevel && targetLevel !== 'N/A') {
-                // Dexie doesn't verify complex queries easily without compound index.
-                // We'll filter in JS for flexibility since dataset is small-ish (<5000)
-                newWordsCollection = db.words.where('level').equals(targetLevel);
-            }
-
-            // Fetch and Sort
-            let candidateWords = await newWordsCollection
-                .filter(w => !progressIds.includes(w.id))
-                .toArray();
-
-            // Explicitly sort by rank (Order of Difficulty)
-            candidateWords.sort((a, b) => a.rank - b.rank);
-
-            // Take the top N
-            const newWords = candidateWords.slice(0, remaining);
-
-            for (const card of newWords) {
-                queue.push({ card, progress: initializeWordProgress(card.id) });
-            }
-        }
-
         return queue;
+    }
+
+    /**
+     * Generates a mixed session queue (Fallback / Legacy)
+     */
+    async getSessionQueue(limit: number = 10, targetLevel: CEFRLevel = 'A1'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+        // 1. Get Reviews First
+        const reviews = await this.getReviewQueue(limit);
+        if (reviews.length >= limit) return reviews;
+
+        // 2. Fill with New Words
+        const remaining = limit - reviews.length;
+        const newWords = await this.getNewWordsQueue(remaining, targetLevel);
+
+        return [...reviews, ...newWords];
     }
 
     /**

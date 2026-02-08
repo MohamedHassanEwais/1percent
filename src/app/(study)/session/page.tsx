@@ -13,8 +13,15 @@ import { FlashcardFront } from "@/features/study/FlashcardFront";
 import { FlashcardBack } from "@/features/study/FlashcardBack";
 import { useRouter } from "next/navigation";
 
+import { useSearchParams } from "next/navigation";
+
 export default function SessionPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const mode = searchParams.get('mode') === 'review' ? 'review' : 'new'; // Default to new if not specified, or handle mixed?
+    // Actually, let's default to mixed if not specified, but for now strict:
+    // User requested separate. Map sends 'new' or 'review'.
+
     const [queue, setQueue] = useState<{ card: VocabularyCard; progress?: WordProgress }[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
@@ -25,14 +32,21 @@ export default function SessionPage() {
     // Load Queue on Mount
     useEffect(() => {
         loadSession();
-    }, [targetLevel]); // Reload when level changes
+    }, [targetLevel, mode]); // Reload when level or mode changes
 
     async function loadSession() {
         setIsLoading(true);
         // Seed database if empty
         await wordsRepo.seedDatabase();
 
-        const newQueue = await wordsRepo.getSessionQueue(10, targetLevel);
+        let newQueue;
+        if (mode === 'review') {
+            newQueue = await wordsRepo.getReviewQueue(10);
+        } else {
+            // mode === 'new'
+            newQueue = await wordsRepo.getNewWordsQueue(10, targetLevel);
+        }
+
         setQueue(newQueue);
         setCurrentIndex(0); // Reset index
         setIsLoading(false);
@@ -58,7 +72,7 @@ export default function SessionPage() {
             setTimeout(() => setCurrentIndex(prev => prev + 1), 150); // Small delay for animation
         } else {
             // Session Complete
-            router.push("/summary");
+            router.push("/summary"); // TODO: Make sure summary page exists or redirect to map
         }
     };
 
@@ -85,18 +99,20 @@ export default function SessionPage() {
                 />
             </div>
 
-            {/* Level Selector - Top Right */}
-            <div className="absolute top-4 right-4 z-50">
-                <select
-                    value={targetLevel}
-                    onChange={(e) => setTargetLevel(e.target.value as any)}
-                    className="bg-zinc-900 border border-zinc-700 text-xs rounded px-2 py-1 text-zinc-400 focus:outline-none focus:border-primary"
-                >
-                    {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
-                        <option key={lvl} value={lvl}>{lvl} Level</option>
-                    ))}
-                </select>
-            </div>
+            {/* Level Selector - Top Right (Only show for 'new' mode) */}
+            {mode === 'new' && (
+                <div className="absolute top-4 right-4 z-50">
+                    <select
+                        value={targetLevel}
+                        onChange={(e) => setTargetLevel(e.target.value as any)}
+                        className="bg-zinc-900 border border-zinc-700 text-xs rounded px-2 py-1 text-zinc-400 focus:outline-none focus:border-primary"
+                    >
+                        {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
+                            <option key={lvl} value={lvl}>{lvl} Level</option>
+                        ))}
+                    </select>
+                </div>
+            )}
 
             {/* 2. The Card Area */}
             {queue.length > 0 ? (
@@ -107,26 +123,30 @@ export default function SessionPage() {
                                 key={`front-${currentItem.card.id}`}
                                 card={currentItem.card}
                                 onFlip={handleFlip}
-                                status={currentItem.progress?.status || 'new'}
+                                status={mode === 'new' ? 'new' : 'review'}
                             />
                         ) : (
                             <FlashcardBack
                                 key={`back-${currentItem.card.id}`}
                                 card={currentItem.card}
                                 onRate={handleRate}
+                                mode={mode === 'new' ? 'new' : 'review'}
                             />
                         )}
                     </AnimatePresence>
                 </div>
             ) : (
                 <div className="flex flex-col items-center justify-center text-center max-w-md p-6">
-                    <h2 className="text-xl font-bold mb-2 text-zinc-200">No cards found for {targetLevel} level!</h2>
+                    <h2 className="text-xl font-bold mb-2 text-zinc-200">
+                        {mode === 'review' ? "All caught up! 🎉" : `No new words found for ${targetLevel}!`}
+                    </h2>
                     <p className="text-zinc-500 mb-6">
-                        If this persists, try resetting your local data in <span className="text-primary cursor-pointer underline" onClick={() => router.push('/profile')}>Profile Settings</span>.
+                        {mode === 'review'
+                            ? "You've reviewed all your due cards. Great job!"
+                            : "Try changing the level or checking your profile."}
                     </p>
                     <div className="flex gap-4">
-                        <NeonButton variant="outline" onClick={() => router.push("/profile")}>Go to Profile</NeonButton>
-                        <NeonButton onClick={() => router.push("/map")}>Return to Galaxy</NeonButton>
+                        <NeonButton variant="outline" onClick={() => router.push("/map")}>Return to Galaxy</NeonButton>
                     </div>
                 </div>
             )}

@@ -85,6 +85,24 @@ export default function ProfilePage() {
                 <NeonButton className="w-full gap-2" variant="secondary">
                     <Share2 className="h-4 w-4" /> Share Profile
                 </NeonButton>
+
+                {/* Danger Zone */}
+                <div className="pt-8 border-t border-white/10 mt-8">
+                    <h3 className="text-red-500 font-bold mb-4 text-sm uppercase tracking-wider">Danger Zone</h3>
+                    <NeonButton
+                        className="w-full border-red-500/50 text-red-500 hover:bg-red-500/10"
+                        variant="outline"
+                        onClick={async () => {
+                            if (confirm("This will Delete your LOCAL database to fix issues. Your cloud progress is safe. Continue?")) {
+                                const { db } = await import("@/lib/db/dexie");
+                                await db.delete();
+                                window.location.reload();
+                            }
+                        }}
+                    >
+                        Reset Local Data (Fix Issues)
+                    </NeonButton>
+                </div>
             </div>
         </div>
     );
