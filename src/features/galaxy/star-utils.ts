@@ -22,7 +22,7 @@ export function generateGalaxyStars(count: number = 3000): StarNode[] {
     for (let i = 0; i < count; i++) {
         // Distance from center depends on index (sqrt avoids clumping at center)
         const distance = Math.sqrt(i) / Math.sqrt(count);
-        const radius = distance * 1000; // Spread factor
+        const radius = distance * 600; // Tighter spread (was 1000)
         const angle = i * phi;
 
         const x = radius * Math.cos(angle);
