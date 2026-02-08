@@ -57,12 +57,19 @@ export function FlashcardFront({ card, onFlip, status = 'new' }: FlashcardFrontP
                     </div>
                 </div>
 
-                {/* Center: Context Sentence (Blanked) */}
+                {/* Center: Content */}
                 <div className="flex-1 flex items-center justify-center">
-                    <p className="text-xl text-center leading-relaxed font-medium text-slate-300">
-                        {/* Simple replace logic for demo */}
-                        {card.exampleSentence.replace(/<highlight>.*?<\/highlight>/g, ' _______ ')}
-                    </p>
+                    {card.pos === 'phoneme' ? (
+                        <div className="text-center">
+                            <h2 className="text-6xl font-bold text-white mb-4">{card.word}</h2>
+                            <p className="text-xl text-slate-400 font-mono">/{card.phonetic}/</p>
+                        </div>
+                    ) : (
+                        <p className="text-xl text-center leading-relaxed font-medium text-slate-300">
+                            {/* Simple replace logic for demo */}
+                            {card.exampleSentence.replace(/<highlight>.*?<\/highlight>/g, ' _______ ')}
+                        </p>
+                    )}
                 </div>
 
                 {/* Bottom: Reveal Action */}

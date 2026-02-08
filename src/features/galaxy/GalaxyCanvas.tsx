@@ -57,7 +57,15 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
                     const wordPrototype = allWords[index];
                     // ... (rest logic same as before)
                     let status: 'locked' | 'learning' | 'mastered' = 'locked';
+                    // Default Color
                     let color = 'rgba(255, 255, 255, 0.1)';
+
+                    // A0 / Audio Foundation Color (Gold/Yellow distinct from others)
+                    // We check if it's potentially A0 based on rank if not yet loaded in progress
+                    const isA0 = wordPrototype ? wordPrototype.rank <= 0 : false;
+                    if (isA0) {
+                        color = 'rgba(255, 215, 0, 0.3)'; // Goldish for A0 Locked
+                    }
 
                     if (wordPrototype) {
                         star.id = index;
@@ -85,6 +93,17 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
                         if (wordPrototype.pos === 'phrase' || wordPrototype.rank > 10000) {
                             if (status === 'mastered') color = '#F472B6'; // Pink-400
                             if (status === 'learning') color = '#EC4899'; // Pink-500
+                        }
+                        // Override color if it's a phrase and active
+                        if (wordPrototype.pos === 'phrase' || wordPrototype.rank > 10000) {
+                            if (status === 'mastered') color = '#F472B6'; // Pink-400
+                            if (status === 'learning') color = '#EC4899'; // Pink-500
+                        }
+
+                        // Override color if it's A0 and active
+                        if (isA0) {
+                            if (status === 'mastered') color = '#FFD700'; // Gold
+                            if (status === 'learning') color = '#FDE047'; // Yellow-300
                         }
                     }
                     return { ...star, status, color };
@@ -153,8 +172,15 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
                     ctx.shadowBlur = 10;
                     ctx.shadowColor = '#22D3EE';
                 } else {
+                    // Check if it's A0 locked but visible enough
+                    // We can check color directly or passed prop
                     ctx.fillStyle = star.color || 'rgba(255, 255, 255, 0.1)';
                     ctx.shadowBlur = 0;
+                    // bloom for A0 even if locked? Maybe slight
+                    if (star.color === 'rgba(255, 215, 0, 0.3)') {
+                        ctx.shadowBlur = 5;
+                        ctx.shadowColor = 'rgba(255, 215, 0, 0.2)';
+                    }
                 }
 
                 ctx.fill();
