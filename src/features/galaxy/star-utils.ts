@@ -36,9 +36,9 @@ export function generateGalaxyStars(count: number = 3000): StarNode[] {
             x: x + scatterX,
             y: y + scatterY,
             z: Math.random() * 2,
-            size: Math.random() * 2 + 1, // 1px to 3px
-            color: i < 100 ? '#CCFF00' : '#FFFFFF', // First 100 unlocked (Simulated)
-            status: i < 100 ? 'unlocked' : 'locked'
+            size: Math.random() * 2 + 0.5, // 0.5px to 2.5px
+            color: 'rgba(255, 255, 255, 0.1)',
+            status: 'locked'
         });
     }
 

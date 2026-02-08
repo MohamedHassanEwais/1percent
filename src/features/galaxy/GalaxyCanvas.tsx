@@ -63,10 +63,7 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
                         const word = allWords[index];
                         if (!word) return star; // Fallback
 
-                        star.id = index; // Keep internal canvas ID
-                        // We can store the real Word ID in a custom property if we extend StarNode, 
-                        // but StarNode is defined in utils. Let's just use the index for now.
-
+                        star.id = index;
                         const progress = progressMap.get(word.id);
 
                         if (progress) {
@@ -75,7 +72,7 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
                                 star.color = '#CCFF00'; // Lime
                             } else {
                                 star.status = 'learning';
-                                star.color = '#38bdf8'; // Blue
+                                star.color = '#22D3EE'; // Cyan
                             }
                         } else {
                             star.status = 'locked';
@@ -124,40 +121,43 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Draw Stars
-            ctx.save();
-            ctx.translate(transform.current.x, transform.current.y);
-            ctx.scale(transform.current.scale, transform.current.scale);
-
             starsRef.current.forEach(star => {
-                // simple culling
                 const screenX = star.x * transform.current.scale + transform.current.x;
                 const screenY = star.y * transform.current.scale + transform.current.y;
 
-                // Draw even if slightly offscreen to avoid popping
-                // if (screenX < -50 || screenX > canvas.width + 50 || screenY < -50 || screenY > canvas.height + 50) return;
+                // Optimization: Cull offscreen
+                if (screenX < -50 || screenX > canvas.width + 50 || screenY < -50 || screenY > canvas.height + 50) return;
 
                 ctx.beginPath();
-                // Star size dynamic based on zoom
-                const visibleSize = Math.max(0.5, (star.size / transform.current.scale) * (transform.current.scale < 1 ? 0.5 : 1));
+
+                let visibleSize = Math.max(0.5, (star.size / transform.current.scale) * (transform.current.scale < 1 ? 0.5 : 1));
+
+                // Boost size for active stars
+                if (star.status === 'mastered' || star.status === 'learning') {
+                    visibleSize = visibleSize * 2.5; // Make them significantly larger
+                }
 
                 ctx.arc(star.x, star.y, visibleSize, 0, Math.PI * 2);
 
-                // Glow effect for unlocked
+                // Styling based on Status
                 if (star.status === 'mastered') {
+                    // Signature Lime
                     ctx.fillStyle = '#CCFF00';
-                    ctx.shadowBlur = 10 * transform.current.scale;
+                    ctx.shadowBlur = 15; // Strong glow
                     ctx.shadowColor = '#CCFF00';
                 } else if (star.status === 'learning') {
-                    ctx.fillStyle = '#38bdf8'; // Sky Blue
-                    ctx.shadowBlur = 8 * transform.current.scale;
-                    ctx.shadowColor = '#38bdf8';
+                    // Cyan for in-progress
+                    ctx.fillStyle = '#22D3EE';
+                    ctx.shadowBlur = 12;
+                    ctx.shadowColor = '#22D3EE';
                 } else {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                    // Locked / Background
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
                     ctx.shadowBlur = 0;
                 }
 
                 ctx.fill();
-                ctx.shadowBlur = 0; // Reset
+                ctx.shadowBlur = 0; // Reset for next draw
             });
 
             ctx.restore();
