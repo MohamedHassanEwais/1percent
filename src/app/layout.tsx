@@ -12,6 +12,12 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space
 export const metadata: Metadata = {
   title: "1 Percent | Better Every Day",
   description: "Master the Oxford 3000 words with Spaced Repetition.",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
