@@ -61,8 +61,8 @@ export default function ProfilePage() {
                 <div className="grid grid-cols-2 gap-4">
                     <GlassCard className="p-4 flex flex-col items-center justify-center space-y-2">
                         <Trophy className="h-6 w-6 text-[#CCFF00]" />
-                        <span className="text-2xl font-bold">#420</span>
-                        <span className="text-xs text-slate-500 uppercase">Global Rank</span>
+                        <span className="text-2xl font-bold">{Math.floor(xp / 100)}</span>
+                        <span className="text-xs text-slate-500 uppercase">Total Score</span>
                     </GlassCard>
 
                     <GlassCard className="p-4 flex flex-col items-center justify-center space-y-2">
@@ -71,26 +71,16 @@ export default function ProfilePage() {
                     </GlassCard>
                 </div>
 
-                {/* Achievements Preview (static for now) */}
-                <div>
-                    <div className="flex justify-between items-center mb-4">
-                        <h3 className="font-bold text-slate-300">Recent Milestones</h3>
-                        <span className="text-xs text-primary cursor-pointer">View All</span>
+                {/* Cloud Sync Status */}
+                <GlassCard className="p-4 flex items-center justify-between" intensity="low">
+                    <div className="flex items-center gap-3">
+                        <div className={`h-2 w-2 rounded-full ${user.uid ? 'bg-green-500 shadow-[0_0_10px_#00ff00]' : 'bg-red-500'}`} />
+                        <span className="text-sm font-bold text-slate-300">
+                            {user.uid ? "Neural Cloud Connected" : "Local Mode (Not Synced)"}
+                        </span>
                     </div>
-                    <div className="space-y-2">
-                        {[1, 2, 3].map(i => (
-                            <GlassCard key={i} className="flex items-center p-3 gap-3" intensity="low">
-                                <div className="h-10 w-10 rounded bg-white/5 flex items-center justify-center text-xl">
-                                    {i === 1 ? '🚀' : i === 2 ? '🌌' : '🧠'}
-                                </div>
-                                <div>
-                                    <h4 className="text-sm font-bold text-white">First Steps</h4>
-                                    <p className="text-xs text-slate-500">Completed 100 words</p>
-                                </div>
-                            </GlassCard>
-                        ))}
-                    </div>
-                </div>
+                    {user.uid && <span className="text-xs text-slate-500 font-mono">ID: {user.uid.slice(0, 8)}...</span>}
+                </GlassCard>
 
                 <NeonButton className="w-full gap-2" variant="secondary">
                     <Share2 className="h-4 w-4" /> Share Profile

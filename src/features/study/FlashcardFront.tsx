@@ -8,9 +8,10 @@ import { useEffect, useRef } from "react";
 interface FlashcardFrontProps {
     card: VocabularyCard;
     onFlip: () => void;
+    status?: 'new' | 'learning' | 'review' | 'graduated';
 }
 
-export function FlashcardFront({ card, onFlip }: FlashcardFrontProps) {
+export function FlashcardFront({ card, onFlip, status = 'new' }: FlashcardFrontProps) {
     // Auto-play audio on mount
     useEffect(() => {
         if (card.audioUrl) {
@@ -27,7 +28,15 @@ export function FlashcardFront({ card, onFlip }: FlashcardFrontProps) {
             transition={{ duration: 0.4 }}
             className="absolute inset-0 h-full w-full"
         >
-            <GlassCard className="flex h-full flex-col justify-between p-8 border-[#CCFF00]/20 shadow-[0_0_30px_rgba(204,255,0,0.05)]">
+            <GlassCard className="flex h-full flex-col justify-between p-8 border-[#CCFF00]/20 shadow-[0_0_30px_rgba(204,255,0,0.05)] relative">
+
+                {/* Status Badge */}
+                <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${status === 'new'
+                        ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400'
+                        : 'bg-orange-500/10 border-orange-500 text-orange-400'
+                    }`}>
+                    {status === 'new' ? 'New Word' : 'Review'}
+                </div>
 
                 {/* Top: Audio Visuals */}
                 <div className="flex justify-center py-10">

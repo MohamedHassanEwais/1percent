@@ -133,10 +133,16 @@ export class WordsRepository {
                 newWordsCollection = db.words.where('level').equals(targetLevel);
             }
 
-            const newWords = await newWordsCollection
+            // Fetch and Sort
+            let candidateWords = await newWordsCollection
                 .filter(w => !progressIds.includes(w.id))
-                .limit(remaining)
                 .toArray();
+
+            // Explicitly sort by rank (Order of Difficulty)
+            candidateWords.sort((a, b) => a.rank - b.rank);
+
+            // Take the top N
+            const newWords = candidateWords.slice(0, remaining);
 
             for (const card of newWords) {
                 queue.push({ card, progress: initializeWordProgress(card.id) });
