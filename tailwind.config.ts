@@ -7,7 +7,23 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                background: "#000000",
+                background: "var(--background)",
+                foreground: "var(--foreground)",
+                brand: {
+                    DEFAULT: "#CCFF00", // Signature Lime/Volt
+                    primary: "#CCFF00",
+                    secondary: "#7C3AED", // Deep Violet
+                    accent: "#22D3EE", // Cyan
+                    dark: "#0A0A0A",
+                    surface: "rgba(255, 255, 255, 0.05)",
+                },
+                galaxy: {
+                    star: {
+                        mastered: "#CCFF00",
+                        learning: "#22D3EE",
+                        locked: "rgba(255, 255, 255, 0.1)",
+                    }
+                },
                 primary: {
                     DEFAULT: "#CCFF00",
                     foreground: "#000000",

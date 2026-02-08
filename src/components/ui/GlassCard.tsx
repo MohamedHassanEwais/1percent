@@ -13,9 +13,9 @@ export const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
         const bgOpacity = intensity === "low" ? "bg-white/[0.02]" : intensity === "high" ? "bg-white/[0.1]" : "bg-white/[0.05]";
 
         const glowClass = glow === "lime"
-            ? "shadow-neon-lime border-primary/30"
+            ? "shadow-neon-lime border-brand-primary/30"
             : glow === "violet"
-                ? "shadow-neon-violet border-secondary/30"
+                ? "shadow-neon-violet border-brand-secondary/30"
                 : "border-white/10";
 
         return (

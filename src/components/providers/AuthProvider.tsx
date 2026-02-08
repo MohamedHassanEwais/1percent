@@ -6,6 +6,7 @@ import { auth } from "@/lib/firebase";
 import { useUserStore } from "@/core/store/user-store";
 import { UserService } from "@/core/services/user-service";
 import { SyncService } from "@/core/services/sync-service";
+import { InitializationService } from "@/core/services/initialization-service";
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
     const { syncUser, setUserData, logout } = useUserStore();
@@ -15,38 +16,15 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             if (user) {
                 console.log("Auth Provider: Fetching Cloud Data for", user.email);
 
-                // 1. Sync Basic Info
-                syncUser({
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    email: user.email,
-                    photoURL: user.photoURL,
-                });
-
-                // 2. Fetch/Create Cloud Data
+                // 1. Delegate Initialization
                 try {
-                    // Sync Word Progress (Deep Sync)
-                    await SyncService.pullProgress(user.uid);
+                    const { userProfile } = await InitializationService.initializeUser(user);
 
-                    let firestoreData = await UserService.getUserData(user.uid);
-
-                    if (!firestoreData) {
-                        console.log("Auth Provider: Creating new user profile...");
-                        firestoreData = await UserService.createUserData({
-                            uid: user.uid,
-                            displayName: user.displayName,
-                            email: user.email,
-                            photoURL: user.photoURL
-                        });
-                    } else {
-                        console.log("Auth Provider: Loaded existing user profile.");
-                    }
-
-                    // 3. Update Store with Cloud Data
-                    setUserData(firestoreData);
-
+                    // 2. Update Store
+                    setUserData(userProfile);
                 } catch (err) {
-                    console.error("Auth Provider Error:", err);
+                    console.error("Auth Provider: Initialization failed", err);
+                    // Optional: Set global error state or logout if critical
                 }
 
             } else {

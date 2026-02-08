@@ -21,67 +21,50 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
 
     useEffect(() => {
         const initGalaxy = async () => {
-            // 1. Generate Base Stars (The Geometry)
-            const baseStars = generateGalaxyStars(3000); // 3000 Oxford Words
-
-            // 2. Fetch User Progress (The Data)
+            setIsLoading(true);
             try {
-                // Ensure plain object for client-side usage if needed, but db queries are fine here
+                // 1. Generate Base Stars (The Geometry)
+                const baseStars = generateGalaxyStars(3000);
+
+                // 2. Fetch User Progress (The Data)
                 const allProgress = await db.progress.toArray();
                 const progressMap = new Map(allProgress.map(p => [p.wordId, p]));
 
-                // 3. Merge Data into Stars
-                starsRef.current = baseStars.map((star, index) => {
-                    // Assuming we map stars to words by index/rank roughly
-                    // In a perfect world, we'd have exact IDs. For now, we map by Rank (Index + 1)
-                    // Because seed data is ranked 1-3000.
-                    // However, our wordsRepo might use string IDs.
-                    // Let's assume we load the "seed" to know the order?
-                    // Optimization: Just query known progress.
-                    // If a word is in progress, it's "Learning" or "Mastered".
-
-                    // Simple approximation: Map 1st star to 1st word, etc.
-                    // We need to know which "wordId" corresponds to "star index".
-                    // For now, let's just visualize the *amount* of progress.
-                    // Matching specific stars to specific alphanumeric IDs is complex without loading 3000 word objects.
-
-                    // Visual Hack: If we have 50 items in progress, light up the first 50 stars (or random 50).
-                    // Better: Light up stars based on the `progressMap` size.
-
-                    // Let's try to be consistent: 
-                    // We don't have the word IDs here easily without fetching 3000 words.
-                    // Fetcing 3000 words IS fast in Dexie/IndexedDB.
-
-                    return star;
-                });
-
-                // Let's actually fetch all words to map them correctly if we want interactions.
+                // 3. Fetch All Words to map index -> wordId
+                // Optimization: We only need IDs and Ranks, but getting all is fine for 3000 items in IndexedDB
                 const allWords = await db.words.orderBy('rank').toArray();
 
-                if (allWords.length > 0) {
-                    starsRef.current = baseStars.map((star, index) => {
-                        const word = allWords[index];
-                        if (!word) return star; // Fallback
+                // 4. Merge Data into Stars
+                // We assume the star index corresponds to the word rank (1-based)
+                // baseStars[0] -> Rank 1
+                starsRef.current = baseStars.map((star, index) => {
+                    const wordPrototype = allWords[index];
 
-                        star.id = index;
-                        const progress = progressMap.get(word.id);
+                    // Default State (Locked)
+                    let status: 'locked' | 'learning' | 'mastered' = 'locked';
+                    let color = 'rgba(255, 255, 255, 0.1)'; // Default fade
+
+                    if (wordPrototype) {
+                        star.id = index; // Keep index as ID for visual selection for now, or use wordPrototype.id
+                        // Store wordId for actual lookup on click
+                        // We might need to extend the StarNode type if we want to store wordId directly
+                        // For now we use the index to lookup the word again on click.
+
+                        const progress = progressMap.get(wordPrototype.id);
 
                         if (progress) {
                             if (progress.status === 'graduated') {
-                                star.status = 'mastered';
-                                star.color = '#CCFF00'; // Lime
+                                status = 'mastered';
+                                color = '#CCFF00'; // Brand Primary
                             } else {
-                                star.status = 'learning';
-                                star.color = '#22D3EE'; // Cyan
+                                status = 'learning';
+                                color = '#22D3EE'; // Brand Accent
                             }
-                        } else {
-                            star.status = 'locked';
-                            star.color = 'rgba(255, 255, 255, 0.1)';
                         }
+                    }
 
-                        return star;
-                    });
-                }
+                    return { ...star, status, color };
+                });
 
             } catch (error) {
                 console.error("Failed to load galaxy data:", error);

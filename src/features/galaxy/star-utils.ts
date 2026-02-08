@@ -6,6 +6,7 @@ export interface StarNode {
     size: number;
     color: string;
     status: 'locked' | 'unlocked' | 'learning' | 'mastered';
+    wordId?: string; // Optional: Link to actual word logic
 }
 
 /**
