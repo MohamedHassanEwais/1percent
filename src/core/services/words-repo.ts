@@ -1,6 +1,8 @@
 import { db } from "@/lib/db/dexie";
 import { calculateNextReview, initializeWordProgress } from "@/core/algorithms/srs";
 import { VocabularyCard, WordProgress, CEFRLevel } from "@/core/domain/types";
+import { SyncService } from "@/core/services/sync-service";
+import { auth } from "@/lib/firebase";
 
 export class WordsRepository {
 
@@ -197,36 +199,33 @@ export class WordsRepository {
         return queue;
     }
 
-    import { SyncService } from "@/core/services/sync-service";
-import { auth } from "@/lib/firebase";
-
     /**
      * Submits a review result for a card.
      */
-    async submitReview(wordId: string, rating: 1 | 2 | 3 | 4): Promise < void> {
-    let progress = await db.progress.get(wordId);
+    async submitReview(wordId: string, rating: 1 | 2 | 3 | 4): Promise<void> {
+        let progress = await db.progress.get(wordId);
 
-    if(!progress) {
-        // Should handle case where it's a new word being reviewed for the first time
-        progress = initializeWordProgress(wordId);
-    }
+        if (!progress) {
+            // Should handle case where it's a new word being reviewed for the first time
+            progress = initializeWordProgress(wordId);
+        }
 
         const updatedProgress = calculateNextReview(progress, rating);
 
-    await db.progress.put(updatedProgress);
+        await db.progress.put(updatedProgress);
 
-    // Sync to Cloud if logged in
-    if(auth.currentUser) {
-    SyncService.pushProgress(auth.currentUser.uid, updatedProgress);
-}
+        // Sync to Cloud if logged in
+        if (auth.currentUser) {
+            SyncService.pushProgress(auth.currentUser.uid, updatedProgress);
+        }
     }
 
     /**
      * Resets progress for a specific word (Testing utility)
      */
-    async resetWord(wordId: string): Promise < void> {
-    await db.progress.delete(wordId);
-}
+    async resetWord(wordId: string): Promise<void> {
+        await db.progress.delete(wordId);
+    }
 }
 
 export const wordsRepo = new WordsRepository();

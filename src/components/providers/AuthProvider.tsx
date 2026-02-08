@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useUserStore } from "@/core/store/user-store";
 import { UserService } from "@/core/services/user-service";
+import { SyncService } from "@/core/services/sync-service";
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
     const { syncUser, setUserData, logout } = useUserStore();
