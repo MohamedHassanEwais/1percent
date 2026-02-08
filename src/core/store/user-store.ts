@@ -21,6 +21,7 @@ interface UserState {
     };
 
     // Actions
+    setUserData: (data: { xp: number; level: number; streak: number; nextLevelXp: number; milestones: string[]; targetLevel: CEFRLevel; uid: string; displayName: string | null; email: string | null; photoURL: string | null }) => void;
     addXp: (amount: number) => void;
     incrementStreak: () => void;
     unlockMilestone: (id: string) => void;
@@ -45,6 +46,21 @@ export const useUserStore = create<UserState>()(
                 email: null,
                 photoURL: null,
             },
+
+            setUserData: (data) => set({
+                xp: data.xp,
+                level: data.level,
+                streak: data.streak,
+                nextLevelXp: data.nextLevelXp,
+                milestones: data.milestones,
+                targetLevel: data.targetLevel,
+                user: {
+                    uid: data.uid,
+                    displayName: data.displayName,
+                    email: data.email,
+                    photoURL: data.photoURL
+                }
+            }),
 
             addXp: (amount) => set((state) => {
                 const newXp = state.xp + amount;
