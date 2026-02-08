@@ -208,6 +208,8 @@ export class WordsRepository {
                 }
             });
             console.log(`[WordsRepo] Migrated levels for ${updates.length} words.`);
+        }
+    }
 
 
     private async seedPhonemes() {
@@ -241,130 +243,116 @@ export class WordsRepository {
             console.warn("Phonemes seed file not found or failed:", e);
         }
     }
-}
 
-    /**
-     * Generates a session queue.
-     * Use filters to focus on specific levels
-     */
     /**
      * Generates a session queue for NEW words only.
      */
-    async getNewWordsQueue(limit: number = 10, targetLevel: CEFRLevel = 'A1'): Promise < { card: VocabularyCard; progress?: WordProgress }[] > {
-    const queue: { card: VocabularyCard; progress ?: WordProgress } [] = [];
+    async getNewWordsQueue(limit: number = 10, targetLevel: CEFRLevel = 'A1'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+        const queue: { card: VocabularyCard; progress?: WordProgress }[] = [];
 
-// Get IDs of words already in progress
-const progressIds = await db.progress.toCollection().primaryKeys();
+        // Get IDs of words already in progress
+        const progressIds = await db.progress.toCollection().primaryKeys();
 
-let newWordsCollection = db.words.orderBy('rank');
+        let newWordsCollection = db.words.orderBy('rank');
 
-// Apply level filter if specified
-if (targetLevel && targetLevel !== 'N/A') {
-    newWordsCollection = db.words.where('level').equals(targetLevel);
-}
+        // Apply level filter if specified
+        if (targetLevel && targetLevel !== 'N/A') {
+            newWordsCollection = db.words.where('level').equals(targetLevel);
+        }
 
-// Fetch and Sort
-let candidateWords = await newWordsCollection
-    .filter(w => !progressIds.includes(w.id))
-    .toArray();
+        // Fetch and Sort
+        let candidateWords = await newWordsCollection
+            .filter(w => !progressIds.includes(w.id))
+            .toArray();
 
-// Explicitly sort by rank (Order of Difficulty)
-candidateWords.sort((a, b) => a.rank - b.rank);
+        // Explicitly sort by rank (Order of Difficulty)
+        candidateWords.sort((a, b) => a.rank - b.rank);
 
-// Take the top N
-const newWords = candidateWords.slice(0, limit);
+        // Take the top N
+        const newWords = candidateWords.slice(0, limit);
 
-for (const card of newWords) {
-    queue.push({ card, progress: initializeWordProgress(card.id) });
-}
+        for (const card of newWords) {
+            queue.push({ card, progress: initializeWordProgress(card.id) });
+        }
 
-return queue;
+        return queue;
     }
 
     /**
      * Generates a session queue for REVIEW words only.
      */
-    /**
-     * Generates a session queue for REVIEW words only.
-     */
-    async getReviewQueue(limit: number = 10): Promise < { card: VocabularyCard; progress?: WordProgress }[] > {
-    const now = Date.now();
+    async getReviewQueue(limit: number = 10): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+        const now = Date.now();
 
-    // Get Due Reviews
-    const dueProgress = await db.progress
-        .where('nextReview').belowOrEqual(now)
-        .and(p => p.status !== 'new')
-        .sortBy('nextReview');
+        // Get Due Reviews
+        const dueProgress = await db.progress
+            .where('nextReview').belowOrEqual(now)
+            .and(p => p.status !== 'new')
+            .sortBy('nextReview');
 
-    const queue: { card: VocabularyCard; progress ?: WordProgress } [] = [];
+        const queue: { card: VocabularyCard; progress?: WordProgress }[] = [];
 
-// Fetch card details for due items
-for (const p of dueProgress) {
-    if (queue.length >= limit) break;
-    const card = await db.words.get(p.wordId);
-    if (card) {
-        queue.push({ card, progress: p });
-    }
-}
+        // Fetch card details for due items
+        for (const p of dueProgress) {
+            if (queue.length >= limit) break;
+            const card = await db.words.get(p.wordId);
+            if (card) {
+                queue.push({ card, progress: p });
+            }
+        }
 
-return queue;
+        return queue;
     }
 
     /**
      * Generates a mixed session queue (Fallback / Legacy)
      */
-    /**
-     * Generates a mixed session queue (Fallback / Legacy)
-     */
-    async getSessionQueue(limit: number = 10, targetLevel: CEFRLevel = 'A1'): Promise < { card: VocabularyCard; progress?: WordProgress }[] > {
-    // 1. Get Reviews First
-    const reviews = await this.getReviewQueue(limit);
-    if(reviews.length >= limit) return reviews;
+    async getSessionQueue(limit: number = 10, targetLevel: CEFRLevel = 'A1'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+        // 1. Get Reviews First
+        const reviews = await this.getReviewQueue(limit);
+        if (reviews.length >= limit) return reviews;
 
-    // 2. Fill with New Words
-    const remaining = limit - reviews.length;
-    const newWords = await this.getNewWordsQueue(remaining, targetLevel);
+        // 2. Fill with New Words
+        const remaining = limit - reviews.length;
+        const newWords = await this.getNewWordsQueue(remaining, targetLevel);
 
-    return [...reviews, ...newWords];
-}
+        return [...reviews, ...newWords];
+    }
 
     /**
      * Submits a review result for a card.
      */
-    async submitReview(wordId: string, rating: 1 | 2 | 3 | 4): Promise < void> {
-    let progress = await db.progress.get(wordId);
+    async submitReview(wordId: string, rating: 1 | 2 | 3 | 4): Promise<void> {
+        let progress = await db.progress.get(wordId);
 
-    if(!progress) {
-        // Should handle case where it's a new word being reviewed for the first time
-        progress = initializeWordProgress(wordId);
-    }
+        if (!progress) {
+            // Should handle case where it's a new word being reviewed for the first time
+            progress = initializeWordProgress(wordId);
+        }
 
         const updatedProgress = calculateNextReview(progress, rating);
 
-    await db.progress.put(updatedProgress);
+        await db.progress.put(updatedProgress);
 
-    // Sync to Cloud if logged in
-    if(auth.currentUser) {
-    SyncService.pushProgress(auth.currentUser.uid, updatedProgress);
-}
+        // Sync to Cloud if logged in
+        if (auth.currentUser) {
+            SyncService.pushProgress(auth.currentUser.uid, updatedProgress);
+        }
     }
 
     /**
      * Resets progress for a specific word (Testing utility)
      */
-    /**
-     * Resets progress for a specific word (Testing utility)
-     */
-    async resetWord(wordId: string): Promise < void> {
-    await db.progress.delete(wordId);
-}
+    async resetWord(wordId: string): Promise<void> {
+        await db.progress.delete(wordId);
+    }
 
     /**
      * Counts the total number of words the user has started learning.
      */
-    async getLearnedWordsCount(): Promise < number > {
-    return await db.progress.count();
-}
+    async getLearnedWordsCount(): Promise<number> {
+        return await db.progress.count();
+    }
 }
 
 export const wordsRepo = new WordsRepository();
