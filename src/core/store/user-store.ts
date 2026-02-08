@@ -12,11 +12,21 @@ interface UserState {
     // Preferences
     targetLevel: CEFRLevel;
 
+    // User Profile Data
+    user: {
+        uid: string | null;
+        displayName: string | null;
+        email: string | null;
+        photoURL: string | null;
+    };
+
     // Actions
     addXp: (amount: number) => void;
     incrementStreak: () => void;
     unlockMilestone: (id: string) => void;
     setTargetLevel: (level: CEFRLevel) => void;
+    syncUser: (userData: { uid: string; displayName: string | null; email: string | null; photoURL: string | null }) => void;
+    logout: () => void;
 }
 
 export const useUserStore = create<UserState>()(
@@ -29,6 +39,13 @@ export const useUserStore = create<UserState>()(
             milestones: [],
             targetLevel: 'A1', // Default to beginner
 
+            user: {
+                uid: null,
+                displayName: null,
+                email: null,
+                photoURL: null,
+            },
+
             addXp: (amount) => set((state) => {
                 const newXp = state.xp + amount;
                 let newLevel = state.level;
@@ -38,7 +55,6 @@ export const useUserStore = create<UserState>()(
                 if (newXp >= state.nextLevelXp) {
                     newLevel += 1;
                     newNextLevelXp = Math.floor(state.nextLevelXp * 1.5);
-                    // Trigger level up animation/modal here? (Ideally via a separate event bus)
                 }
 
                 return { xp: newXp, level: newLevel, nextLevelXp: newNextLevelXp };
@@ -51,6 +67,13 @@ export const useUserStore = create<UserState>()(
             })),
 
             setTargetLevel: (level) => set({ targetLevel: level }),
+
+            syncUser: (userData) => set({ user: userData }),
+
+            logout: () => set({
+                user: { uid: null, displayName: null, email: null, photoURL: null },
+                // Optional: reset other stats on logout? For now, we keep them as "local device stats" unless we sync to DB.
+            }),
         }),
         {
             name: 'user-storage', // unique name

@@ -4,6 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { SyncProvider } from "@/core/services/SyncProvider";
 
+import AuthProvider from "@/components/providers/AuthProvider";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
 
@@ -21,7 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(inter.variable, spaceGrotesk.variable, "font-sans bg-black text-slate-400 antialiased")}>
         <SyncProvider />
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

@@ -7,7 +7,7 @@ import { Edit, Share2, Trophy } from "lucide-react";
 import { useUserStore } from "@/core/store/user-store";
 
 export default function ProfilePage() {
-    const { xp, level, streak, nextLevelXp } = useUserStore();
+    const { xp, level, streak, nextLevelXp, user } = useUserStore();
 
     // Calculate progress percentage
     const progress = Math.min(100, (xp / nextLevelXp) * 100);
@@ -27,15 +27,19 @@ export default function ProfilePage() {
                 <div className="flex flex-col items-center">
                     <div className="relative mb-4">
                         <div className="h-28 w-28 rounded-full border-2 border-[#CCFF00] p-1 shadow-[0_0_20px_rgba(204,255,0,0.3)]">
-                            <div className="h-full w-full rounded-full bg-slate-800 bg-[url('https://i.pravatar.cc/150?img=33')] bg-cover" />
+                            {/* Use user photo or fallback */}
+                            <div
+                                className="h-full w-full rounded-full bg-slate-800 bg-cover bg-center"
+                                style={{ backgroundImage: `url('${user.photoURL || "https://i.pravatar.cc/150?img=33"}')` }}
+                            />
                         </div>
                         <div className="absolute -bottom-2 -right-2 bg-black rounded-lg px-2 py-1 border border-white/20">
                             <span className="text-xs font-bold text-[#CCFF00]">Lvl. {level}</span>
                         </div>
                     </div>
 
-                    <h2 className="text-xl font-bold">Cyber Nomad</h2>
-                    <p className="text-slate-400 text-sm">Explorer Class</p>
+                    <h2 className="text-xl font-bold">{user.displayName || "Cyber Nomad"}</h2>
+                    <p className="text-slate-400 text-sm">{user.email || "Explorer Class"}</p>
                 </div>
 
                 {/* XP Bar */}
