@@ -3,16 +3,48 @@
 import { GlassCard } from "@/components/ui/GlassCard";
 import { motion } from "framer-motion";
 import { Crown } from "lucide-react";
+import { useUserStore } from "@/core/store/user-store";
+import { useEffect, useState } from "react";
 
-const leaderboardData = [
-    { rank: 1, name: "Ali Ahmed", xp: 15400, avatar: "https://i.pravatar.cc/150?img=11" },
-    { rank: 2, name: "Sarah Connor", xp: 14200, avatar: "https://i.pravatar.cc/150?img=5" },
-    { rank: 3, name: "Neo", xp: 13950, avatar: "https://i.pravatar.cc/150?img=3" },
-    { rank: 4, name: "You", xp: 1250, avatar: "https://i.pravatar.cc/150?img=33", isMe: true }, // Current User
-    { rank: 5, name: "Morpheus", xp: 900, avatar: "https://i.pravatar.cc/150?img=8" },
+// Simulated "Elite" Competitors to keep the board interesting
+const initialComputers = [
+    { id: "comp-1", name: "Ali Ahmed", xp: 15400, avatar: "https://i.pravatar.cc/150?img=11", isMe: false, level: 25 },
+    { id: "comp-2", name: "Sarah Connor", xp: 14200, avatar: "https://i.pravatar.cc/150?img=5", isMe: false, level: 22 },
+    { id: "comp-3", name: "Neo", xp: 13950, avatar: "https://i.pravatar.cc/150?img=3", isMe: false, level: 21 },
+    { id: "comp-4", name: "Morpheus", xp: 900, avatar: "https://i.pravatar.cc/150?img=8", isMe: false, level: 12 },
+    { id: "comp-5", name: "Trinity", xp: 1800, avatar: "https://i.pravatar.cc/150?img=9", isMe: false, level: 15 },
 ];
 
 export default function LeaderboardPage() {
+    const { xp, level, user } = useUserStore();
+    const [leaderboard, setLeaderboard] = useState<any[]>([]);
+
+    useEffect(() => {
+        // Construct User Object
+        const currentUser = {
+            id: "me",
+            name: user.displayName || "You",
+            xp: xp,
+            avatar: user.photoURL || "https://i.pravatar.cc/150?img=33",
+            isMe: true,
+            level: level
+        };
+
+        // Merge and Sort
+        const allUsers = [...initialComputers, currentUser];
+
+        // Sort by XP (Descending)
+        allUsers.sort((a, b) => b.xp - a.xp);
+
+        // Assign Ranks
+        const rankedUsers = allUsers.map((u, index) => ({
+            ...u,
+            rank: index + 1
+        }));
+
+        setLeaderboard(rankedUsers);
+    }, [xp, level, user]);
+
     return (
         <div className="min-h-screen bg-black text-white p-6 pb-24 overflow-y-auto">
             <div className="text-center mb-8">
@@ -23,19 +55,18 @@ export default function LeaderboardPage() {
             </div>
 
             <div className="space-y-4">
-                {/* Top 3 Podium (Simplified as list for now, maybe 3D laters) */}
-
-                {leaderboardData.map((user, index) => (
+                {leaderboard.map((user, index) => (
                     <motion.div
-                        key={user.rank}
+                        key={user.id}
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ delay: index * 0.1 }}
+                        className={user.isMe ? "sticky top-4 z-20" : ""} // Sticky user if we have a long list
                     >
                         <GlassCard
                             intensity={user.isMe ? "medium" : "low"}
                             glow={user.rank === 1 ? "lime" : user.isMe ? "violet" : "none"}
-                            className={`flex items-center justify-between p-4 ${user.isMe ? 'border-secondary/50' : 'border-transparent'}`}
+                            className={`flex items-center justify-between p-4 ${user.isMe ? 'border-secondary/50 ring-1 ring-secondary/30 scale-105 origin-center' : 'border-transparent'}`}
                         >
                             <div className="flex items-center gap-4">
                                 {/* Rank Number */}
@@ -53,7 +84,7 @@ export default function LeaderboardPage() {
                                     <h3 className={`font-bold ${user.isMe ? 'text-secondary' : 'text-white'}`}>
                                         {user.name} {user.isMe && '(You)'}
                                     </h3>
-                                    <span className="text-xs text-slate-500">Level 5 Explorer</span>
+                                    <span className="text-xs text-slate-500">Level {user.level} Explorer</span>
                                 </div>
                             </div>
 
