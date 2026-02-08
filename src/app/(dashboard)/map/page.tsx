@@ -96,6 +96,13 @@ export default function GalaxyMapPage() {
                     <span>LEARN PHRASES</span>
                     <span className="text-sm bg-black/20 px-2 py-0.5 rounded-full">NEW ✨</span>
                 </button>
+
+                <button
+                    onClick={() => router.push('/foundation/phonetics')}
+                    className="w-full bg-slate-800/80 backdrop-blur text-cyan-400 border border-cyan-500/30 font-heading font-bold text-lg py-3 rounded-xl hover:bg-slate-700 hover:scale-105 transition-transform active:scale-95 flex items-center justify-center gap-2"
+                >
+                    <span>PHONETICS LAB 🧪</span>
+                </button>
             </div>
         </div>
     );
