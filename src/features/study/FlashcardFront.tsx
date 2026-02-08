@@ -1,3 +1,5 @@
+"use client";
+
 import { VocabularyCard } from "@/core/domain/types";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { NeonButton } from "@/components/ui/NeonButton";
@@ -5,7 +7,7 @@ import { motion } from "framer-motion";
 import { Volume2, Eye } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-interface FlashcardFrontProps {
+export interface FlashcardFrontProps {
     card: VocabularyCard;
     onFlip: () => void;
     status?: 'new' | 'learning' | 'review' | 'graduated';
@@ -32,8 +34,8 @@ export function FlashcardFront({ card, onFlip, status = 'new' }: FlashcardFrontP
 
                 {/* Status Badge */}
                 <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${status === 'new'
-                        ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400'
-                        : 'bg-orange-500/10 border-orange-500 text-orange-400'
+                    ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400'
+                    : 'bg-orange-500/10 border-orange-500 text-orange-400'
                     }`}>
                     {status === 'new' ? 'New Word' : 'Review'}
                 </div>
