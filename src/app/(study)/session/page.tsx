@@ -107,6 +107,7 @@ export default function SessionPage() {
                                 key={`front-${currentItem.card.id}`}
                                 card={currentItem.card}
                                 onFlip={handleFlip}
+                                status={currentItem.progress?.status || 'new'}
                             />
                         ) : (
                             <FlashcardBack
