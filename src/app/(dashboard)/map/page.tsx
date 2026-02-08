@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function GalaxyMapPage() {
     const router = useRouter();
+    const [sessionLimit, setSessionLimit] = React.useState(10);
 
     return (
         <div className="relative h-screen w-full overflow-hidden bg-black text-white">
@@ -30,19 +31,38 @@ export default function GalaxyMapPage() {
             </div>
 
             {/* 3. Action Bar (Bottom) */}
-            <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 pointer-events-auto w-full max-w-sm flex gap-4 px-4">
-                <button
-                    onClick={() => router.push('/session?mode=new')}
-                    className="flex-1 bg-cyan-400 text-black font-heading font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.6)] hover:scale-105 transition-transform active:scale-95"
-                >
-                    LEARN NEW 🚀
-                </button>
-                <button
-                    onClick={() => router.push('/session?mode=review')}
-                    className="flex-1 bg-[#CCFF00] text-black font-heading font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(204,255,0,0.6)] hover:scale-105 transition-transform active:scale-95"
-                >
-                    REVIEW 🧠
-                </button>
+            <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 pointer-events-auto w-full max-w-sm flex flex-col gap-4 px-4">
+
+                {/* Session Limit Selector */}
+                <div className="flex justify-center gap-2 mb-2">
+                    {[5, 10, 20, 30].map((limit) => (
+                        <button
+                            key={limit}
+                            onClick={() => setSessionLimit(limit)}
+                            className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${sessionLimit === limit
+                                ? "bg-white text-black shadow-[0_0_10px_white]"
+                                : "bg-white/10 text-slate-400 hover:bg-white/20"
+                                }`}
+                        >
+                            {limit}
+                        </button>
+                    ))}
+                </div>
+
+                <div className="flex gap-4">
+                    <button
+                        onClick={() => router.push(`/session?mode=new&limit=${sessionLimit}`)}
+                        className="flex-1 bg-cyan-400 text-black font-heading font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.6)] hover:scale-105 transition-transform active:scale-95"
+                    >
+                        LEARN NEW 🚀
+                    </button>
+                    <button
+                        onClick={() => router.push(`/session?mode=review&limit=${sessionLimit}`)}
+                        className="flex-1 bg-[#CCFF00] text-black font-heading font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(204,255,0,0.6)] hover:scale-105 transition-transform active:scale-95"
+                    >
+                        REVIEW 🧠
+                    </button>
+                </div>
             </div>
         </div>
     );
