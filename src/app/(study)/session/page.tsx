@@ -1,5 +1,8 @@
 "use client";
 
+// Force dynamic rendering to fix build error with searchParams
+export const dynamic = "force-dynamic";
+
 import { useEffect, useState } from "react";
 import { wordsRepo } from "@/core/services/words-repo";
 import { VocabularyCard, WordProgress } from "@/core/domain/types";
@@ -15,24 +18,32 @@ import { useRouter } from "next/navigation";
 
 import { useSearchParams } from "next/navigation";
 
-export default function SessionPage() {
+import { Suspense } from "react";
+
+function SessionLoading() {
+    return (
+        <div className="flex h-screen items-center justify-center bg-black text-white">
+            <Loader2 className="h-10 w-10 animate-spin text-primary" />
+        </div>
+    );
+}
+
+function SessionContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const mode = searchParams.get('mode') === 'review' ? 'review' : 'new'; // Default to new if not specified, or handle mixed?
-    // Actually, let's default to mixed if not specified, but for now strict:
-    // User requested separate. Map sends 'new' or 'review'.
+    const mode = searchParams.get('mode') === 'review' ? 'review' : 'new';
 
     const [queue, setQueue] = useState<{ card: VocabularyCard; progress?: WordProgress }[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const { addXp, targetLevel, setTargetLevel } = useUserStore(); // Connect to store
+    const { addXp, targetLevel, setTargetLevel } = useUserStore();
 
     // Load Queue on Mount
     useEffect(() => {
         loadSession();
-    }, [targetLevel, mode]); // Reload when level or mode changes
+    }, [targetLevel, mode]);
 
     async function loadSession() {
         setIsLoading(true);
@@ -43,12 +54,11 @@ export default function SessionPage() {
         if (mode === 'review') {
             newQueue = await wordsRepo.getReviewQueue(10);
         } else {
-            // mode === 'new'
             newQueue = await wordsRepo.getNewWordsQueue(10, targetLevel);
         }
 
         setQueue(newQueue);
-        setCurrentIndex(0); // Reset index
+        setCurrentIndex(0);
         setIsLoading(false);
     }
 
@@ -69,19 +79,15 @@ export default function SessionPage() {
         // Move to next
         if (currentIndex < queue.length - 1) {
             setIsFlipped(false);
-            setTimeout(() => setCurrentIndex(prev => prev + 1), 150); // Small delay for animation
+            setTimeout(() => setCurrentIndex(prev => prev + 1), 150);
         } else {
             // Session Complete
-            router.push("/summary"); // TODO: Make sure summary page exists or redirect to map
+            router.push("/summary");
         }
     };
 
     if (isLoading) {
-        return (
-            <div className="flex h-screen items-center justify-center bg-black text-white">
-                <Loader2 className="h-10 w-10 animate-spin text-primary" />
-            </div>
-        );
+        return <SessionLoading />;
     }
 
     const currentItem = queue[currentIndex];
@@ -152,5 +158,13 @@ export default function SessionPage() {
             )}
 
         </div>
+    );
+}
+
+export default function SessionPage() {
+    return (
+        <Suspense fallback={<SessionLoading />}>
+            <SessionContent />
+        </Suspense>
     );
 }
