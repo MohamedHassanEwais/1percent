@@ -20,6 +20,24 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
     const lastMouse = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        // Resize Handler
+        const handleResize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Center initial view
+            transform.current.x = canvas.width / 2;
+            transform.current.y = canvas.height / 2;
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+
         const initGalaxy = async () => {
             setIsLoading(true);
             try {
@@ -85,9 +103,11 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
             }
         };
 
+        // Initialize Data
         initGalaxy();
 
-        // ...
+        // Animation Loop
+        let animationFrameId: number;
 
         const render = () => {
             if (!canvas || !ctx) return;
@@ -133,7 +153,7 @@ export const GalaxyCanvas: React.FC<GalaxyCanvasProps> = ({ onStarClick }) => {
                     ctx.shadowBlur = 10;
                     ctx.shadowColor = '#22D3EE';
                 } else {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                    ctx.fillStyle = star.color || 'rgba(255, 255, 255, 0.1)';
                     ctx.shadowBlur = 0;
                 }
 
