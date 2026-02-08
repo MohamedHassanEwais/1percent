@@ -15,6 +15,7 @@ export interface VocabularyCard {
     exampleSentence: string;// "She had a burning <highlight>ambition</highlight> to succeed."
     imageUrl?: string;      // Visual Mnemonic
 
+    pos?: string;           // "noun", "verb", "phrase"
     level: CEFRLevel;
     tags?: WordCategory[];
 }

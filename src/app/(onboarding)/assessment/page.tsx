@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Check, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useUserStore } from "@/core/store/user-store";
 
 const levels = [
     { label: "Beginner", range: "0 - 500 words", value: "A1" },
@@ -14,12 +15,13 @@ const levels = [
 ];
 
 export default function AssessmentPage() {
+    const { setTargetLevel } = useUserStore();
     const router = useRouter();
     const [selected, setSelected] = useState<string | null>(null);
 
     const handleContinue = () => {
         if (selected) {
-            // In a real app, save this selection to state/context
+            setTargetLevel(selected as any); // Type assertion for CEFRLevel
             router.push("/login");
         }
     };
@@ -45,8 +47,8 @@ export default function AssessmentPage() {
                         <GlassCard
                             key={level.value}
                             className={`relative flex cursor-pointer items-center justify-between p-6 transition-all border-2 ${selected === level.value
-                                    ? "border-[#CCFF00] bg-white/10 shadow-[0_0_20px_rgba(204,255,0,0.2)]"
-                                    : "border-transparent hover:bg-white/5"
+                                ? "border-[#CCFF00] bg-white/10 shadow-[0_0_20px_rgba(204,255,0,0.2)]"
+                                : "border-transparent hover:bg-white/5"
                                 }`}
                             onClick={() => setSelected(level.value)}
                         >

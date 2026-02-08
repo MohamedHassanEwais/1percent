@@ -20,6 +20,11 @@ interface UserState {
         photoURL: string | null;
     };
 
+    // Gamification
+    dailyGoal: number; // XP per day
+    xpToday: number;
+    lastStudyDate: string | null; // ISO Date string for streak logic
+
     // Actions
     setUserData: (data: { xp: number; level: number; streak: number; nextLevelXp: number; milestones: string[]; targetLevel: CEFRLevel; uid: string; displayName: string | null; email: string | null; photoURL: string | null }) => void;
     addXp: (amount: number) => void;
@@ -47,6 +52,10 @@ export const useUserStore = create<UserState>()(
                 photoURL: null,
             },
 
+            dailyGoal: 50, // Default 50 XP
+            xpToday: 0,
+            lastStudyDate: null,
+
             setUserData: (data) => set({
                 xp: data.xp,
                 level: data.level,
@@ -66,14 +75,45 @@ export const useUserStore = create<UserState>()(
                 const newXp = state.xp + amount;
                 let newLevel = state.level;
                 let newNextLevelXp = state.nextLevelXp;
+                let newStreak = state.streak;
+                let newLastStudyDate = state.lastStudyDate;
+                let newXpToday = state.xpToday + amount;
 
-                // Simple leveling logic
+                // Streak Logic
+                const today = new Date().toISOString().split('T')[0];
+                if (state.lastStudyDate !== today) {
+                    // It's a new day
+                    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+                    if (state.lastStudyDate === yesterday) {
+                        // Continued streak
+                        newStreak += 1;
+                    } else if (state.lastStudyDate && state.lastStudyDate < yesterday) {
+                        // Broken streak (if we want to reset)
+                        newStreak = 1;
+                    } else if (!state.lastStudyDate) {
+                        // First day
+                        newStreak = 1;
+                    }
+
+                    newLastStudyDate = today;
+                    newXpToday = amount; // Reset for new day
+                }
+
+                // Leveling Logic
                 if (newXp >= state.nextLevelXp) {
                     newLevel += 1;
                     newNextLevelXp = Math.floor(state.nextLevelXp * 1.5);
                 }
 
-                return { xp: newXp, level: newLevel, nextLevelXp: newNextLevelXp };
+                return {
+                    xp: newXp,
+                    level: newLevel,
+                    nextLevelXp: newNextLevelXp,
+                    streak: newStreak,
+                    lastStudyDate: newLastStudyDate,
+                    xpToday: newXpToday
+                };
             }),
 
             incrementStreak: () => set((state) => ({ streak: state.streak + 1 })),

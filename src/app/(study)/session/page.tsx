@@ -12,6 +12,8 @@ import { Loader2, X } from "lucide-react";
 import { useUserStore } from "@/core/store/user-store";
 import { FlashcardFront } from "@/features/study/FlashcardFront";
 import { FlashcardBack } from "@/features/study/FlashcardBack";
+import { PhraseCardFront } from "@/features/study/PhraseCardFront";
+import { PhraseCardBack } from "@/features/study/PhraseCardBack";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function SessionLoading() {
@@ -210,19 +212,37 @@ function SessionContent() {
             <div className="w-full max-w-md aspect-[3/4] perspective-1000 relative">
                 <AnimatePresence mode="wait">
                     {!isFlipped ? (
-                        <FlashcardFront
-                            key={`front-${currentItem.card.id}`}
-                            card={currentItem.card}
-                            onFlip={handleFlip}
-                            status={mode === 'new' ? 'new' : 'review'}
-                        />
+                        currentItem.card.pos === 'phrase' || currentItem.card.rank > 10000 ? (
+                            <PhraseCardFront
+                                key={`front-${currentItem.card.id}`}
+                                card={currentItem.card}
+                                onFlip={handleFlip}
+                                status={mode === 'new' ? 'new' : 'review'}
+                            />
+                        ) : (
+                            <FlashcardFront
+                                key={`front-${currentItem.card.id}`}
+                                card={currentItem.card}
+                                onFlip={handleFlip}
+                                status={mode === 'new' ? 'new' : 'review'}
+                            />
+                        )
                     ) : (
-                        <FlashcardBack
-                            key={`back-${currentItem.card.id}`}
-                            card={currentItem.card}
-                            onRate={handleRate}
-                            mode={mode === 'new' ? 'new' : 'review'}
-                        />
+                        currentItem.card.pos === 'phrase' || currentItem.card.rank > 10000 ? (
+                            <PhraseCardBack
+                                key={`back-${currentItem.card.id}`}
+                                card={currentItem.card}
+                                onRate={handleRate}
+                                mode={mode === 'new' ? 'new' : 'review'}
+                            />
+                        ) : (
+                            <FlashcardBack
+                                key={`back-${currentItem.card.id}`}
+                                card={currentItem.card}
+                                onRate={handleRate}
+                                mode={mode === 'new' ? 'new' : 'review'}
+                            />
+                        )
                     )}
                 </AnimatePresence>
             </div>

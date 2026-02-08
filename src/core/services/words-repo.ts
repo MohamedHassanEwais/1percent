@@ -81,6 +81,7 @@ export class WordsRepository {
                     exampleSentence: item.exampleSentence || "",
                     imageUrl: `https://source.unsplash.com/random/400x300/?${item.word},abstract`,
 
+                    pos: item.pos || "word",
                     level: this.getLevelFromRank(rank),
                     tags: []
                 };
@@ -95,6 +96,10 @@ export class WordsRepository {
 
     private async seedPhrases() {
         try {
+            // Check if phrases already exist to avoid duplicates if partial seed
+            const existing = await db.words.where('rank').above(10000).count();
+            if (existing > 0) return;
+
             const phraseData = (await import("@/lib/data/seed_phrases.json")).default;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const phrases: VocabularyCard[] = phraseData.map((item: any) => ({
@@ -110,15 +115,57 @@ export class WordsRepository {
                 exampleSentence: item.exampleSentence || "",
                 imageUrl: `https://source.unsplash.com/random/400x300/?abstract,geometric`,
 
-                level: 'N/A',
+                pos: "phrase",
+                level: 'N/A', // Phrases don't have CEFR levels in our seed yet
                 tags: []
             }));
             await db.words.bulkAdd(phrases);
             console.log(`[WordsRepo] Seeded ${phrases.length} phrases.`);
         } catch (e) {
-            // Ignore if file doesn't exist yet
             console.warn("Phrases seed file not found or failed:", e);
         }
+    }
+
+    /**
+     * Generates a session queue for PHRASES only.
+     */
+    async getPhraseSession(limit: number = 5): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+        const queue: { card: VocabularyCard; progress?: WordProgress }[] = [];
+
+        // 1. Get Due Phrase Reviews
+        const now = Date.now();
+        const dueProgress = await db.progress
+            .where('nextReview').belowOrEqual(now)
+            .and(p => p.status !== 'new') // Filter in memory if needed, but 'nextReview' implies scheduled
+            .sortBy('nextReview');
+
+        // Filter for phrases (rank > 10000)
+        // Since we can't join easily, we fetch the card for each due progress and check rank/pos
+        for (const p of dueProgress) {
+            if (queue.length >= limit) break;
+            const card = await db.words.get(p.wordId);
+            if (card && (card.pos === 'phrase' || card.rank > 10000)) {
+                queue.push({ card, progress: p });
+            }
+        }
+
+        if (queue.length >= limit) return queue;
+
+        // 2. Fill with New Phrases
+        const remaining = limit - queue.length;
+        const progressIds = await db.progress.toCollection().primaryKeys();
+
+        const newPhrases = await db.words
+            .where('rank').above(10000)
+            .filter(w => !progressIds.includes(w.id))
+            .limit(remaining)
+            .toArray();
+
+        for (const card of newPhrases) {
+            queue.push({ card, progress: initializeWordProgress(card.id) });
+        }
+
+        return queue;
     }
 
     private getLevelFromRank(rank: number): CEFRLevel {
