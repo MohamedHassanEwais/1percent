@@ -3,19 +3,40 @@ import { calculateNextReview, initializeWordProgress } from "@/core/algorithms/s
 import { VocabularyCard, WordProgress, CEFRLevel } from "@/core/domain/types";
 import { SyncService } from "@/core/services/sync-service";
 import { auth } from "@/lib/firebase";
+import seedData from "@/lib/data/seed-v2.json"; // V2 Data
 
 export class WordsRepository {
+
+    constructor() {
+        if (typeof window !== "undefined") {
+            this.checkAndSeed();
+        }
+    }
+
+    private async checkAndSeed() {
+        const count = await db.words.count();
+        const isV2Seeded = localStorage.getItem('is_v2_seeded');
+
+        // Force re-seed for V2 update
+        if (count === 0 || !isV2Seeded) {
+            console.log("[WordsRepo] Seeding/Updating to V2 data...");
+            await this.seedDatabase(true);
+            localStorage.setItem('is_v2_seeded', 'true');
+        }
+    }
 
     /**
      * Seeds the database with initial data if empty.
      */
-    async seedDatabase(): Promise<void> {
+    async seedDatabase(force = false): Promise<void> {
         const count = await db.words.count();
 
-        // 1. Seed Words (if empty)
-        if (count === 0) {
+        // 1. Seed Words (if empty or forced)
+        if (count === 0 || force) {
             await this.performSeed();
         } else {
+            // ... legacy checks
+
             // Check if migration is needed (if first word missing level)
             const firstWord = await db.words.orderBy('id').first();
             if (firstWord && !firstWord.level) {
