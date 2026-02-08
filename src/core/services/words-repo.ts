@@ -12,46 +12,19 @@ export class WordsRepository {
 
         // 1. Seed Words (if empty)
         if (count === 0) {
-            try {
-                // Dynamic import
-                const seedData = (await import("@/lib/data/seed.json")).default;
-
-                // Map flat structure (from transform.js) to VocabularyCard
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const cards: VocabularyCard[] = seedData.map((item: any, index: number) => {
-                    const rank = item.rank || index + 1;
-
-                    // Derive Level from Rank (Approximate)
-                    let level: CEFRLevel = 'A1';
-                    if (rank > 500) level = 'A2';
-                    if (rank > 1000) level = 'B1';
-                    if (rank > 2000) level = 'B2';
-                    if (rank > 3000) level = 'C1';
-                    if (rank > 4000) level = 'C2';
-
-                    return {
-                        id: item.word,
-                        word: item.word,
-                        normalized: item.word.toLowerCase(),
-                        rank: rank,
-
-                        // Content
-                        phonetic: typeof item.phonetics === 'string' ? item.phonetics : (item.phonetics?.uk?.[0] || ""),
-                        audioUrl: typeof item.audio === 'string' ? item.audio : (item.phonetics?.uk_audio || ""),
-                        translation: item.translation || "",
-                        definition: item.definition || "",
-                        exampleSentence: item.exampleSentence || "",
-                        imageUrl: `https://source.unsplash.com/random/400x300/?${item.word},abstract`,
-
-                        level: level,
-                        tags: []
-                    };
-                });
-
-                await db.words.bulkAdd(cards);
-                console.log(`[WordsRepo] Seeded ${cards.length} words.`);
-            } catch (err) {
-                console.error("Failed to seed words:", err);
+            await this.performSeed();
+        } else {
+            // Check if migration is needed (if first word missing level)
+            const firstWord = await db.words.orderBy('id').first();
+            if (firstWord && !firstWord.level) {
+                console.log("[WordsRepo] Detecting missing levels. Migrating...");
+                await this.migrateLevels();
+            }
+            // Check if A1 is empty but we have words (another sign of corruption/legacy data)
+            const a1Count = await db.words.where('level').equals('A1').count();
+            if (count > 0 && a1Count === 0) {
+                console.log("[WordsRepo] No A1 words found. Triggering migration...");
+                await this.migrateLevels();
             }
         }
 
@@ -59,31 +32,103 @@ export class WordsRepository {
         // Phrases usually have rank > 10000 based on our transform script
         const phraseCheck = await db.words.where('rank').above(10000).first();
         if (!phraseCheck) {
-            try {
-                const phraseData = (await import("@/lib/data/seed_phrases.json")).default;
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const phrases: VocabularyCard[] = phraseData.map((item: any) => ({
+            await this.seedPhrases();
+        }
+    }
+
+    private async performSeed() {
+        try {
+            // Dynamic import
+            const seedData = (await import("@/lib/data/seed.json")).default;
+
+            // Map flat structure (from transform.js) to VocabularyCard
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const cards: VocabularyCard[] = seedData.map((item: any, index: number) => {
+                const rank = item.rank || index + 1;
+                return {
                     id: item.word,
                     word: item.word,
                     normalized: item.word.toLowerCase(),
-                    rank: item.rank,
-
-                    phonetic: item.phonetics || "",
-                    audioUrl: item.audio || "",
-                    translation: item.translation || "عبارة",
+                    rank: rank,
+                    // Content
+                    phonetic: typeof item.phonetics === 'string' ? item.phonetics : (item.phonetics?.uk?.[0] || ""),
+                    audioUrl: typeof item.audio === 'string' ? item.audio : (item.phonetics?.uk_audio || ""),
+                    translation: item.translation || "",
                     definition: item.definition || "",
                     exampleSentence: item.exampleSentence || "",
-                    imageUrl: `https://source.unsplash.com/random/400x300/?abstract,geometric`,
+                    imageUrl: `https://source.unsplash.com/random/400x300/?${item.word},abstract`,
 
-                    level: 'N/A',
+                    level: this.getLevelFromRank(rank),
                     tags: []
-                }));
-                await db.words.bulkAdd(phrases);
-                console.log(`[WordsRepo] Seeded ${phrases.length} phrases.`);
-            } catch (e) {
-                // Ignore if file doesn't exist yet
-                console.warn("Phrases seed file not found or failed:", e);
+                };
+            });
+
+            await db.words.bulkAdd(cards);
+            console.log(`[WordsRepo] Seeded ${cards.length} words.`);
+        } catch (err) {
+            console.error("Failed to seed words:", err);
+        }
+    }
+
+    private async seedPhrases() {
+        try {
+            const phraseData = (await import("@/lib/data/seed_phrases.json")).default;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const phrases: VocabularyCard[] = phraseData.map((item: any) => ({
+                id: item.word,
+                word: item.word,
+                normalized: item.word.toLowerCase(),
+                rank: item.rank,
+
+                phonetic: item.phonetics || "",
+                audioUrl: item.audio || "",
+                translation: item.translation || "عبارة",
+                definition: item.definition || "",
+                exampleSentence: item.exampleSentence || "",
+                imageUrl: `https://source.unsplash.com/random/400x300/?abstract,geometric`,
+
+                level: 'N/A',
+                tags: []
+            }));
+            await db.words.bulkAdd(phrases);
+            console.log(`[WordsRepo] Seeded ${phrases.length} phrases.`);
+        } catch (e) {
+            // Ignore if file doesn't exist yet
+            console.warn("Phrases seed file not found or failed:", e);
+        }
+    }
+
+    private getLevelFromRank(rank: number): CEFRLevel {
+        if (rank > 4000) return 'C2';
+        if (rank > 3000) return 'C1';
+        if (rank > 2000) return 'B2';
+        if (rank > 1000) return 'B1';
+        if (rank > 500) return 'A2';
+        return 'A1';
+    }
+
+    private async migrateLevels() {
+        // Fetch all words
+        const allWords = await db.words.toArray();
+
+        const updates = allWords.map(word => {
+            if (!word.level || word.level === 'N/A') {
+                return {
+                    key: word.id,
+                    changes: { level: this.getLevelFromRank(word.rank) }
+                };
             }
+            return null;
+        }).filter(u => u !== null);
+
+        if (updates.length > 0) {
+            await db.transaction('rw', db.words, async () => {
+                for (const update of updates) {
+                    // @ts-ignore
+                    await db.words.update(update.key, update.changes);
+                }
+            });
+            console.log(`[WordsRepo] Migrated levels for ${updates.length} words.`);
         }
     }
 
@@ -152,28 +197,36 @@ export class WordsRepository {
         return queue;
     }
 
+    import { SyncService } from "@/core/services/sync-service";
+import { auth } from "@/lib/firebase";
+
     /**
      * Submits a review result for a card.
      */
-    async submitReview(wordId: string, rating: 1 | 2 | 3 | 4): Promise<void> {
-        let progress = await db.progress.get(wordId);
+    async submitReview(wordId: string, rating: 1 | 2 | 3 | 4): Promise < void> {
+    let progress = await db.progress.get(wordId);
 
-        if (!progress) {
-            // Should handle case where it's a new word being reviewed for the first time
-            progress = initializeWordProgress(wordId);
-        }
+    if(!progress) {
+        // Should handle case where it's a new word being reviewed for the first time
+        progress = initializeWordProgress(wordId);
+    }
 
         const updatedProgress = calculateNextReview(progress, rating);
 
-        await db.progress.put(updatedProgress);
+    await db.progress.put(updatedProgress);
+
+    // Sync to Cloud if logged in
+    if(auth.currentUser) {
+    SyncService.pushProgress(auth.currentUser.uid, updatedProgress);
+}
     }
 
     /**
      * Resets progress for a specific word (Testing utility)
      */
-    async resetWord(wordId: string): Promise<void> {
-        await db.progress.delete(wordId);
-    }
+    async resetWord(wordId: string): Promise < void> {
+    await db.progress.delete(wordId);
+}
 }
 
 export const wordsRepo = new WordsRepository();

@@ -24,6 +24,9 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
                 // 2. Fetch/Create Cloud Data
                 try {
+                    // Sync Word Progress (Deep Sync)
+                    await SyncService.pullProgress(user.uid);
+
                     let firestoreData = await UserService.getUserData(user.uid);
 
                     if (!firestoreData) {
