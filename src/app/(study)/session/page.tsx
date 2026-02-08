@@ -121,8 +121,13 @@ export default function SessionPage() {
             ) : (
                 <div className="flex flex-col items-center justify-center text-center max-w-md p-6">
                     <h2 className="text-xl font-bold mb-2 text-zinc-200">No cards found for {targetLevel} level!</h2>
-                    <p className="text-zinc-500 mb-6">Try selecting a different level or complete existing reviews.</p>
-                    <NeonButton onClick={() => router.push("/map")}>Return to Galaxy</NeonButton>
+                    <p className="text-zinc-500 mb-6">
+                        If this persists, try resetting your local data in <span className="text-primary cursor-pointer underline" onClick={() => router.push('/profile')}>Profile Settings</span>.
+                    </p>
+                    <div className="flex gap-4">
+                        <NeonButton variant="outline" onClick={() => router.push("/profile")}>Go to Profile</NeonButton>
+                        <NeonButton onClick={() => router.push("/map")}>Return to Galaxy</NeonButton>
+                    </div>
                 </div>
             )}
 
