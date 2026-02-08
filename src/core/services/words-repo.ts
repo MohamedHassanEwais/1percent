@@ -240,6 +240,13 @@ export class WordsRepository {
     async resetWord(wordId: string): Promise<void> {
         await db.progress.delete(wordId);
     }
+
+    /**
+     * Counts the total number of words the user has started learning.
+     */
+    async getLearnedWordsCount(): Promise<number> {
+        return await db.progress.count();
+    }
 }
 
 export const wordsRepo = new WordsRepository();

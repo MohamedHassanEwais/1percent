@@ -2,12 +2,29 @@
 
 import { GalaxyCanvas } from "@/features/galaxy/GalaxyCanvas";
 import { GlassCard } from "@/components/ui/GlassCard";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/core/store/user-store";
+import { wordsRepo } from "@/core/services/words-repo";
 
 export default function GalaxyMapPage() {
     const router = useRouter();
     const [sessionLimit, setSessionLimit] = React.useState(10);
+    const { streak, level } = useUserStore();
+    const [totalWords, setTotalWords] = useState(0);
+
+    useEffect(() => {
+        // Fetch real word count
+        wordsRepo.getLearnedWordsCount().then(c => setTotalWords(c));
+    }, []);
+
+    // Simple level title logic based on numeric level
+    const getLevelTitle = (lvl: number) => {
+        if (lvl < 5) return "Rookie Explorer";
+        if (lvl < 10) return "Space Cadet";
+        if (lvl < 20) return "Star Voyager";
+        return "Galaxy Master";
+    };
 
     return (
         <div className="relative h-screen w-full overflow-hidden bg-black text-white">
@@ -19,15 +36,23 @@ export default function GalaxyMapPage() {
                 <GlassCard className="pointer-events-auto px-6 py-4 flex flex-col items-center">
                     <span className="text-xs text-slate-400 uppercase tracking-widest font-bold">Current Streak</span>
                     <div className="flex items-center gap-2">
-                        <span className="text-3xl font-heading text-[#CCFF00]">12</span>
+                        <span className="text-3xl font-heading text-[#CCFF00]">{streak}</span>
                         <span className="text-sm">DAYS</span>
                     </div>
                 </GlassCard>
 
-                <GlassCard className="pointer-events-auto px-6 py-4">
-                    <span className="text-xs text-slate-400 uppercase tracking-widest font-bold block mb-1">Level</span>
-                    <h2 className="text-xl font-heading">Rookie Explorer</h2>
-                </GlassCard>
+                <div className="flex flex-col gap-2 items-end">
+                    <GlassCard className="pointer-events-auto px-6 py-4 text-right">
+                        <span className="text-xs text-slate-400 uppercase tracking-widest font-bold block mb-1">Level {level}</span>
+                        <h2 className="text-xl font-heading">{getLevelTitle(level)}</h2>
+                    </GlassCard>
+
+                    <GlassCard className="pointer-events-auto px-4 py-2 flex items-center gap-3">
+                        <span className="text-xs text-slate-400 uppercase font-bold">Learned</span>
+                        <span className="text-lg font-bold text-cyan-400">{totalWords}</span>
+                        <span className="text-xs text-slate-500">Words</span>
+                    </GlassCard>
+                </div>
             </div>
 
             {/* 3. Action Bar (Bottom) */}
