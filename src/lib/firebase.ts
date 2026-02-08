@@ -11,6 +11,16 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID as string,
 };
 
+// Debug: Check if config is loaded
+if (typeof window !== "undefined") {
+    console.log("Firebase Config Check:", {
+        apiKey: !!firebaseConfig.apiKey,
+        authDomain: !!firebaseConfig.authDomain,
+        projectId: !!firebaseConfig.projectId,
+        hasConfig: Object.values(firebaseConfig).every(v => !!v)
+    });
+}
+
 // Initialize Firebase (Singleton pattern)
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
