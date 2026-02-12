@@ -15,13 +15,13 @@ export class WordsRepository {
 
     private async checkAndSeed() {
         const count = await db.words.count();
-        const isV2Seeded = localStorage.getItem('is_v2_seeded');
+        const isFullSeeded = localStorage.getItem('is_full_data_seeded');
 
-        // Force re-seed for V2 update
-        if (count === 0 || !isV2Seeded) {
-            console.log("[WordsRepo] Seeding/Updating to V2 data...");
+        // Force re-seed for full data update
+        if (count === 0 || !isFullSeeded) {
+            console.log("[WordsRepo] Seeding full dataset...");
             await this.seedDatabase(true);
-            localStorage.setItem('is_v2_seeded', 'true');
+            localStorage.setItem('is_full_data_seeded', 'true');
         }
     }
 
