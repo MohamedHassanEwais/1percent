@@ -204,13 +204,29 @@ function SessionContent() {
                 </button>
             </div>
 
-            {/* Level Selector Removed for Hardening */}
+            {/* Level Selector - Top Right (Only show for 'new' mode) */}
             {mode === 'new' && (
                 <div className="absolute top-4 right-4 z-50">
-                    <div className="bg-zinc-900 border border-zinc-700 text-xs rounded px-3 py-1.5 text-zinc-400 font-bold flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                        {targetLevel} Level
-                    </div>
+                    <select
+                        value={targetLevel}
+                        onChange={(e) => setTargetLevel(e.target.value as any)}
+                        className="bg-zinc-900 border border-zinc-700 text-xs rounded px-2 py-1 text-zinc-400 focus:outline-none focus:border-primary"
+                    >
+                        {['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map((lvl) => {
+                            // Check if level is locked
+                            const levels = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+                            const targetIndex = levels.indexOf(lvl);
+                            const unlockedIndex = levels.indexOf(maxUnlockedLevel || 'A0');
+
+                            if (targetIndex > unlockedIndex) return null;
+
+                            return (
+                                <option key={lvl} value={lvl}>
+                                    {lvl === 'A0' ? 'A0 (Phonetics)' : `${lvl} Level`}
+                                </option>
+                            );
+                        })}
+                    </select>
                 </div>
             )}
 
