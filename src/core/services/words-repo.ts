@@ -26,6 +26,18 @@ export class WordsRepository {
     }
 
     /**
+     * Fisher-Yates shuffle algorithm to randomize an array.
+     */
+    private shuffleArray<T>(array: T[]): T[] {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
+    }
+
+    /**
      * Seeds the database with initial data if empty.
      */
     async seedDatabase(force = false): Promise<void> {
@@ -309,40 +321,47 @@ export class WordsRepository {
     }
 
     /**
-     * Generates a mixed session queue (Words + Phrases) for a specific level.
+     * Generates a mixed session queue (Words + Phrases) for a specific level with Smart Mix logic.
      */
     async getSessionQueue(limit: number = 10, targetLevel: CEFRLevel = 'A1'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
-        // 1. Get Scheduled Reviews First (Priority)
+        // 1. Get Scheduled Reviews First (Priority - No Shuffle)
         const reviews = await this.getReviewQueue(limit, targetLevel);
         if (reviews.length >= limit) return reviews;
 
-        // 2. Fill with New Content
-        // Target mix: ~70% words, ~30% phrases
-        const remaining = limit - reviews.length;
+        // 2. Calculate Slots for New Content
+        let remaining = limit - reviews.length;
 
-        // Ensure at least 1 phrase if possible, but respect ratio
-        const phrasesCount = Math.max(1, Math.floor(remaining * 0.3));
-        const wordsCount = remaining - phrasesCount;
+        // Target mix: ~30% phrases, ~70% words
+        const phraseGoal = Math.max(1, Math.floor(remaining * 0.3));
 
-        // Fetch concurrently
-        // Note: calling getNewWordsQueue for phrasesCount might be wrong if we want phrases specifically.
-        // We need a specific getNewPhrasesQueue.
+        // 3. Fetch New Phrases (Attempt 1)
+        const newPhrases = await this.getNewPhrasesQueue(phraseGoal, targetLevel);
+        remaining -= newPhrases.length;
 
-        const newPhrases = await this.getNewPhrasesQueue(phrasesCount, targetLevel);
+        // 4. Fetch New Words (Filling the rest)
+        const newWords = await this.getNewWordsQueue(remaining, targetLevel);
+        remaining -= newWords.length;
 
-        // Adjust words count if phrases are fewer than requested
-        const actualPhrasesCount = newPhrases.length;
-        const adjustedWordsCount = remaining - actualPhrasesCount;
+        // 5. Bidirectional Fallback: If words ran out, try fetching MORE phrases to fill the final gap
+        if (remaining > 0) {
+            // Exclude already picked phrases to avoid duplicates
+            const alreadyPickedIds = newPhrases.map(i => i.card.id);
+            const extraPhrases = await this.getNewPhrasesQueue(remaining, targetLevel, alreadyPickedIds);
+            newPhrases.push(...extraPhrases);
+        }
 
-        const newWords = await this.getNewWordsQueue(adjustedWordsCount, targetLevel);
+        // 6. Combine and Shuffle New Content
+        const allNewContent = [...newPhrases, ...newWords];
+        const shuffledNewContent = this.shuffleArray(allNewContent);
 
-        return [...reviews, ...newWords, ...newPhrases];
+        // 7. Return Reviews + Shuffled New
+        return [...reviews, ...shuffledNewContent];
     }
 
     /**
      * Generates a session queue for NEW phrases only.
      */
-    async getNewPhrasesQueue(limit: number = 3, targetLevel: CEFRLevel = 'A0'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+    async getNewPhrasesQueue(limit: number = 3, targetLevel: CEFRLevel = 'A0', excludeIds: string[] = []): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
         const queue: { card: VocabularyCard; progress?: WordProgress }[] = [];
         const progressIds = await db.progress.toCollection().primaryKeys();
 
@@ -354,7 +373,7 @@ export class WordsRepository {
         }
 
         const candidates = await collection
-            .filter(w => w.pos === 'phrase' && !progressIds.includes(w.id))
+            .filter(w => w.pos === 'phrase' && !progressIds.includes(w.id) && !excludeIds.includes(w.id))
             .toArray();
 
         // Sort by rank (if relevant)
