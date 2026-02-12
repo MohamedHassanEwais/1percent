@@ -13,6 +13,7 @@ export interface UserProfileData {
     nextLevelXp: number;
     milestones: string[];
     targetLevel: CEFRLevel;
+    maxUnlockedLevel: CEFRLevel;
     createdAt: string;
     lastLoginAt: string;
 }
@@ -26,7 +27,11 @@ export class UserService {
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                return docSnap.data() as UserProfileData;
+                const data = docSnap.data() as UserProfileData;
+                return {
+                    ...data,
+                    maxUnlockedLevel: data.maxUnlockedLevel || 'A0' // Backfill for legacy
+                };
             } else {
                 return null;
             }
@@ -47,7 +52,9 @@ export class UserService {
             streak: 0,
             nextLevelXp: 500,
             milestones: [],
+            milestones: [],
             targetLevel: 'A1',
+            maxUnlockedLevel: 'A0',
             createdAt: new Date().toISOString(),
             lastLoginAt: new Date().toISOString(),
         };
