@@ -52,7 +52,6 @@ export class UserService {
             streak: 0,
             nextLevelXp: 500,
             milestones: [],
-            milestones: [],
             targetLevel: 'A1',
             maxUnlockedLevel: 'A0',
             createdAt: new Date().toISOString(),
