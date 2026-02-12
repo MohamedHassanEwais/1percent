@@ -204,19 +204,13 @@ function SessionContent() {
                 </button>
             </div>
 
-            {/* Level Selector - Top Right (Only show for 'new' mode) */}
+            {/* Level Selector Removed for Hardening */}
             {mode === 'new' && (
                 <div className="absolute top-4 right-4 z-50">
-                    <select
-                        value={targetLevel}
-                        onChange={(e) => setTargetLevel(e.target.value as any)}
-                        className="bg-zinc-900 border border-zinc-700 text-xs rounded px-2 py-1 text-zinc-400 focus:outline-none focus:border-primary"
-                    >
-                        <option value="A0">A0 (Phonetics)</option>
-                        {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
-                            <option key={lvl} value={lvl}>{lvl} Level</option>
-                        ))}
-                    </select>
+                    <div className="bg-zinc-900 border border-zinc-700 text-xs rounded px-3 py-1.5 text-zinc-400 font-bold flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                        {targetLevel} Level
+                    </div>
                 </div>
             )}
 
