@@ -58,44 +58,40 @@ export default function GalaxyMapPage() {
             {/* 3. Action Bar (Bottom) */}
             <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 pointer-events-auto w-full max-w-sm flex flex-col gap-4 px-4">
 
-                {/* Session Limit Selector */}
-                <div className="flex justify-center gap-2 mb-2">
-                    {[5, 10, 20, 30].map((limit) => (
-                        <button
-                            key={limit}
-                            onClick={() => setSessionLimit(limit)}
-                            className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${sessionLimit === limit
-                                ? "bg-white text-black shadow-[0_0_10px_white]"
-                                : "bg-white/10 text-slate-400 hover:bg-white/20"
-                                }`}
-                        >
-                            {limit}
-                        </button>
-                    ))}
-                </div>
-
-                <div className="flex gap-4">
+                <div className="flex flex-col gap-4 w-full">
+                    {/* Main Adventure Button */}
                     <button
-                        onClick={() => router.push(`/session?mode=new&limit=${sessionLimit}`)}
-                        className="flex-1 bg-cyan-400 text-black font-heading font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.6)] hover:scale-105 transition-transform active:scale-95"
+                        onClick={() => router.push('/levels')}
+                        className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-heading font-bold text-xl py-4 rounded-xl shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:scale-105 hover:shadow-[0_0_40px_rgba(124,58,237,0.7)] transition-all active:scale-95 flex items-center justify-center gap-2"
                     >
-                        LEARN NEW 🚀
+                        <span>START ADVENTURE 🚀</span>
                     </button>
+
+                    {/* Quick Review Button */}
                     <button
                         onClick={() => router.push(`/session?mode=review&limit=${sessionLimit}`)}
-                        className="flex-1 bg-[#CCFF00] text-black font-heading font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(204,255,0,0.6)] hover:scale-105 transition-transform active:scale-95"
+                        className="w-full bg-[#CCFF00]/10 border border-[#CCFF00]/30 text-[#CCFF00] font-heading font-bold text-lg py-3 rounded-xl hover:bg-[#CCFF00]/20 transition-all active:scale-95"
                     >
-                        REVIEW 🧠
+                        REVIEW DUE CARDS 🧠
                     </button>
-                </div>
 
-                <button
-                    onClick={() => router.push(`/session?mode=phrases&limit=${Math.max(5, Math.floor(sessionLimit / 2))}`)}
-                    className="w-full bg-pink-500 text-black font-heading font-bold text-lg py-3 rounded-xl shadow-[0_0_20px_rgba(236,72,153,0.6)] hover:scale-105 transition-transform active:scale-95 flex items-center justify-center gap-2"
-                >
-                    <span>LEARN PHRASES</span>
-                    <span className="text-sm bg-black/20 px-2 py-0.5 rounded-full">NEW ✨</span>
-                </button>
+                    {/* Session Limit Selector (Optional, kept for Review) */}
+                    <div className="flex justify-center gap-2 mt-2">
+                        <span className="text-xs text-zinc-500 font-bold self-center mr-2">LIMIT:</span>
+                        {[5, 10, 20].map((limit) => (
+                            <button
+                                key={limit}
+                                onClick={() => setSessionLimit(limit)}
+                                className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${sessionLimit === limit
+                                    ? "bg-zinc-700 text-white"
+                                    : "bg-zinc-900 text-zinc-500 hover:bg-zinc-800"
+                                    }`}
+                            >
+                                {limit}
+                            </button>
+                        ))}
+                    </div>
+                </div>
 
 
             </div>

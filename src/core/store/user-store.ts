@@ -11,6 +11,7 @@ interface UserState {
 
     // Preferences
     targetLevel: CEFRLevel;
+    maxUnlockedLevel: CEFRLevel;
 
     // User Profile Data
     user: {
@@ -26,10 +27,11 @@ interface UserState {
     lastStudyDate: string | null; // ISO Date string for streak logic
 
     // Actions
-    setUserData: (data: { xp: number; level: number; streak: number; nextLevelXp: number; milestones: string[]; targetLevel: CEFRLevel; uid: string; displayName: string | null; email: string | null; photoURL: string | null }) => void;
+    setUserData: (data: { xp: number; level: number; streak: number; nextLevelXp: number; milestones: string[]; targetLevel: CEFRLevel; maxUnlockedLevel: CEFRLevel; uid: string; displayName: string | null; email: string | null; photoURL: string | null }) => void;
     addXp: (amount: number) => void;
     incrementStreak: () => void;
     unlockMilestone: (id: string) => void;
+    unlockNextLevel: (completedLevel: CEFRLevel) => void;
     setTargetLevel: (level: CEFRLevel) => void;
     syncUser: (userData: { uid: string; displayName: string | null; email: string | null; photoURL: string | null }) => void;
     logout: () => void;
@@ -43,7 +45,8 @@ export const useUserStore = create<UserState>()(
             streak: 0,
             nextLevelXp: 500,
             milestones: [],
-            targetLevel: 'A1', // Default to beginner
+            targetLevel: 'A0', // Default to Phonemes (A0)
+            maxUnlockedLevel: 'A0',
 
             user: {
                 uid: null,
@@ -63,6 +66,7 @@ export const useUserStore = create<UserState>()(
                 nextLevelXp: data.nextLevelXp,
                 milestones: data.milestones,
                 targetLevel: data.targetLevel,
+                maxUnlockedLevel: data.maxUnlockedLevel || 'A0', // Default for legacy data
                 user: {
                     uid: data.uid,
                     displayName: data.displayName,
@@ -121,6 +125,18 @@ export const useUserStore = create<UserState>()(
             unlockMilestone: (id) => set((state) => ({
                 milestones: [...state.milestones, id]
             })),
+
+            unlockNextLevel: (completedLevel) => set((state) => {
+                const levels: CEFRLevel[] = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+                const unlockedIndex = levels.indexOf(state.maxUnlockedLevel);
+                const completedIndex = levels.indexOf(completedLevel);
+
+                // Only unlock next if we just completed the current max level
+                if (completedIndex === unlockedIndex && unlockedIndex < levels.length - 1) {
+                    return { maxUnlockedLevel: levels[unlockedIndex + 1] };
+                }
+                return {};
+            }),
 
             setTargetLevel: (level) => set({ targetLevel: level }),
 

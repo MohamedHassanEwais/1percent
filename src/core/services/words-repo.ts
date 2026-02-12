@@ -123,7 +123,7 @@ export class WordsRepository {
                 imageUrl: `https://source.unsplash.com/random/400x300/?abstract,geometric`,
 
                 pos: "phrase",
-                level: 'N/A', // Phrases don't have CEFR levels in our seed yet
+                level: (item.level as CEFRLevel) || 'N/A',
                 tags: []
             }));
             await db.words.bulkAdd(phrases);
@@ -247,7 +247,7 @@ export class WordsRepository {
     /**
      * Generates a session queue for NEW words only.
      */
-    async getNewWordsQueue(limit: number = 10, targetLevel: CEFRLevel = 'A1'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+    async getNewWordsQueue(limit: number = 10, targetLevel: CEFRLevel = 'A0'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
         const queue: { card: VocabularyCard; progress?: WordProgress }[] = [];
 
         // Get IDs of words already in progress
@@ -262,7 +262,7 @@ export class WordsRepository {
 
         // Fetch and Sort
         let candidateWords = await newWordsCollection
-            .filter(w => !progressIds.includes(w.id))
+            .filter(w => !progressIds.includes(w.id) && w.pos !== 'phrase')
             .toArray();
 
         // Explicitly sort by rank (Order of Difficulty)
@@ -281,7 +281,7 @@ export class WordsRepository {
     /**
      * Generates a session queue for REVIEW words only.
      */
-    async getReviewQueue(limit: number = 10): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+    async getReviewQueue(limit: number = 10, targetLevel: CEFRLevel = 'N/A'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
         const now = Date.now();
 
         // Get Due Reviews
@@ -292,11 +292,15 @@ export class WordsRepository {
 
         const queue: { card: VocabularyCard; progress?: WordProgress }[] = [];
 
-        // Fetch card details for due items
+        // Fetch card details for due items and filter by level
         for (const p of dueProgress) {
             if (queue.length >= limit) break;
             const card = await db.words.get(p.wordId);
             if (card) {
+                // If targetLevel is provided and valid, filter by it
+                if (targetLevel && targetLevel !== 'N/A' && card.level !== targetLevel) {
+                    continue;
+                }
                 queue.push({ card, progress: p });
             }
         }
@@ -305,18 +309,64 @@ export class WordsRepository {
     }
 
     /**
-     * Generates a mixed session queue (Fallback / Legacy)
+     * Generates a mixed session queue (Words + Phrases) for a specific level.
      */
     async getSessionQueue(limit: number = 10, targetLevel: CEFRLevel = 'A1'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
-        // 1. Get Reviews First
-        const reviews = await this.getReviewQueue(limit);
+        // 1. Get Scheduled Reviews First (Priority)
+        const reviews = await this.getReviewQueue(limit, targetLevel);
         if (reviews.length >= limit) return reviews;
 
-        // 2. Fill with New Words
+        // 2. Fill with New Content
+        // Target mix: ~70% words, ~30% phrases
         const remaining = limit - reviews.length;
-        const newWords = await this.getNewWordsQueue(remaining, targetLevel);
 
-        return [...reviews, ...newWords];
+        // Ensure at least 1 phrase if possible, but respect ratio
+        const phrasesCount = Math.max(1, Math.floor(remaining * 0.3));
+        const wordsCount = remaining - phrasesCount;
+
+        // Fetch concurrently
+        // Note: calling getNewWordsQueue for phrasesCount might be wrong if we want phrases specifically.
+        // We need a specific getNewPhrasesQueue.
+
+        const newPhrases = await this.getNewPhrasesQueue(phrasesCount, targetLevel);
+
+        // Adjust words count if phrases are fewer than requested
+        const actualPhrasesCount = newPhrases.length;
+        const adjustedWordsCount = remaining - actualPhrasesCount;
+
+        const newWords = await this.getNewWordsQueue(adjustedWordsCount, targetLevel);
+
+        return [...reviews, ...newWords, ...newPhrases];
+    }
+
+    /**
+     * Generates a session queue for NEW phrases only.
+     */
+    async getNewPhrasesQueue(limit: number = 3, targetLevel: CEFRLevel = 'A0'): Promise<{ card: VocabularyCard; progress?: WordProgress }[]> {
+        const queue: { card: VocabularyCard; progress?: WordProgress }[] = [];
+        const progressIds = await db.progress.toCollection().primaryKeys();
+
+        // Filter phrases by level
+        let collection = db.words.orderBy('rank');
+
+        if (targetLevel && targetLevel !== 'N/A') {
+            collection = db.words.where('level').equals(targetLevel);
+        }
+
+        const candidates = await collection
+            .filter(w => w.pos === 'phrase' && !progressIds.includes(w.id))
+            .toArray();
+
+        // Sort by rank (if relevant)
+        candidates.sort((a, b) => a.rank - b.rank);
+
+        const selected = candidates.slice(0, limit);
+
+        for (const card of selected) {
+            queue.push({ card, progress: initializeWordProgress(card.id) });
+        }
+
+        return queue;
     }
 
     /**
@@ -348,10 +398,39 @@ export class WordsRepository {
     }
 
     /**
-     * Counts the total number of words the user has started learning.
+     * Counts the total number of words the user has started learning, optionally by level.
      */
-    async getLearnedWordsCount(): Promise<number> {
-        return await db.progress.count();
+    async getLearnedWordsCount(level?: CEFRLevel): Promise<number> {
+        if (!level || level === 'N/A') {
+            return await db.progress.count();
+        }
+
+        // Join progress with words to filter by level
+        // Dexie doesn't verify joins easily on count without fetching.
+        // Optimized approach: Fetch all progress words, then count.
+        // Or fetch all words of level, then count how many have progress.
+
+        const levelWords = await db.words.where('level').equals(level).primaryKeys();
+
+        // Count how many of these IDs exist in progress
+        const learnedCount = await db.progress.where('wordId').anyOf(levelWords).count();
+
+        return learnedCount;
+    }
+
+    /**
+     * Checks if a level is considered "completed" (e.g. >95% words learned).
+     */
+    async isLevelComplete(level: CEFRLevel): Promise<boolean> {
+        if (!level || level === 'N/A') return false;
+
+        const totalWords = await db.words.where('level').equals(level).count();
+        if (totalWords === 0) return false;
+
+        const learnedCount = await this.getLearnedWordsCount(level);
+
+        // Threshold: 95% of words started/learned
+        return learnedCount >= (totalWords * 0.95);
     }
 }
 

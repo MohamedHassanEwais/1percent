@@ -43,7 +43,7 @@ function SessionContent() {
         reviews: 0
     });
 
-    const { addXp, targetLevel, setTargetLevel } = useUserStore();
+    const { addXp, targetLevel, setTargetLevel, unlockNextLevel, maxUnlockedLevel } = useUserStore();
 
     // Load Queue on Mount
     useEffect(() => {
@@ -57,9 +57,10 @@ function SessionContent() {
 
         let newQueue;
         if (mode === 'review') {
-            newQueue = await wordsRepo.getReviewQueue(limit);
+            newQueue = await wordsRepo.getReviewQueue(limit, targetLevel);
         } else {
-            newQueue = await wordsRepo.getNewWordsQueue(limit, targetLevel);
+            // "New" mode is now "Adventure" mode: Mixed content for the level
+            newQueue = await wordsRepo.getSessionQueue(limit, targetLevel);
         }
 
         setQueue(newQueue);
@@ -99,7 +100,17 @@ function SessionContent() {
         }
     };
 
-    const finishSession = () => {
+    const finishSession = async () => {
+        // Check for Level Completion (if in 'Adventure' mode i.e. not pure review)
+        if (mode === 'new' && targetLevel) {
+            const isComplete = await wordsRepo.isLevelComplete(targetLevel);
+            if (isComplete) {
+                // Check if we overlap with maxUnlocked logic?
+                // Simple call to store action which handles "next" logic
+                unlockNextLevel(targetLevel);
+            }
+        }
+
         // Calculate final stats to pass
         const totalCards = queue.length;
         // In 'new' mode, 'correct' might effectively be 100% since "Got It" is the only option, 
@@ -201,6 +212,7 @@ function SessionContent() {
                         onChange={(e) => setTargetLevel(e.target.value as any)}
                         className="bg-zinc-900 border border-zinc-700 text-xs rounded px-2 py-1 text-zinc-400 focus:outline-none focus:border-primary"
                     >
+                        <option value="A0">A0 (Phonetics)</option>
                         {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
                             <option key={lvl} value={lvl}>{lvl} Level</option>
                         ))}
