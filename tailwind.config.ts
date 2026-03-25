@@ -1,58 +1,27 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-    content: [
-        "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    ],
-    theme: {
-        extend: {
-            colors: {
-                background: "var(--background)",
-                foreground: "var(--foreground)",
-                brand: {
-                    DEFAULT: "#CCFF00", // Signature Lime/Volt
-                    primary: "#CCFF00",
-                    secondary: "#7C3AED", // Deep Violet
-                    accent: "#22D3EE", // Cyan
-                    dark: "#0A0A0A",
-                    surface: "rgba(255, 255, 255, 0.05)",
-                },
-                galaxy: {
-                    star: {
-                        mastered: "#CCFF00",
-                        learning: "#22D3EE",
-                        locked: "rgba(255, 255, 255, 0.1)",
-                    }
-                },
-                primary: {
-                    DEFAULT: "#CCFF00",
-                    foreground: "#000000",
-                },
-                secondary: {
-                    DEFAULT: "#7C3AED",
-                    foreground: "#FFFFFF",
-                },
-                surface: {
-                    DEFAULT: "rgba(255, 255, 255, 0.05)",
-                    hover: "rgba(255, 255, 255, 0.1)",
-                },
-                slate: {
-                    400: "#94A3B8",
-                }
-            },
-            fontFamily: {
-                sans: ["var(--font-inter)"],
-                heading: ["var(--font-space-grotesk)"],
-            },
-            backgroundImage: {
-                'galaxy-gradient': "radial-gradient(circle at center, #1a1a2e 0%, #000000 100%)",
-            },
-            boxShadow: {
-                'neon-lime': "0 0 10px rgba(204, 255, 0, 0.5)",
-                'neon-violet': "0 0 10px rgba(124, 58, 237, 0.5)",
-            }
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: "#121212",
+        surface: "#1E1E1E",
+        accent: {
+          DEFAULT: "#FAFA33",
+          hover: "#FFFF66",
         },
+      },
+      fontFamily: {
+        sans: ['"Inter Arabic"', "sans-serif"],
+      },
     },
-    plugins: [],
+  },
+  plugins: [],
 };
 export default config;
