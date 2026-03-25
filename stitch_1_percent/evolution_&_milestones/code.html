@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evolution &amp; Milestones</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#bfff00", // Electric Lime
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#000000", // Solid black as requested
+                        "accent-violet": "#7c3aed", // Deep Violet
+                        "surface-dark": "#111111",
+                        "surface-border": "#333333"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-black dark:text-white transition-colors duration-300 font-body antialiased selection:bg-primary selection:text-black">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto border-x border-surface-border">
+<!-- Top App Bar -->
+<div class="flex items-center p-4 pb-2 justify-between sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="text-black dark:text-white flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back</span>
+</div>
+<h2 class="text-black dark:text-white text-lg font-bold font-display leading-tight tracking-[-0.015em] flex-1 text-center uppercase tracking-widest text-sm">Evolution</h2>
+<div class="flex size-12 items-center justify-center">
+<button class="flex items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors size-10">
+<span class="material-symbols-outlined text-black dark:text-white" style="font-size: 24px;">settings</span>
+</button>
+</div>
+</div>
+<!-- Headline -->
+<div class="px-4 pb-4 pt-4">
+<h1 class="text-black dark:text-white font-display text-4xl font-bold leading-none tracking-tighter">Your Growth <br/><span class="text-primary">Trajectory</span></h1>
+<p class="text-gray-500 dark:text-gray-400 text-sm mt-2 font-body font-light">Marginal gains compounding over time.</p>
+</div>
+<!-- Charts Section -->
+<div class="flex flex-col gap-4 px-4 py-2">
+<div class="flex w-full flex-col gap-2 p-5 rounded-2xl bg-surface-dark border border-surface-border relative overflow-hidden group">
+<!-- Glow effect behind chart -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-primary/10 rounded-full blur-[60px]"></div>
+<div class="flex justify-between items-end mb-4 relative z-10">
+<div>
+<p class="text-gray-400 text-xs font-medium uppercase tracking-wider font-display mb-1">Total Efficiency</p>
+<p class="text-white font-display text-3xl font-bold leading-tight tracking-tight">Exponential</p>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded text-primary">
+<span class="material-symbols-outlined" style="font-size: 14px;">trending_up</span>
+<p class="text-xs font-bold font-display">+15%</p>
+</div>
+<p class="text-gray-500 text-[10px] mt-1 font-body">vs last 30 days</p>
+</div>
+</div>
+<div class="relative z-10 min-h-[180px] w-full py-2">
+<svg class="drop-shadow-[0_0_8px_rgba(191,255,0,0.5)]" fill="none" height="100%" preserveaspectratio="none" viewbox="0 0 380 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#bfff00" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#bfff00" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Area fill -->
+<path d="M0 130 C40 130 60 110 90 115 C130 120 150 90 190 85 C230 80 260 60 300 45 C340 30 360 20 380 10 V 150 H 0 Z" fill="url(#chartGradient)"></path>
+<!-- Line -->
+<path d="M0 130 C40 130 60 110 90 115 C130 120 150 90 190 85 C230 80 260 60 300 45 C340 30 360 20 380 10" fill="none" stroke="#bfff00" stroke-linecap="round" stroke-width="3"></path>
+<!-- Milestones (Violet Sparks) -->
+<circle class="animate-pulse" cx="90" cy="115" fill="#000" r="4" stroke="#7c3aed" stroke-width="2"></circle>
+<circle class="animate-pulse" cx="190" cy="85" fill="#000" r="4" stroke="#7c3aed" stroke-width="2"></circle>
+<circle class="animate-pulse" cx="300" cy="45" fill="#000" r="4" stroke="#7c3aed" stroke-width="2"></circle>
+</svg>
+</div>
+<div class="flex justify-between mt-2 relative z-10 px-1">
+<p class="text-gray-600 text-[10px] font-bold font-display uppercase">Jan</p>
+<p class="text-gray-600 text-[10px] font-bold font-display uppercase">Feb</p>
+<p class="text-gray-600 text-[10px] font-bold font-display uppercase">Mar</p>
+<p class="text-gray-600 text-[10px] font-bold font-display uppercase">Apr</p>
+<p class="text-gray-600 text-[10px] font-bold font-display uppercase">May</p>
+<p class="text-primary text-[10px] font-bold font-display uppercase">Now</p>
+</div>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 gap-3 px-4 py-2">
+<!-- Stat 1 -->
+<div class="flex flex-col justify-between rounded-xl p-4 bg-surface-dark border border-surface-border hover:border-primary/50 transition-colors group">
+<div class="flex justify-between items-start w-full">
+<div class="p-2 bg-surface-border/50 rounded-lg group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-gray-300 group-hover:text-primary transition-colors" style="font-size: 20px;">bolt</span>
+</div>
+<span class="text-primary text-xs font-bold">+1.2%</span>
+</div>
+<div class="mt-4">
+<p class="text-white font-display text-2xl font-bold leading-tight">124%</p>
+<p class="text-gray-400 text-xs font-medium font-body mt-1">Total Gain</p>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="flex flex-col justify-between rounded-xl p-4 bg-surface-dark border border-surface-border hover:border-primary/50 transition-colors group">
+<div class="flex justify-between items-start w-full">
+<div class="p-2 bg-surface-border/50 rounded-lg group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-gray-300 group-hover:text-primary transition-colors" style="font-size: 20px;">local_fire_department</span>
+</div>
+<span class="text-primary text-xs font-bold">+1 Day</span>
+</div>
+<div class="mt-4">
+<p class="text-white font-display text-2xl font-bold leading-tight">45d</p>
+<p class="text-gray-400 text-xs font-medium font-body mt-1">Current Streak</p>
+</div>
+</div>
+</div>
+<!-- Long Stat Bar -->
+<div class="px-4 py-2">
+<div class="flex items-center justify-between rounded-xl p-4 bg-surface-dark border border-surface-border hover:border-accent-violet/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-surface-border/50 rounded-lg group-hover:bg-accent-violet/20 transition-colors">
+<span class="material-symbols-outlined text-gray-300 group-hover:text-accent-violet transition-colors" style="font-size: 20px;">flag</span>
+</div>
+<div>
+<p class="text-white font-display text-lg font-bold leading-tight">12 Milestones</p>
+<p class="text-gray-400 text-xs font-medium font-body">Achievements unlocked</p>
+</div>
+</div>
+<div class="h-10 w-[1px] bg-surface-border mx-2"></div>
+<div class="text-right">
+<span class="text-accent-violet font-display font-bold text-xl">+1</span>
+</div>
+</div>
+</div>
+<!-- Section Header -->
+<div class="flex items-center justify-between px-4 pt-6 pb-2">
+<h3 class="text-white text-md font-bold font-display uppercase tracking-wider">Milestone Timeline</h3>
+<span class="text-xs text-primary font-mono cursor-pointer hover:underline">View All</span>
+</div>
+<!-- Timeline List -->
+<div class="flex flex-col px-4 pb-8 space-y-4">
+<!-- Timeline Item 1 (Active/Latest) -->
+<div class="relative flex gap-4">
+<div class="flex flex-col items-center">
+<div class="size-3 rounded-full bg-primary shadow-[0_0_10px_#bfff00]"></div>
+<div class="w-[1px] h-full bg-gradient-to-b from-primary to-surface-border my-1"></div>
+</div>
+<div class="flex-1 pb-4">
+<div class="p-4 rounded-xl bg-surface-dark border border-primary/30 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-full -mr-4 -mt-4"></div>
+<div class="flex justify-between items-start mb-1">
+<span class="text-xs font-mono text-primary">TODAY</span>
+<span class="material-symbols-outlined text-primary" style="font-size: 16px;">verified</span>
+</div>
+<h4 class="text-white font-display font-bold text-lg mb-1">Neural Integration</h4>
+<p class="text-gray-400 text-sm font-body leading-relaxed">Achieved 100% focus score for 7 consecutive days. Neural plasticity optimized.</p>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative flex gap-4">
+<div class="flex flex-col items-center">
+<div class="size-3 rounded-full bg-surface-dark border-2 border-accent-violet shadow-[0_0_8px_#7c3aed]"></div>
+<div class="w-[1px] h-full bg-surface-border my-1"></div>
+</div>
+<div class="flex-1 pb-4">
+<div class="p-4 rounded-xl bg-surface-dark border border-surface-border hover:border-accent-violet/30 transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="text-xs font-mono text-gray-500">2 WEEKS AGO</span>
+</div>
+<h4 class="text-white font-display font-bold text-lg mb-1">Deep Work Protocol</h4>
+<p class="text-gray-400 text-sm font-body leading-relaxed">Established consistent 4-hour deep work blocks.</p>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative flex gap-4">
+<div class="flex flex-col items-center">
+<div class="size-3 rounded-full bg-surface-dark border-2 border-surface-border"></div>
+</div>
+<div class="flex-1">
+<div class="p-4 rounded-xl bg-surface-dark border border-surface-border hover:border-white/20 transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="text-xs font-mono text-gray-500">1 MONTH AGO</span>
+</div>
+<h4 class="text-gray-300 font-display font-bold text-lg mb-1">Initiation</h4>
+<p class="text-gray-500 text-sm font-body leading-relaxed">Started the 1% improvement journey.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Action -->
+<div class="sticky bottom-6 px-4 z-50">
+<button class="w-full h-14 bg-white text-black font-display font-bold text-lg rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-primary hover:text-black hover:shadow-[0_0_25px_rgba(191,255,0,0.4)] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_circle</span>
+                Log Daily Progress
+            </button>
+</div>
+<div class="h-6"></div>
+</div>
+</body></html>

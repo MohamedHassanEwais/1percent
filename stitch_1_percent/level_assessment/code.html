@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Level Assessment</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ccff00",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#000000", /* Modified to match request for solid black while keeping theme key */
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide for cleaner UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen font-display text-slate-900 dark:text-white transition-colors duration-300">
+<!-- Main Container -->
+<div class="relative flex flex-col h-full w-full max-w-md mx-auto min-h-screen overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Top App Bar -->
+<div class="flex items-center p-6 pb-2 justify-between z-10">
+<button class="text-slate-900 dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back</span>
+</button>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-wide uppercase opacity-80">Assessment</h2>
+<div class="size-10"></div> <!-- Spacer for centering -->
+</div>
+<!-- Content Scroll Area -->
+<div class="flex-1 overflow-y-auto no-scrollbar pb-10">
+<!-- Headline Section -->
+<div class="px-6 pt-4 pb-6">
+<h1 class="text-slate-900 dark:text-white text-4xl font-bold leading-tight mb-3">Where do you<br/>stand?</h1>
+<p class="font-body text-slate-600 dark:text-white/60 text-base font-normal leading-relaxed">
+                    Select your current proficiency level to tailor your 1% journey.
+                </p>
+</div>
+<!-- Cards List -->
+<div class="flex flex-col gap-5 px-6">
+<!-- Rookie Card -->
+<div class="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity group-hover:opacity-50" data-alt="Abstract minimal geometric shapes rising" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAoB_LXY_6sfPEqfNQQ4UWjMrRNkAUh5I7It6Ooho-JnDo0VRTXwvU_u3frRb13RayL02fStemws1MzgPIjQ1U_pKHka9GESDejdLSkigRgYPuw2ildkKuwnfHCXnthPbxfkubI13hhNrhBz2reNuaIj3QuYgmzN0iEepTdKk_BNtQPD0xKxboMCI1g3XOt-PDtW3idYf0SIFw3e-sL6-l_RIwWpe7DTpCL4BlIUUQnvjoF8Nd7V3SRTkuQX29eZyqaBC8jmweY5OQ");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-light/90 via-background-light/40 to-transparent dark:from-black/90 dark:via-black/50 dark:to-transparent"></div>
+<div class="relative p-5 pt-24 flex flex-col gap-1">
+<div class="flex items-center justify-between mb-1">
+<span class="text-slate-900 dark:text-white text-xs font-bold tracking-widest uppercase opacity-70">Level 1</span>
+</div>
+<h3 class="text-slate-900 dark:text-white text-2xl font-bold tracking-tight">Rookie</h3>
+<p class="font-body text-slate-700 dark:text-white/70 text-sm leading-relaxed max-w-[90%]">
+                            Just starting out on the journey of marginal gains.
+                        </p>
+</div>
+</div>
+<!-- Pro Card -->
+<div class="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity group-hover:opacity-50" data-alt="Abstract structured grid lines perspective" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDxaWWdCQL8V5Fe8U8GCB0p49eW5Og6zL-8tfUfd8EKD9GvWF-bBSf_k_OY689ZE4l9Oa-vGHGB_NJOEqnTCKfHj7XcfXNwUORRo3iiJod2g2IYjGDvzgCI22NUdW1dAkJTm_7sMjYS9fukkS-6_WBI6hvMYgthhk9J9GyBeiXPHHpGqiDkNUt8lRs-biFwbMrpxRPYv60PHdscUdQ8Bt6AxWo7RD4co71MwqjIk0vHdaIvLEdAe5H2VmE8ulurm1S1iPWstCe_dYQ");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-light/90 via-background-light/40 to-transparent dark:from-black/90 dark:via-black/50 dark:to-transparent"></div>
+<div class="relative p-5 pt-24 flex flex-col gap-1">
+<div class="flex items-center justify-between mb-1">
+<span class="text-slate-900 dark:text-white text-xs font-bold tracking-widest uppercase opacity-70">Level 2</span>
+</div>
+<h3 class="text-slate-900 dark:text-white text-2xl font-bold tracking-tight">Pro</h3>
+<p class="font-body text-slate-700 dark:text-white/70 text-sm leading-relaxed max-w-[90%]">
+                            Consistent habits formed, looking for optimization.
+                        </p>
+</div>
+</div>
+<!-- Master Card (Selected) -->
+<div class="group relative overflow-hidden rounded-2xl border-2 border-primary bg-white/80 dark:bg-white/10 backdrop-blur-xl shadow-[0_0_30px_-5px_rgba(204,255,0,0.3)] transition-all duration-300 transform scale-[1.02]">
+<div class="absolute inset-0 bg-cover bg-center opacity-50 mix-blend-overlay" data-alt="Abstract glowing peak high contrast neon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6sEoj23hbKiiVfwqzK2SoMzwS7ehBfGMzOsII-AaLwzGbAAv0ihmCU1cV84I6I3kLUBTvPiSnnfh7fGxFRfPJBcXq88DgQ3VdolSifERh2B5ja3uKOR1kuF0RgOYQNjTJ2aSAd8IG_RhwBzo__aDsayaN1YPQv4skd5fxrH25Z1PHr5GC-OHcxC5gLR26tOk0IMLFOem6-jOzYKva_R-eF3lviOSThRJSGoqaIxWTpuSC09tTqU94dRnsDrRr9igY0ESfjRqit8Y");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-light/90 via-background-light/20 to-transparent dark:from-black/90 dark:via-black/40 dark:to-transparent"></div>
+<!-- Selection Indicator -->
+<div class="absolute top-4 right-4 flex items-center justify-center size-6 bg-primary rounded-full shadow-[0_0_10px_rgba(204,255,0,0.5)]">
+<span class="material-symbols-outlined text-black text-sm font-bold">check</span>
+</div>
+<div class="relative p-5 pt-24 flex flex-col gap-1">
+<div class="flex items-center justify-between mb-1">
+<span class="text-primary text-xs font-bold tracking-widest uppercase">Level 3</span>
+</div>
+<h3 class="text-slate-900 dark:text-white text-2xl font-bold tracking-tight">Master</h3>
+<p class="font-body text-slate-700 dark:text-white/80 text-sm leading-relaxed max-w-[90%]">
+                            Elite performance. Seeking the final 1% edge.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Bottom Action -->
+<div class="p-6 mt-4">
+<button class="w-full bg-primary hover:bg-[#b3e600] text-black font-display font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(204,255,0,0.2)] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                    Continue
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

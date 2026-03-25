@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>1% - Better Every Day</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ccff00",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#000000", /* Modified to strict black per user request */
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    backgroundImage: {
+                         'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.07%22/%3E%3C/svg%3E')",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom pulsing glow effect */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px 0px rgba(204, 255, 0, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 50px 10px rgba(204, 255, 0, 0.7);
+                transform: scale(1.02);
+            }
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        /* Subtle fade in for text */
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in-up 1s ease-out forwards;
+            opacity: 0;
+        }
+        .delay-300 { animation-delay: 300ms; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased overflow-hidden">
+<div class="relative flex h-screen w-full flex-col items-center justify-between overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Noise Texture Overlay -->
+<div class="absolute inset-0 z-0 pointer-events-none mix-blend-overlay bg-noise opacity-30"></div>
+<!-- Top Spacer -->
+<div class="flex-1"></div>
+<!-- Central Hero Element -->
+<div class="relative z-10 flex flex-col items-center justify-center">
+<div class="animate-fade-in relative flex items-center justify-center w-48 h-48 rounded-full border-4 border-primary bg-transparent animate-pulse-glow">
+<!-- Inner glow/fill for contrast -->
+<div class="absolute inset-0 rounded-full bg-primary/10"></div>
+<h1 class="text-primary tracking-tight text-[64px] font-bold leading-none z-10 font-display">
+                    1%
+                </h1>
+</div>
+</div>
+<!-- Bottom Text Section -->
+<div class="flex-1 flex flex-col items-center justify-end pb-12 z-10">
+<div class="animate-fade-in delay-300 flex flex-col items-center gap-2">
+<p class="text-neutral-400 dark:text-neutral-500 text-sm font-medium tracking-widest uppercase font-body">
+                    Better every day
+                </p>
+<!-- Optional Loading Indicator styled minimally -->
+<div class="h-1 w-12 bg-neutral-800 rounded-full mt-4 overflow-hidden">
+<div class="h-full bg-primary w-1/3 animate-[shimmer_1.5s_infinite]"></div>
+</div>
+</div>
+<!-- Safe Area Bottom Spacer -->
+<div class="h-6"></div>
+</div>
+</div>
+</body></html>

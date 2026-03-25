@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Word Deck - 1 Percent</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#9513ec",
+              "background-light": "#f7f6f8",
+              "background-dark": "#1b1022",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            backgroundImage: {
+                'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+            }
+          },
+        },
+      }
+    </script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(149, 19, 236, 0.15);
+        }
+        
+        .neon-border:focus-within {
+            box-shadow: 0 0 20px rgba(149, 19, 236, 0.4);
+            border-color: rgba(149, 19, 236, 0.8);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-black text-white font-display antialiased min-h-screen selection:bg-primary selection:text-white overflow-x-hidden">
+<!-- Background Noise Overlay -->
+<div class="fixed inset-0 pointer-events-none z-0 bg-noise mix-blend-overlay opacity-50"></div>
+<!-- Ambient Glow -->
+<div class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[120px] rounded-full pointer-events-none z-0"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+<div class="relative z-10 flex flex-col h-full min-h-screen max-w-md mx-auto w-full">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 backdrop-blur-md bg-black/50 border-b border-white/5">
+<div class="flex items-center justify-between p-4 pb-2 pt-6"> <!-- Added pt-6 for status bar spacing -->
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-white/10 transition-colors text-white">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<h2 class="text-white text-xl font-bold tracking-tight">The Deck</h2>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-white/10 transition-colors text-white">
+<span class="material-symbols-outlined text-2xl">filter_list</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Search Bar Section -->
+<div class="px-4 py-6">
+<label class="group neon-border flex items-center w-full h-14 rounded-xl bg-white/5 border border-white/10 transition-all duration-300">
+<div class="pl-4 pr-3 text-primary/80 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">search</span>
+</div>
+<input class="flex-1 bg-transparent border-none text-white placeholder-white/40 focus:ring-0 font-body text-base h-full py-0" placeholder="Search your lexicon..." type="text"/>
+<button class="pr-4 text-white/40 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">mic</span>
+</button>
+</label>
+</div>
+<!-- List Content -->
+<div class="flex flex-col gap-3 px-4 pb-20">
+<!-- List Header/Filter Tags (Optional visual flair for 'The Deck') -->
+<div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar mb-2">
+<button class="px-4 py-1.5 rounded-full bg-primary text-white text-sm font-bold font-body whitespace-nowrap shadow-[0_0_10px_rgba(149,19,236,0.5)]">All Words</button>
+<button class="px-4 py-1.5 rounded-full bg-white/5 text-white/70 hover:bg-white/10 text-sm font-medium font-body whitespace-nowrap border border-white/5">Mastered</button>
+<button class="px-4 py-1.5 rounded-full bg-white/5 text-white/70 hover:bg-white/10 text-sm font-medium font-body whitespace-nowrap border border-white/5">Learning</button>
+<button class="px-4 py-1.5 rounded-full bg-white/5 text-white/70 hover:bg-white/10 text-sm font-medium font-body whitespace-nowrap border border-white/5">New</button>
+</div>
+<!-- Card 1: Green (Mastered) -->
+<div class="glass-card rounded-xl p-4 flex items-center justify-between gap-4 group hover:bg-white/10 transition-all cursor-pointer">
+<div class="flex items-center gap-4 flex-1">
+<!-- Status Indicator -->
+<div class="relative shrink-0 flex items-center justify-center size-10 rounded-lg bg-black/40 border border-white/5">
+<div class="size-2.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
+</div>
+<div class="flex flex-col">
+<p class="text-white text-lg font-bold leading-tight tracking-wide group-hover:text-primary transition-colors">Kaizen</p>
+<p class="text-white/50 text-sm font-body font-normal leading-tight mt-0.5">Continuous improvement</p>
+</div>
+</div>
+<div class="text-white/30 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<!-- Card 2: Yellow (In Progress) -->
+<div class="glass-card rounded-xl p-4 flex items-center justify-between gap-4 group hover:bg-white/10 transition-all cursor-pointer">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative shrink-0 flex items-center justify-center size-10 rounded-lg bg-black/40 border border-white/5">
+<div class="size-2.5 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]"></div>
+</div>
+<div class="flex flex-col">
+<p class="text-white text-lg font-bold leading-tight tracking-wide group-hover:text-primary transition-colors">Eudaimonia</p>
+<p class="text-white/50 text-sm font-body font-normal leading-tight mt-0.5">Human flourishing &amp; welfare</p>
+</div>
+</div>
+<div class="text-white/30 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<!-- Card 3: Red (New/Weak) -->
+<div class="glass-card rounded-xl p-4 flex items-center justify-between gap-4 group hover:bg-white/10 transition-all cursor-pointer">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative shrink-0 flex items-center justify-center size-10 rounded-lg bg-black/40 border border-white/5">
+<div class="size-2.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div>
+</div>
+<div class="flex flex-col">
+<p class="text-white text-lg font-bold leading-tight tracking-wide group-hover:text-primary transition-colors">Obsequious</p>
+<p class="text-white/50 text-sm font-body font-normal leading-tight mt-0.5">Excessively obedient</p>
+</div>
+</div>
+<div class="text-white/30 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<!-- Card 4: Green -->
+<div class="glass-card rounded-xl p-4 flex items-center justify-between gap-4 group hover:bg-white/10 transition-all cursor-pointer">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative shrink-0 flex items-center justify-center size-10 rounded-lg bg-black/40 border border-white/5">
+<div class="size-2.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
+</div>
+<div class="flex flex-col">
+<p class="text-white text-lg font-bold leading-tight tracking-wide group-hover:text-primary transition-colors">Serendipity</p>
+<p class="text-white/50 text-sm font-body font-normal leading-tight mt-0.5">Happy accidental discovery</p>
+</div>
+</div>
+<div class="text-white/30 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<!-- Card 5: Yellow -->
+<div class="glass-card rounded-xl p-4 flex items-center justify-between gap-4 group hover:bg-white/10 transition-all cursor-pointer">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative shrink-0 flex items-center justify-center size-10 rounded-lg bg-black/40 border border-white/5">
+<div class="size-2.5 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]"></div>
+</div>
+<div class="flex flex-col">
+<p class="text-white text-lg font-bold leading-tight tracking-wide group-hover:text-primary transition-colors">Ephemeral</p>
+<p class="text-white/50 text-sm font-body font-normal leading-tight mt-0.5">Lasting a very short time</p>
+</div>
+</div>
+<div class="text-white/30 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<!-- Card 6: Red -->
+<div class="glass-card rounded-xl p-4 flex items-center justify-between gap-4 group hover:bg-white/10 transition-all cursor-pointer">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative shrink-0 flex items-center justify-center size-10 rounded-lg bg-black/40 border border-white/5">
+<div class="size-2.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div>
+</div>
+<div class="flex flex-col">
+<p class="text-white text-lg font-bold leading-tight tracking-wide group-hover:text-primary transition-colors">Limerence</p>
+<p class="text-white/50 text-sm font-body font-normal leading-tight mt-0.5">Involuntary romantic infatuation</p>
+</div>
+</div>
+<div class="text-white/30 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Floating Action Button (Optional Contextual Add) -->
+<div class="fixed bottom-6 right-6 z-50">
+<button class="flex items-center justify-center size-14 rounded-full bg-primary text-white shadow-[0_0_20px_rgba(149,19,236,0.6)] hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+</div>
+</body></html>

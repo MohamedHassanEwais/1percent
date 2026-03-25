@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>1 Percent Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#bfff00", // Electric Lime
+            "background-light": "#f8f8f5",
+            "background-dark": "#000000", // Requested Solid Black
+            "glass-dark": "rgba(255, 255, 255, 0.05)",
+            "accent-violet": "#7F00FF", // Deep Violet
+          },
+          fontFamily: {
+            "display": ["Space Grotesk", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    /* Custom utility for the glowing sun effect since we can't use JS canvas or complex images */
+    .growth-sun-glow {
+      box-shadow: 0 0 60px 10px rgba(191, 255, 0, 0.2);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased min-h-screen flex flex-col overflow-x-hidden text-slate-900 dark:text-white">
+<!-- Top App Bar -->
+<div class="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 pb-2 justify-between border-b border-gray-200 dark:border-white/10">
+<div class="flex size-12 shrink-0 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 border border-white/20" data-alt="User profile avatar abstract geometric" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCSifjKeAFsPBK49Y_7BxWT_okUXHL5yXlnH-9Yj1b5T0U3VGNIulSoFdN2FcpQvVtFJp-9P-eejmNM5Yt4XIUeMQMYLoFotKgXDUhaRt6WfWBuUrnS1nII4UJIfCukMND2E9U_3ZKXxHPPd4lC_7Oo3lTWkPjwENgSDnvUqCwKwdGR5d26QQojlK5XQewzMXTbChZn2PjoINFPLMzkcZuNLLUoBLtT0297_Q8vJPQyiUaNdAYbQfNhPvBLfWooBHDssnM7ZkrgdUo");'></div>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">1 Percent</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-transparent text-slate-900 dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</button>
+</div>
+</div>
+<main class="flex-1 flex flex-col w-full max-w-md mx-auto">
+<!-- Headline -->
+<div class="px-4 pt-6 pb-2 text-center">
+<h1 class="text-slate-900 dark:text-white tracking-tight text-[32px] font-bold leading-tight">Your Orbit</h1>
+<p class="text-slate-500 dark:text-gray-400 text-sm mt-1">Marginal gains, compounding daily.</p>
+</div>
+<!-- Growth Sun Visualizer -->
+<div class="relative w-full aspect-square max-h-[360px] mx-auto flex items-center justify-center my-4">
+<!-- Glow effects mimicking particles -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-64 h-64 rounded-full bg-gradient-to-tr from-primary/10 to-transparent blur-3xl"></div>
+<div class="w-48 h-48 rounded-full bg-primary/20 blur-2xl animate-pulse"></div>
+</div>
+<!-- Central Sun Image -->
+<div class="relative w-56 h-56 rounded-full overflow-hidden growth-sun-glow border border-primary/30 z-10 bg-black">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover opacity-90 mix-blend-screen" data-alt="Glowing electric lime abstract particle sphere" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBMwo2zQyy6HyDgDxL6U05JiXa07TOgRauh_HmMKGm0uob1AdVd4C1ShyeFT-6_XdQU7cW282zpusrMCYrdWGo-B_7G3Pt6G3z7DnPZ52YfTXI6LtmvTKE4yvXJaH1mPFGVToqxlWC9x0tFuZOO2ksWQhkFHnpNs3IFQfl78UsmuDk-8iF_QJg2tXd6p1wkTStueHqUu6MGQZmdtg_mmUGH8azNiqVUBOVaObozDc67UACffz1ejDfJbL-_BQFJxXVGUn3B_CGoCsk");'>
+</div>
+<!-- Center Text Overlay -->
+<div class="absolute inset-0 flex flex-col items-center justify-center z-20">
+<span class="text-primary text-4xl font-bold">+1%</span>
+<span class="text-white/60 text-xs uppercase tracking-widest mt-1">Better Today</span>
+</div>
+</div>
+<!-- Orbiting Satellite Indicator -->
+<div class="absolute w-[280px] h-[280px] rounded-full border border-dashed border-white/10 animate-[spin_10s_linear_infinite]">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-accent-violet rounded-full shadow-[0_0_10px_#7F00FF]"></div>
+</div>
+</div>
+<!-- Stats Row -->
+<div class="grid grid-cols-3 gap-3 px-4 mb-8">
+<div class="flex flex-col items-center justify-center p-4 rounded-xl bg-glass-dark border border-white/10 backdrop-blur-sm">
+<span class="text-gray-400 text-xs font-medium uppercase tracking-wider mb-1">Streak</span>
+<span class="text-white text-2xl font-bold">14</span>
+<span class="text-primary text-xs font-medium">Days</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4 rounded-xl bg-glass-dark border border-primary/30 backdrop-blur-sm shadow-[0_0_15px_-5px_rgba(191,255,0,0.3)]">
+<span class="text-gray-400 text-xs font-medium uppercase tracking-wider mb-1">Gain</span>
+<span class="text-primary text-2xl font-bold">+1.2%</span>
+<span class="text-primary/60 text-xs font-medium">Today</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4 rounded-xl bg-glass-dark border border-white/10 backdrop-blur-sm">
+<span class="text-gray-400 text-xs font-medium uppercase tracking-wider mb-1">Focus</span>
+<span class="text-white text-2xl font-bold">850</span>
+<span class="text-gray-500 text-xs font-medium">Pts</span>
+</div>
+</div>
+<!-- Daily Rituals Section -->
+<div class="flex-1 flex flex-col px-4 pb-24">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-white text-lg font-bold leading-tight">Daily Rituals</h3>
+<button class="text-primary text-sm font-medium hover:text-primary/80 transition-colors">View All</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Ritual Card 1 -->
+<div class="group relative flex items-center p-4 rounded-xl bg-glass-dark border border-white/10 hover:border-primary/50 transition-all duration-300 backdrop-blur-xl overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-center w-12 h-12 rounded-lg bg-white/5 text-primary mr-4 border border-white/5 group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<div class="flex-1">
+<h4 class="text-white font-bold text-base mb-0.5">Hydration Protocol</h4>
+<p class="text-gray-400 text-xs">0/3 Liters consumed</p>
+</div>
+<div class="flex items-center">
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-primary hover:text-black text-white border border-white/10 transition-all">
+<span class="material-symbols-outlined text-xl">add</span>
+</button>
+</div>
+</div>
+<!-- Ritual Card 2 -->
+<div class="group relative flex items-center p-4 rounded-xl bg-glass-dark border border-white/10 hover:border-primary/50 transition-all duration-300 backdrop-blur-xl overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-center w-12 h-12 rounded-lg bg-white/5 text-accent-violet mr-4 border border-white/5 group-hover:bg-accent-violet/10 transition-colors">
+<span class="material-symbols-outlined">self_improvement</span>
+</div>
+<div class="flex-1">
+<h4 class="text-white font-bold text-base mb-0.5">Deep Work Session</h4>
+<p class="text-gray-400 text-xs">45 mins remaining</p>
+</div>
+<div class="flex items-center">
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-primary text-background-dark border border-primary shadow-[0_0_10px_rgba(191,255,0,0.4)]">
+<span class="material-symbols-outlined text-xl">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Ritual Card 3 -->
+<div class="group relative flex items-center p-4 rounded-xl bg-glass-dark border border-white/10 hover:border-primary/50 transition-all duration-300 backdrop-blur-xl overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-center w-12 h-12 rounded-lg bg-white/5 text-primary mr-4 border border-white/5 group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">menu_book</span>
+</div>
+<div class="flex-1">
+<h4 class="text-white font-bold text-base mb-0.5">Knowledge Intake</h4>
+<p class="text-gray-400 text-xs">Read 10 pages</p>
+</div>
+<div class="flex items-center">
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-primary hover:text-black text-white border border-white/10 transition-all">
+<span class="material-symbols-outlined text-xl">check</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full bg-background-dark/90 backdrop-blur-xl border-t border-white/10 pb-6 pt-2 px-6 z-50">
+<div class="flex justify-between items-center max-w-md mx-auto">
+<button class="flex flex-col items-center gap-1 p-2 text-primary">
+<span class="material-symbols-outlined filled text-2xl">grid_view</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-accent-violet transition-colors">
+<span class="material-symbols-outlined text-2xl">bar_chart</span>
+<span class="text-[10px] font-medium">Stats</span>
+</button>
+<div class="relative -top-6">
+<button class="flex items-center justify-center w-14 h-14 rounded-full bg-primary text-background-dark shadow-[0_0_20px_rgba(191,255,0,0.4)] hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-accent-violet transition-colors">
+<span class="material-symbols-outlined text-2xl">groups</span>
+<span class="text-[10px] font-medium">Tribe</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-accent-violet transition-colors">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</div>
+</nav>
+</body></html>

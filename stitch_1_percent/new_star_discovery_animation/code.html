@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>New Star Discovery</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ccff00",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#000000", /* Modified to strict black per prompt, though theme config requested #1f230f usually, prompt overrides for specific screen feel */
+                        "secondary-dark": "#1f230f",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom glow effects for the sci-fi feel */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+        }
+        .star-core-glow {
+            box-shadow: 0 0 60px 20px rgba(204, 255, 0, 0.4), 
+                        0 0 120px 60px rgba(204, 255, 0, 0.1);
+        }
+        .glass-blur {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white overflow-hidden h-screen w-full flex flex-col relative selection:bg-primary selection:text-black">
+<!-- Ambient Background Effects -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<!-- Radial gradient for deep space feel -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary-dark/30 via-transparent to-transparent opacity-50"></div>
+<!-- Subtle stars dust -->
+<div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-150 contrast-150 mix-blend-overlay"></div>
+</div>
+<!-- Top Navigation -->
+<div class="relative z-20 flex items-center p-4 pt-8 justify-between">
+<button class="flex size-10 items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-white" style="font-size: 24px;">arrow_back</span>
+</button>
+<h2 class="text-white/60 text-sm font-bold uppercase tracking-widest flex-1 text-center">New Discovery</h2>
+<button class="flex items-center justify-center h-10 px-4 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+<span class="text-primary text-sm font-bold tracking-wide">SKIP</span>
+</button>
+</div>
+<!-- Main Content Area -->
+<div class="relative z-10 flex-1 flex flex-col items-center justify-center w-full max-w-md mx-auto px-6 pb-12">
+<!-- Star Visualization -->
+<div class="relative flex items-center justify-center mb-12 py-12 w-full">
+<!-- Shockwaves/Ripples -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-64 h-64 rounded-full border border-primary/20 scale-150 opacity-10"></div>
+<div class="absolute w-64 h-64 rounded-full border border-primary/40 scale-125 opacity-20"></div>
+<div class="absolute w-64 h-64 rounded-full border border-primary/60 scale-100 opacity-30"></div>
+</div>
+<!-- The Star Core -->
+<div class="relative z-10 w-32 h-32 rounded-full bg-white flex items-center justify-center star-core-glow">
+<div class="absolute inset-0 rounded-full bg-primary opacity-50 blur-xl"></div>
+<div class="w-full h-full rounded-full bg-gradient-to-tr from-primary via-white to-primary opacity-90 animate-pulse"></div>
+</div>
+<!-- Particle decoration (simulated with absolute divs) -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
+<div class="absolute top-[20%] left-[20%] w-1.5 h-1.5 bg-primary rounded-full opacity-80 shadow-[0_0_10px_#ccff00]"></div>
+<div class="absolute top-[80%] right-[30%] w-1 h-1 bg-white rounded-full opacity-60"></div>
+<div class="absolute top-[30%] right-[20%] w-2 h-2 bg-primary/80 rounded-full opacity-90 shadow-[0_0_10px_#ccff00]"></div>
+<div class="absolute bottom-[20%] left-[30%] w-1.5 h-1.5 bg-white/90 rounded-full opacity-70"></div>
+</div>
+</div>
+<!-- Typography Section -->
+<div class="text-center relative z-20 space-y-2">
+<!-- Glassmorphic Badge -->
+<div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 glass-blur mb-6">
+<span class="material-symbols-outlined text-primary mr-2" style="font-size: 16px;">bolt</span>
+<span class="text-primary text-xs font-bold uppercase tracking-wider">+1% Knowledge Added</span>
+</div>
+<h1 class="text-white text-5xl md:text-6xl font-bold tracking-tighter leading-none text-glow pb-2">
+                RESILIENT
+            </h1>
+<p class="text-white/80 text-lg md:text-xl font-light leading-relaxed max-w-xs mx-auto pt-4">
+                Able to withstand or recover quickly from difficult conditions.
+            </p>
+</div>
+<!-- Action / Controls -->
+<div class="mt-auto pt-12 w-full flex flex-col items-center gap-4">
+<button class="w-full h-14 bg-primary text-black font-bold text-lg rounded-full flex items-center justify-center hover:bg-[#b3e600] transition-colors shadow-[0_0_20px_rgba(204,255,0,0.3)]">
+                Add to Collection
+            </button>
+<div class="flex items-center gap-2 text-white/40 text-sm">
+<span class="material-symbols-outlined" style="font-size: 16px;">volume_up</span>
+<span>Pronunciation</span>
+</div>
+</div>
+</div>
+</body></html>

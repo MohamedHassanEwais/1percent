@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Galaxy Map Home Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c4f20d",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#1e2210",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                    boxShadow: {
+                        "neon": "0 0 20px rgba(196, 242, 13, 0.4)",
+                        "neon-sm": "0 0 10px rgba(196, 242, 13, 0.6)",
+                        "pulse-orange": "0 0 15px rgba(249, 115, 22, 0.5)"
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display overflow-hidden h-screen w-full relative">
+<!-- Infinite Canvas Background Container -->
+<div class="absolute inset-0 z-0 bg-black overflow-hidden">
+<!-- Background Space Image -->
+<div class="absolute inset-0 bg-cover bg-center opacity-60" data-alt="Deep space nebula background with stars" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuABrYMCDz_DaQ7Hchl4XjAsyJ2_WWQgNEQ9r5JTPyrrmUPfyw0YkUpn_lQHaWJdWxvPlFXC3CK1pCWoz3AOUEMj1s4o6vxU4F-Xv__TGU9lnM1kmXkr26V57N8YHHbDAahZdfGd42yHx0yBGYxPIwRSt7_riT4lQBa2vmxYtkxWFUHBLLXoBvZcJ5M-8J539c1vA3sYbrrN1WlWt_6AOsadF2PBDU00E38-iHki2Bs8Y566dXD6cJMjTvQTaeNzfDKXC1bCGvLKjTg");'>
+</div>
+<!-- Gradient Overlay for "Void" effect -->
+<div class="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80 pointer-events-none"></div>
+<!-- Simulated Constellations & Nodes -->
+<div class="absolute inset-0 w-full h-full pointer-events-none">
+<!-- Connection Lines (SVG) -->
+<svg class="absolute inset-0 w-full h-full z-0 opacity-40" xmlns="http://www.w3.org/2000/svg">
+<line stroke="#c4f20d" stroke-width="1" x1="20%" x2="50%" y1="30%" y2="45%"></line>
+<line stroke="#c4f20d" stroke-width="1" x1="50%" x2="80%" y1="45%" y2="40%"></line>
+<line stroke="#c4f20d" stroke-dasharray="4 4" stroke-width="1" x1="50%" x2="40%" y1="45%" y2="65%"></line>
+<line stroke="gray" stroke-dasharray="4 4" stroke-width="1" x1="40%" x2="25%" y1="65%" y2="75%"></line>
+</svg>
+<!-- Node: Learned (Lime) -->
+<div class="absolute top-[30%] left-[20%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2 group cursor-pointer pointer-events-auto">
+<div class="w-6 h-6 bg-primary rounded-full shadow-neon animate-pulse flex items-center justify-center">
+<span class="w-2 h-2 bg-white rounded-full"></span>
+</div>
+<span class="text-primary text-xs font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">ABYSS</span>
+</div>
+<!-- Node: Learned (Lime) -->
+<div class="absolute top-[45%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2 group cursor-pointer pointer-events-auto">
+<div class="w-8 h-8 bg-primary rounded-full shadow-neon flex items-center justify-center ring-4 ring-primary/20">
+<span class="material-symbols-outlined text-black text-[16px]">check</span>
+</div>
+<span class="text-white text-sm font-bold tracking-wider shadow-black drop-shadow-md">NEBULA</span>
+</div>
+<!-- Node: To Review (Orange) -->
+<div class="absolute top-[40%] left-[80%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2 group cursor-pointer pointer-events-auto">
+<div class="w-6 h-6 bg-orange-500 rounded-full shadow-pulse-orange animate-[pulse_2s_infinite] flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[14px]">refresh</span>
+</div>
+<span class="text-orange-400 text-xs font-bold tracking-widest">ZENITH</span>
+</div>
+<!-- Node: Locked (Gray) -->
+<div class="absolute top-[65%] left-[40%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-auto">
+<div class="w-4 h-4 bg-gray-600 rounded-full opacity-40"></div>
+<span class="text-gray-500 text-[10px] tracking-widest">LOCKED</span>
+</div>
+<!-- Node: Locked (Gray) -->
+<div class="absolute top-[75%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-auto">
+<div class="w-3 h-3 bg-gray-700 rounded-full opacity-20"></div>
+</div>
+<!-- Many small stars background -->
+<div class="absolute top-[15%] left-[10%] w-1 h-1 bg-white rounded-full opacity-60"></div>
+<div class="absolute top-[85%] left-[90%] w-1.5 h-1.5 bg-primary/40 rounded-full opacity-50"></div>
+<div class="absolute top-[10%] left-[85%] w-1 h-1 bg-white rounded-full opacity-30"></div>
+<div class="absolute top-[60%] left-[95%] w-1 h-1 bg-orange-500/40 rounded-full opacity-40"></div>
+</div>
+</div>
+<!-- UI Overlay Layer -->
+<div class="relative z-10 flex flex-col h-full pointer-events-none">
+<!-- HUD Header -->
+<div class="flex items-start justify-between p-4 pt-6 md:pt-8 pointer-events-auto">
+<!-- Glass Pill Stats -->
+<div class="backdrop-blur-md bg-black/40 border border-white/10 rounded-full flex items-center pl-3 pr-5 py-2 gap-3 shadow-lg">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white text-sm font-bold leading-none">125/3000</span>
+<span class="text-gray-400 text-[10px] uppercase tracking-wide font-medium">Stars Lit</span>
+</div>
+</div>
+<!-- Streak Badge -->
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-2 bg-primary text-black px-4 py-2 rounded-full shadow-neon-sm font-bold">
+<span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+<span>12</span>
+</div>
+<span class="text-white/60 text-[10px] mt-1 mr-2 uppercase tracking-wider">Day Streak</span>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="px-6 mt-2 pointer-events-auto">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-4 rounded-2xl bg-[#1e2210]/80 backdrop-blur-xl border border-white/5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all shadow-lg text-sm font-medium" placeholder="Search constellations or words..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+<button class="p-2 hover:bg-white/10 rounded-full text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Spacer -->
+<div class="flex-1"></div>
+<!-- Side Controls (Zoom) -->
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-auto">
+<button class="w-12 h-12 rounded-full bg-[#1e2210]/90 backdrop-blur-md border border-white/10 text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform hover:bg-white/10">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-[#1e2210]/90 backdrop-blur-md border border-white/10 text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform hover:bg-white/10">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-[#1e2210]/90 backdrop-blur-md border border-white/10 text-primary flex items-center justify-center shadow-lg active:scale-95 transition-transform mt-4 hover:bg-white/10">
+<span class="material-symbols-outlined">near_me</span>
+</button>
+</div>
+<!-- Footer / FAB Area -->
+<div class="p-6 pb-8 flex flex-col items-center justify-end pointer-events-auto w-full bg-gradient-to-t from-black/90 to-transparent">
+<!-- Quick Chips -->
+<div class="flex gap-3 mb-6 overflow-x-auto w-full justify-center no-scrollbar">
+<button class="flex items-center gap-2 px-4 py-2 bg-[#25271b] border border-white/5 rounded-full text-xs font-medium text-gray-300 hover:bg-white/10 transition-colors whitespace-nowrap">
+<span class="w-2 h-2 rounded-full bg-primary shadow-neon-sm"></span>
+                    Show Learned
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-[#25271b] border border-white/5 rounded-full text-xs font-medium text-gray-300 hover:bg-white/10 transition-colors whitespace-nowrap">
+<span class="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.6)]"></span>
+                    To Review (5)
+                </button>
+</div>
+<!-- Launch Button -->
+<button class="group relative flex items-center justify-center w-full max-w-sm h-16 bg-primary rounded-full shadow-neon hover:shadow-[0_0_30px_rgba(196,242,13,0.6)] transition-all active:scale-95 active:shadow-none">
+<div class="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+<div class="flex items-center gap-3 text-black font-bold text-lg tracking-tight">
+<span class="material-symbols-outlined text-[28px] animate-[bounce_2s_infinite]">rocket_launch</span>
+<span>LAUNCH ROCKET</span>
+</div>
+<div class="absolute right-2 top-2 bottom-2 w-12 bg-black/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-black/60">arrow_forward</span>
+</div>
+</button>
+<p class="text-white/30 text-[10px] mt-4 font-mono tracking-widest">GALAXY MAP V2.4 // SYSTEM ONLINE</p>
+</div>
+</div>
+</body></html>

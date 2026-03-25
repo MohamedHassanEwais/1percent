@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Premium Upgrade Paywall</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ccff00",
+              "background-light": "#f8f8f5",
+              "background-dark": "#1f230f",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "Noto Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            boxShadow: {
+                'glow': '0 0 25px -5px rgba(204, 255, 0, 0.4)',
+                'card-glow': '0 0 15px rgba(204, 255, 0, 0.15)',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .violet-aura {
+            background: radial-gradient(120% 50% at 50% 100%, rgba(76, 29, 149, 0.35) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+        
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-black text-white font-display antialiased overflow-x-hidden min-h-screen flex flex-col relative group/design-root">
+<!-- Ambient Background Effects -->
+<div class="fixed inset-0 pointer-events-none z-0 violet-aura"></div>
+<div class="fixed top-0 left-0 w-full h-32 bg-gradient-to-b from-black via-black to-transparent z-10 pointer-events-none"></div>
+<!-- Main Container -->
+<div class="relative z-10 flex flex-col h-full grow w-full max-w-md mx-auto p-5 pb-8 min-h-screen">
+<!-- Top Navigation -->
+<div class="flex items-center justify-between py-2 mb-4 shrink-0">
+<button class="flex items-center justify-center size-10 rounded-full bg-white/5 hover:bg-white/10 transition-colors backdrop-blur-md">
+<span class="material-symbols-outlined text-white" style="font-size: 24px;">close</span>
+</button>
+<button class="text-[#b5bc9a] text-sm font-bold leading-normal tracking-[0.015em] hover:text-white transition-colors">
+                Restore
+            </button>
+</div>
+<!-- Headline -->
+<div class="flex flex-col items-center text-center mb-8 shrink-0">
+<h1 class="text-white text-4xl font-bold leading-[1.1] tracking-tight mb-3">Accelerate<br/>your <span class="text-primary">1%</span></h1>
+<p class="text-gray-400 text-sm font-medium tracking-wide uppercase opacity-80">Unlock maximum productivity</p>
+</div>
+<!-- Comparison Table (Glassmorphism) -->
+<div class="glass-panel rounded-xl p-5 mb-8 w-full shrink-0">
+<!-- Table Header -->
+<div class="grid grid-cols-[1fr_50px_50px] gap-2 items-center mb-4 pb-3 border-b border-white/10">
+<div class="text-xs font-bold text-gray-500 uppercase tracking-wider">Features</div>
+<div class="text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Free</div>
+<div class="text-xs font-bold text-primary uppercase tracking-wider text-center">Pro</div>
+</div>
+<!-- Table Rows -->
+<div class="flex flex-col gap-4">
+<div class="grid grid-cols-[1fr_50px_50px] gap-2 items-center">
+<p class="text-gray-200 text-sm font-medium">History Access</p>
+<p class="text-gray-500 text-xs text-center font-medium">7-Day</p>
+<p class="text-white text-xs text-center font-bold">Unltd</p>
+</div>
+<div class="grid grid-cols-[1fr_50px_50px] gap-2 items-center">
+<p class="text-gray-200 text-sm font-medium">AI Forecasting</p>
+<div class="flex justify-center text-gray-700">
+<span class="material-symbols-outlined" style="font-size: 18px;">remove</span>
+</div>
+<div class="flex justify-center text-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">check</span>
+</div>
+</div>
+<div class="grid grid-cols-[1fr_50px_50px] gap-2 items-center">
+<p class="text-gray-200 text-sm font-medium">Auto-Sync</p>
+<div class="flex justify-center text-gray-700">
+<span class="material-symbols-outlined" style="font-size: 18px;">remove</span>
+</div>
+<div class="flex justify-center text-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">check</span>
+</div>
+</div>
+<div class="grid grid-cols-[1fr_50px_50px] gap-2 items-center">
+<p class="text-gray-200 text-sm font-medium">Marginal Gains</p>
+<div class="flex justify-center text-gray-700">
+<span class="material-symbols-outlined" style="font-size: 18px;">remove</span>
+</div>
+<div class="flex justify-center text-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">check</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Pricing Cards Section -->
+<div class="flex flex-col sm:flex-row gap-4 mb-8 mt-auto w-full">
+<!-- Monthly Card -->
+<label class="relative flex-1 cursor-pointer group">
+<input class="peer sr-only" name="pricing" type="radio"/>
+<div class="glass-panel h-full rounded-xl p-5 border border-transparent peer-checked:border-primary/50 peer-checked:bg-white/10 hover:bg-white/10 transition-all duration-300 flex flex-col justify-between">
+<div class="flex flex-col gap-1">
+<h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider">Monthly</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-white text-3xl font-bold tracking-tight">$5</span>
+<span class="text-gray-400 text-sm font-medium">/mo</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-white/5">
+<p class="text-gray-400 text-xs">Flexible, cancel anytime.</p>
+</div>
+</div>
+<!-- Selection Indicator -->
+<div class="absolute top-4 right-4 text-primary opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+</label>
+<!-- Lifetime Card (Highlighted) -->
+<label class="relative flex-1 cursor-pointer group">
+<input checked="" class="peer sr-only" name="pricing" type="radio"/>
+<!-- Glow Effect Behind Card -->
+<div class="absolute -inset-[2px] bg-primary rounded-xl opacity-60 blur-md group-hover:opacity-80 peer-checked:opacity-80 transition-opacity duration-500"></div>
+<!-- Card Content -->
+<div class="relative h-full bg-[#0a0a0a] rounded-xl p-5 border-2 border-primary flex flex-col justify-between z-10 shadow-card-glow">
+<!-- Badge -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
+                        Best Value
+                    </div>
+<div class="flex flex-col gap-1 mt-1">
+<h3 class="text-primary text-xs font-bold uppercase tracking-wider">Lifetime</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-white text-3xl font-bold tracking-tight">$30</span>
+<span class="text-gray-400 text-sm font-medium">once</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-white/10">
+<p class="text-gray-300 text-xs">Pay once. Own forever.</p>
+</div>
+</div>
+<!-- Selection Indicator -->
+<div class="absolute top-4 right-4 text-primary opacity-0 peer-checked:opacity-100 transition-opacity z-20">
+<span class="material-symbols-outlined fill-current">check_circle</span>
+</div>
+</label>
+</div>
+<!-- Action Button -->
+<button class="w-full shrink-0 flex items-center justify-center bg-primary hover:bg-[#b3e600] active:scale-[0.98] transition-all rounded-lg h-14 px-6 shadow-glow group">
+<span class="text-black text-base font-bold tracking-[0.015em] mr-2">Unlock Premium</span>
+<span class="material-symbols-outlined text-black transition-transform group-hover:translate-x-1" style="font-size: 20px;">arrow_forward</span>
+</button>
+<!-- Footer Text -->
+<p class="text-center text-[11px] text-gray-600 mt-4 px-8 leading-relaxed">
+            Recurring billing. Cancel anytime in settings. <br class="hidden sm:block"/> By continuing you agree to our Terms.
+        </p>
+</div>
+</body></html>

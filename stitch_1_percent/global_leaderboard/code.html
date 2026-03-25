@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Leaderboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#9513ec",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1b1022",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-black text-white font-display overflow-hidden h-screen w-full flex flex-col">
+<!-- Top App Bar -->
+<div class="flex items-center bg-black p-4 pb-2 justify-between pt-12 shrink-0 z-20">
+<button class="text-white flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight flex-1 text-center pr-12">Leaderboard</h2>
+</div>
+<!-- Tabs -->
+<div class="pb-2 bg-black shrink-0 z-20">
+<div class="flex border-b border-white/10 px-4 justify-between">
+<a class="flex flex-col items-center justify-center border-b-2 border-b-white text-white pb-3 pt-2 flex-1 transition-all" href="#">
+<p class="text-white text-sm font-bold tracking-wide">Global</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-2 border-b-transparent text-gray-500 hover:text-gray-300 pb-3 pt-2 flex-1 transition-all" href="#">
+<p class="text-inherit text-sm font-medium tracking-wide">Friends</p>
+</a>
+</div>
+</div>
+<!-- Main Scrollable List -->
+<div class="flex-1 overflow-y-auto no-scrollbar pb-32 bg-black relative">
+<!-- Top 3 Podium (Visual grouping) -->
+<div class="flex justify-center items-end gap-4 py-8 px-4">
+<!-- Rank 2 -->
+<div class="flex flex-col items-center gap-2">
+<div class="relative group">
+<div class="absolute -inset-0.5 rounded-full blur opacity-75 animate-pulse bg-gray-300"></div>
+<div class="relative w-20 h-20 rounded-full border-[3px] border-[#C0C0C0] p-1 bg-black shadow-[0_0_20px_rgba(192,192,192,0.4)]">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Portrait of Sarah J" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDUixgnFTe3Qhq29aQEETfO-03HCbI_FckLPZTKGmiMwYMAdfuUGemV-43Efmd7yOtVc1RP5Mes4BZYZhx-tDquSKZ8fkabGcg4bg6RHm53GHlR2fOpGkGaWOp1QD4oZlz_BIUxxjL5JNiqMZW_Y4-GvHr9z3UhvbaRSfWTFN10lFKOcfMTrmxnA8zfYS7HFwKxk2hB8AcIo465XbTSyUmRT9JR6K5cLOHcq6kzhB88F5BjfpFiVIcbeR0LyypgQ5RVN1-8EA7cYjU");'></div>
+<div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-[#C0C0C0] text-black text-xs font-bold px-2 py-0.5 rounded-full">#2</div>
+</div>
+</div>
+<div class="text-center mt-2">
+<p class="font-bold text-sm">Sarah J.</p>
+<p class="text-xs text-gray-400">8,942 XP</p>
+</div>
+</div>
+<!-- Rank 1 -->
+<div class="flex flex-col items-center gap-2 -mt-8">
+<div class="relative group">
+<div class="absolute -inset-1 rounded-full blur opacity-80 animate-pulse bg-yellow-400"></div>
+<div class="relative w-24 h-24 rounded-full border-[3px] border-[#FFD700] p-1 bg-black shadow-[0_0_30px_rgba(255,215,0,0.6)]">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Portrait of Alex M" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCaMuzu-f1mpCwfRkAt2bV9x5H1g2ZqZeX8QoYJR5iaLYHD5Q1TKkn5KB0QG3R4hanuzwNCmCXzT5nqUF4GiujPAzee_SU6-na0QkHSSFeE1vsq0xeYT3D-AU4S1BSpJPaNJDwfR0bQOVPnVnicYGwBEmdvU4a7J105DN4kd4bbDw6cq85k25ezhj-_zYbDmiJJsWmpCsCianq2_X7EqEriaHt76tEzltfaz055-pdx-AlMPvuef3GBeOdIl3CHaY43uqOL64F9uQY");'></div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[#FFD700]">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-[#FFD700] text-black text-xs font-bold px-3 py-1 rounded-full border-2 border-black">#1</div>
+</div>
+</div>
+<div class="text-center mt-2">
+<p class="font-bold text-lg text-[#FFD700]">Alex M.</p>
+<p class="text-sm text-gray-400">9,204 XP</p>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex flex-col items-center gap-2">
+<div class="relative group">
+<div class="absolute -inset-0.5 rounded-full blur opacity-75 animate-pulse bg-orange-700"></div>
+<div class="relative w-20 h-20 rounded-full border-[3px] border-[#CD7F32] p-1 bg-black shadow-[0_0_20px_rgba(205,127,50,0.4)]">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Portrait of David K" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFtBIrFJDfZTvwVZ1O670yh8uA8bAA-c0M7-ADJmNogGroKw9OXfaCmBT9sh1K-3_KQIEu-1ldXFYMBOQJqy6LEXIa4d98oM-PMy2ezi0OJjCDHpAKPKvduuMN_ZIvKfTDK8mtZ3LQvx4SdqwrISWnslo3vt61wp9v13nsMBJ_IldvbiXWXkslKpmtkC7IKyf0UnyH6PsSh9hLUnQiJPSFdx9S1tl3-W0UhjwJdtraZXM-07cv4dgHEp-TtG_14EWz8UkIvLYWU9U");'></div>
+<div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-[#CD7F32] text-black text-xs font-bold px-2 py-0.5 rounded-full">#3</div>
+</div>
+</div>
+<div class="text-center mt-2">
+<p class="font-bold text-sm">David K.</p>
+<p class="text-xs text-gray-400">8,105 XP</p>
+</div>
+</div>
+</div>
+<!-- List Items -->
+<div class="px-2 mt-2 space-y-1">
+<!-- Rank 4 -->
+<div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl mx-2">
+<span class="text-gray-500 font-mono w-6 text-center">4</span>
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 shrink-0" data-alt="Portrait of user 4" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC3rTy4YxFWR-fEd8_27WdzKjU6JmLSUReEZVe4Ap9W7cx2jeHbiOqzn--1XuDScpuDyJzPvvTsQZcu1-601Vqd50luyZYSLPu7e320P_Dv2j0Efm1Z_QlKTV88b8qLJyZh38F7bXWn5Rm1L1bPiAn7tuTsJPTub8UYlg1hpObMAqDUiSAfNDnQu4a8dcuJ131jtcSObtchblUGAt9nMux-QYUtUxU4gV845FCMr-uSqI6dl5E7sG4o6cACik-nlEMg0zEig687l80");'></div>
+<div class="flex-1">
+<p class="text-white text-base font-medium leading-none">Marcus R.</p>
+<p class="text-xs text-gray-500 mt-1">Productivity Ninja</p>
+</div>
+<div class="text-white font-bold tabular-nums">7,890</div>
+</div>
+<!-- Rank 5 -->
+<div class="flex items-center gap-4 bg-transparent p-4 rounded-xl mx-2 border-b border-white/5">
+<span class="text-gray-500 font-mono w-6 text-center">5</span>
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 shrink-0" data-alt="Portrait of user 5" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBemj3M7YgWVf2X_bv008ZSkHcjiCHw2pn8h3RW1CYxoR3WSK6XdSNGdDVGBqcgtLUt-t5L4-PXlkNQtqSxFegFueig5y4tbw-7ufiEFRSdKGIlF8n_r2RdstNm-j31XJUS7_yN_R_UXhPLBC-ygFho_kaPBxa-I_rOgUtNu1e3TUfT3styru5gGMbmUx7jhwhMN9PWCFVa-j--tLsW3VD3GXtR2IwuDL1RP7OxwOa87uVJf-4aC4K-MAEu5SSj3p2DdtPpWp0SBjI");'></div>
+<div class="flex-1">
+<p class="text-white text-base font-medium leading-none">Elena S.</p>
+</div>
+<div class="text-gray-400 font-medium tabular-nums">7,654</div>
+</div>
+<!-- Rank 6 -->
+<div class="flex items-center gap-4 bg-transparent p-4 rounded-xl mx-2 border-b border-white/5">
+<span class="text-gray-500 font-mono w-6 text-center">6</span>
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 shrink-0" data-alt="Portrait of user 6" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDJhPzsZDn2axucz0g5vH8WQqsatNlMsKo0q1GQzJhhVphkYkyE_RgpPyKdp4GWVKBFYvoDX1uitwdpWKV5gm_8kV6CuqdMn7a08xM03pc3C-jqYCdhPQwPb_--gYW1eQUBXj4Qo791vDnBMVdy74ubWgURv1UedC0rhuPG4lXsCS2_xBQLPc3uAcG1tR9qHbXuNJ7pUHkq2J3bmVJ5IOibcNaETvoEimArLqSZ91R4CgCooLKezZC4r-XDCzDLK7eEhvyId7BahhM");'></div>
+<div class="flex-1">
+<p class="text-white text-base font-medium leading-none">John D.</p>
+</div>
+<div class="text-gray-400 font-medium tabular-nums">7,432</div>
+</div>
+<!-- Rank 7 -->
+<div class="flex items-center gap-4 bg-transparent p-4 rounded-xl mx-2 border-b border-white/5">
+<span class="text-gray-500 font-mono w-6 text-center">7</span>
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 shrink-0" data-alt="Portrait of user 7" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD_urwNCLYX7j_lfBVaNhkwrYGxxC53eoWwroXr5pzjleJu-m8_cOXr4MjmmMXBnn2_sBPalXm8s-C23cb8ZkR0BY6Y_mwf_v5_Rq70HOwEgQ99uzLkyKMPIhVMa0V2dNMjpr2kEkqCpSLKTEpzCQfPkWSAXVPvrpGB11hmzsQag4OJOt94Z1Gb5nEegRJCgCjijgCVeEcELam5F74TbtaGVQCL0JbNj2n13zvPWHKwwdYEv22K6abQ6jXGxA8aIe7iwICSfmuX3G4");'></div>
+<div class="flex-1">
+<p class="text-white text-base font-medium leading-none">Sophie L.</p>
+</div>
+<div class="text-gray-400 font-medium tabular-nums">7,210</div>
+</div>
+<!-- Rank 8 -->
+<div class="flex items-center gap-4 bg-transparent p-4 rounded-xl mx-2 border-b border-white/5">
+<span class="text-gray-500 font-mono w-6 text-center">8</span>
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 shrink-0" data-alt="Portrait of user 8" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCowKp_4Qcc6T6qk2rcQMIqPLVfyJZfO14_SGYiO3nSXxmg18cyQaBN6e9BlCpbCSwvmQxggMPAhSBHRoKBC9Z_v_pVHMYkjA09z8uPZlQxWVhg3XL2darxtV8hmhHRMCIapwaCeoPik3dXR_s2OG-u0yt_GKQ2IHe_4O_TlazFOrDoLprem3-DVuvgohHDmdn0bFC_vjK7fXuxrBUhp1ozWsPzg9qPL1SHmHzlDGrV76p5xd1A23Nzb8gERukiGoQDUOkJMiHXGJ4");'></div>
+<div class="flex-1">
+<p class="text-white text-base font-medium leading-none">Ryan P.</p>
+</div>
+<div class="text-gray-400 font-medium tabular-nums">6,985</div>
+</div>
+<!-- Rank 9 -->
+<div class="flex items-center gap-4 bg-transparent p-4 rounded-xl mx-2 border-b border-white/5">
+<span class="text-gray-500 font-mono w-6 text-center">9</span>
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 shrink-0" data-alt="Portrait of user 9" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD4-mJ4eGx0VkpN9Bp595K0IJjhXQslsaFkt-QmUPaow3vEuJNq1IHf534-2TCAhM0SbI6Y8WlwBMTD19KrhzM13WN6XTE8hxm3DORCivMy6m5H4A9ntVvu8SfsY2JQMw7L2mqvmQZ6jOAO24iizb_jXrN15Lb4ELt83CViBqy7bHLk_b68gPepWhtb458Hr1FSTtjXAarvYk_u20Z9xeT6l5tVDHYV4qfZxbmRRGCZjPnvwHLRCMVL8br541lfkTt_Z6wbb3CO_xU");'></div>
+<div class="flex-1">
+<p class="text-white text-base font-medium leading-none">Maya T.</p>
+</div>
+<div class="text-gray-400 font-medium tabular-nums">6,850</div>
+</div>
+</div>
+<!-- Spacer for sticky bottom -->
+<div class="h-24"></div>
+</div>
+<!-- Sticky User Stats Bar -->
+<div class="absolute bottom-[80px] left-4 right-4 z-30">
+<div class="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl p-4 flex items-center gap-4">
+<!-- Background shimmer effect -->
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-100%] animate-[shimmer_3s_infinite]"></div>
+<div class="flex flex-col items-center justify-center min-w-[3rem]">
+<span class="text-xs text-primary font-bold uppercase tracking-wider">Rank</span>
+<span class="text-white text-xl font-bold">402</span>
+</div>
+<div class="h-10 w-[1px] bg-white/20"></div>
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 shrink-0 border-2 border-primary" data-alt="Portrait of current user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAiA4JGQKL1wrIW1uSkFw0_mTWd5tK39W6lnehmdVUkIuf9QgSeJ6GJ_KlIvvv1aK0mEpHIYeukGd6mo0QQCO2bymLZcucEpppvlWM7XS6-yKVkvCBT9-H8ArS_yavYAeHOuoBnwC0fAzmfEJjFfsySK5MiGJUIgJDRbItAVZdV5H35pkg7GFvfpaIPv2GUPld1SJtdWWOQczFP6MS9EG2Lq9kxwTKDF9ywDAtveUUQphknvsZWdHMOg0TSLG1IxVQQ_CF6na2AoZs");'></div>
+<div class="flex-1 z-10">
+<p class="text-white text-base font-bold leading-none">You</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="text-xs text-gray-300">Top 15%</span>
+<span class="material-symbols-outlined text-green-400 text-[14px]">trending_up</span>
+</div>
+</div>
+<div class="text-primary font-bold text-lg tabular-nums z-10">4,250 XP</div>
+</div>
+</div>
+<!-- Bottom Navigation -->
+<div class="shrink-0 bg-black/95 backdrop-blur-lg border-t border-white/10 pb-6 pt-2 px-6 flex justify-between items-center z-40">
+<button class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined">timer</span>
+<span class="text-[10px] font-medium">Focus</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="text-[10px] font-medium">Rank</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</div>
+<style>
+        @keyframes shimmer {
+            0% { transform: translateX(-150%) skewX(-12deg); }
+            50% { transform: translateX(150%) skewX(-12deg); }
+            100% { transform: translateX(150%) skewX(-12deg); }
+        }
+    </style>
+</body></html>

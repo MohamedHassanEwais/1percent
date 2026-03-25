@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Session Complete Summary</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#06f906",
+              "background-light": "#f5f8f5",
+              "background-dark": "#000000", /* Modified to match request for solid black */
+              "deep-violet": "#4a0072",
+              "glass": "rgba(255, 255, 255, 0.05)",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "2xl": "1rem",
+              "full": "9999px"
+            },
+            boxShadow: {
+              "neon": "0 0 20px rgba(6, 249, 6, 0.4)",
+              "glow": "0 0 40px rgba(6, 249, 6, 0.15)"
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom particle effects */
+        .particle {
+            position: absolute;
+            background: #06f906;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+        .particle-1 { width: 4px; height: 4px; top: 20%; left: 10%; box-shadow: 0 0 10px #06f906; }
+        .particle-2 { width: 6px; height: 6px; top: 15%; right: 20%; background: #4a0072; box-shadow: 0 0 10px #4a0072; }
+        .particle-3 { width: 3px; height: 3px; bottom: 30%; left: 15%; }
+        .particle-4 { width: 5px; height: 5px; bottom: 40%; right: 10%; background: #ffffff; opacity: 0.3; }
+        .particle-5 { width: 2px; height: 2px; top: 40%; left: 50%; }
+        
+        .bg-grid-pattern {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark min-h-screen text-white font-display overflow-hidden relative selection:bg-primary selection:text-black">
+<!-- Confetti / Particle Background Elements -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
+<div class="particle particle-1"></div>
+<div class="particle particle-2"></div>
+<div class="particle particle-3"></div>
+<div class="particle particle-4"></div>
+<div class="particle particle-5"></div>
+<!-- Large glow effect behind central content -->
+<div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary rounded-full blur-[120px] opacity-10"></div>
+</div>
+<!-- Main Content Container -->
+<div class="relative z-10 flex flex-col h-full min-h-screen w-full max-w-md mx-auto p-4">
+<!-- Top App Bar -->
+<div class="flex items-center justify-between pb-4 pt-2">
+<button class="text-white/60 hover:text-white transition-colors flex items-center justify-center p-2 rounded-full hover:bg-white/10">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+<h2 class="text-white text-lg font-bold tracking-tight">Session Complete</h2>
+<button class="flex items-center gap-1 text-primary hover:text-primary/80 transition-colors font-bold text-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[20px]">share</span>
+                Share
+            </button>
+</div>
+<!-- Spacer for vertical centering -->
+<div class="flex-1 flex flex-col justify-center items-center py-8">
+<!-- Headline Text -->
+<div class="text-center mb-8 relative">
+<h1 class="text-primary text-6xl md:text-7xl font-bold leading-tight tracking-tighter drop-shadow-[0_0_15px_rgba(6,249,6,0.3)]">
+                    +1%
+                </h1>
+<p class="text-white text-2xl font-light tracking-widest uppercase mt-2 opacity-90">Added</p>
+</div>
+<!-- Body Text -->
+<p class="text-gray-400 text-base font-normal leading-relaxed text-center max-w-[280px] mb-10">
+                Great job! You're consistently pushing your limits and getting better every day.
+            </p>
+<!-- Stats Card (Glassmorphic) -->
+<div class="w-full bg-glass backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+<!-- Decorative gradient inside card -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-deep-violet rounded-full blur-[60px] opacity-40"></div>
+<div class="absolute -bottom-10 -left-10 w-32 h-32 bg-primary rounded-full blur-[60px] opacity-10"></div>
+<div class="relative z-10 flex flex-col gap-6">
+<!-- Stat Row 1 -->
+<div class="flex items-center justify-between border-b border-white/5 pb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white text-lg font-bold">20</span>
+<span class="text-gray-400 text-xs uppercase tracking-wider">Words Reviewed</span>
+</div>
+</div>
+<div class="text-primary font-bold flex items-center gap-1 bg-primary/10 px-2 py-1 rounded text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span> +1%
+                        </div>
+</div>
+<!-- Stat Row 2 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-deep-violet/30 flex items-center justify-center text-purple-300">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white text-lg font-bold">5</span>
+<span class="text-gray-400 text-xs uppercase tracking-wider">New Learned</span>
+</div>
+</div>
+<div class="text-purple-300 font-bold flex items-center gap-1 bg-deep-violet/20 px-2 py-1 rounded text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span> +5%
+                        </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Action -->
+<div class="pb-8 pt-4 w-full">
+<button class="group relative w-full flex items-center justify-center h-14 bg-primary text-black text-lg font-bold rounded-xl shadow-neon transition-all duration-300 hover:shadow-[0_0_30px_rgba(6,249,6,0.6)] hover:scale-[1.02] active:scale-[0.98]">
+<span class="relative z-10 flex items-center gap-2">
+                    Back to Hub
+                    <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</span>
+<div class="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+</button>
+</div>
+</div>
+</body></html>

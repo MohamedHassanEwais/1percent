@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neural Link Notification Modal</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ccff00",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#1f230f",
+                        "neon-cyan": "#00f0ff",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                    boxShadow: {
+                        'neon': '0 0 15px rgba(204, 255, 0, 0.5), 0 0 5px rgba(204, 255, 0, 0.3)',
+                        'neon-cyan': '0 0 20px rgba(0, 240, 255, 0.4), 0 0 10px rgba(0, 240, 255, 0.2)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen relative overflow-hidden flex items-center justify-center p-4">
+<!-- Background Layer mimicking dashboard context -->
+<div class="absolute inset-0 z-0 bg-cover bg-center opacity-40 dark:opacity-60 pointer-events-none" data-alt="Abstract dark galaxy map background with stars" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCr6yifeQ3X7OaGIaq2wdjDN9TbegdnjhsIMqrxfzsoebNf-AkUqhWekOcxUjcRFnNcg3PF5KlyNKrn5qXEmoVLtKdw2Z4lx5lDse6VF5yYasvchzkVwUP7NSJvr5CC71p1EZuozbsyN37Kn3-4cQp2XApl4g2R_hhXIvVSj5sa2RbOmZXrd3lKQfk3ovKKWVanpE6WCSWiLbMagGWg_O_YA5rNSzteksyPxlljtP9H6deQGka4TLcN46-uHbq_BgwNdRcg41TRaoo');">
+</div>
+<!-- Dark overlay for dimming background -->
+<div class="absolute inset-0 bg-[#0a0a05]/80 z-10 backdrop-blur-sm"></div>
+<!-- Modal Container -->
+<div class="relative z-20 w-full max-w-[360px] mx-auto">
+<!-- Glassmorphic Card -->
+<div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 flex flex-col items-center text-center shadow-2xl relative overflow-hidden">
+<!-- Subtle gradient glow behind the icon -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-neon-cyan/20 rounded-full blur-[50px] pointer-events-none"></div>
+<!-- Icon -->
+<div class="mb-6 relative">
+<div class="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shadow-neon-cyan relative group">
+<!-- Pulsating Effect Ring -->
+<div class="absolute inset-0 rounded-full border border-neon-cyan/30 animate-ping opacity-20"></div>
+<span class="material-symbols-outlined text-[40px] text-neon-cyan drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]" data-icon="notifications">notifications</span>
+</div>
+</div>
+<!-- Headline -->
+<h1 class="font-display text-white text-[28px] font-bold leading-tight tracking-tight mb-4">
+                Establish<br/>Brain Uplink?
+            </h1>
+<!-- Body Text -->
+<p class="font-body text-gray-300 text-sm leading-relaxed mb-8">
+                To master 3000 words, timing is everything. Enable the Neural Link to receive alerts <span class="text-white font-medium italic">only</span> when a word is about to fade from your memory.
+            </p>
+<!-- Actions -->
+<div class="w-full flex flex-col gap-3">
+<!-- Primary Button -->
+<button class="group relative w-full h-14 rounded-full bg-primary/10 border-2 border-primary text-primary font-display font-bold text-base tracking-wide uppercase transition-all duration-300 hover:bg-primary hover:text-[#171810] hover:shadow-neon flex items-center justify-center overflow-hidden">
+<span class="relative z-10 flex items-center gap-2">
+                        Initialize Link
+                    </span>
+<!-- Hover Effect Background -->
+<div class="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0"></div>
+</button>
+<!-- Secondary Button -->
+<button class="w-full h-12 rounded-full text-gray-400 font-display font-medium text-sm hover:text-white transition-colors duration-200">
+                    Stay Offline (Maybe Later)
+                </button>
+</div>
+</div>
+</div>
+</body></html>

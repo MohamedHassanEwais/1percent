@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>App Settings &amp; Utility</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#59f20d",
+              "background-light": "#f6f8f5",
+              "background-dark": "#000000", /* Modified to match request */
+              "glass-border": "rgba(255, 255, 255, 0.08)",
+              "glass-bg": "rgba(255, 255, 255, 0.03)",
+              "violet-accent": "#5b21b6", /* Deep Violet */
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "header": ["Space Grotesk", "sans-serif"],
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #59f20d;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #59f20d;
+        }
+        
+        /* Custom scrollbar hiding */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-black text-white antialiased overflow-x-hidden">
+<div class="relative flex h-full min-h-screen w-full flex-col bg-black dark group/design-root">
+<!-- TopAppBar -->
+<div class="sticky top-0 z-50 flex items-center bg-black/80 backdrop-blur-md p-4 pb-2 justify-between border-b border-white/5">
+<button class="text-white flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back_ios_new</span>
+</button>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight flex-1 text-center pr-12 font-header">Settings</h2>
+</div>
+<div class="flex-1 flex flex-col gap-6 p-6">
+<!-- General Section -->
+<div>
+<h3 class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3 ml-2 font-header">General</h3>
+<div class="flex flex-col overflow-hidden rounded-2xl border border-glass-border bg-glass-bg backdrop-blur-sm">
+<!-- ListItem: Sound Effects -->
+<div class="flex items-center gap-4 px-5 py-4 justify-between border-b border-glass-border hover:bg-white/5 transition-colors">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-xl bg-primary/10 shrink-0 size-10">
+<span class="material-symbols-outlined">volume_up</span>
+</div>
+<p class="text-white text-base font-medium leading-normal flex-1 truncate">Sound Effects</p>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[30px] w-[50px] cursor-pointer items-center rounded-full border-2 border-transparent bg-zinc-800 transition-colors duration-300 has-[:checked]:bg-primary/20 has-[:checked]:border-primary">
+<input checked="" class="peer invisible absolute" type="checkbox"/>
+<div class="absolute left-0.5 h-[22px] w-[22px] rounded-full bg-zinc-400 shadow-sm transition-all duration-300 peer-checked:translate-x-full peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- ListItem: Daily Reminders -->
+<div class="flex flex-col">
+<div class="flex items-center gap-4 px-5 py-4 justify-between hover:bg-white/5 transition-colors">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-xl bg-primary/10 shrink-0 size-10">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+<p class="text-white text-base font-medium leading-normal flex-1 truncate">Daily Reminders</p>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[30px] w-[50px] cursor-pointer items-center rounded-full border-2 border-transparent bg-zinc-800 transition-colors duration-300 has-[:checked]:bg-primary/20 has-[:checked]:border-primary">
+<input checked="" class="peer invisible absolute" type="checkbox"/>
+<div class="absolute left-0.5 h-[22px] w-[22px] rounded-full bg-zinc-400 shadow-sm transition-all duration-300 peer-checked:translate-x-full peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Timer / Time Picker Inline -->
+<div class="px-5 pb-6 pt-2">
+<div class="relative overflow-hidden rounded-xl border border-primary/20 bg-black/40 p-4">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+<div class="flex gap-4 items-center justify-center">
+<!-- Hours -->
+<div class="flex flex-col items-center gap-2">
+<div class="flex h-16 w-16 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900 shadow-[0_0_15px_rgba(89,242,13,0.1)]">
+<p class="text-primary text-2xl font-bold font-header tracking-wider">08</p>
+</div>
+<span class="text-xs text-zinc-500 font-medium">HR</span>
+</div>
+<span class="text-zinc-600 text-2xl font-bold mb-6">:</span>
+<!-- Minutes -->
+<div class="flex flex-col items-center gap-2">
+<div class="flex h-16 w-16 items-center justify-center rounded-xl border border-primary bg-primary/10 shadow-[0_0_20px_rgba(89,242,13,0.3)] relative">
+<div class="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-primary animate-pulse"></div>
+<p class="text-white text-2xl font-bold font-header tracking-wider">30</p>
+</div>
+<span class="text-xs text-primary font-medium">MIN</span>
+</div>
+<!-- AM/PM Switch -->
+<div class="flex flex-col items-center gap-2 ml-2">
+<div class="flex h-16 flex-col p-1 bg-zinc-900 rounded-lg border border-zinc-800">
+<button class="flex-1 px-2 text-[10px] font-bold text-primary rounded bg-zinc-800 shadow-sm">AM</button>
+<button class="flex-1 px-2 text-[10px] font-bold text-zinc-600">PM</button>
+</div>
+<span class="text-xs text-transparent">.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Appearance Section -->
+<div>
+<h3 class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3 ml-2 font-header">Appearance</h3>
+<div class="flex flex-col overflow-hidden rounded-2xl border border-glass-border bg-glass-bg backdrop-blur-sm">
+<!-- ListItem: Dark Mode (Locked) -->
+<div class="flex items-center gap-4 px-5 py-4 justify-between opacity-75">
+<div class="flex items-center gap-4">
+<div class="text-zinc-400 flex items-center justify-center rounded-xl bg-zinc-800 shrink-0 size-10">
+<span class="material-symbols-outlined">dark_mode</span>
+</div>
+<div class="flex flex-col">
+<p class="text-zinc-300 text-base font-medium leading-normal flex-1 truncate">Dark Mode</p>
+<p class="text-zinc-500 text-xs">Permanently enabled</p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-3">
+<span class="material-symbols-outlined text-zinc-600 text-sm">lock</span>
+<label class="relative flex h-[30px] w-[50px] cursor-not-allowed items-center rounded-full border-2 border-transparent bg-primary/10">
+<input checked="" class="peer invisible absolute" disabled="" type="checkbox"/>
+<div class="absolute right-0.5 h-[22px] w-[22px] rounded-full bg-primary/50 shadow-sm"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Utility Links -->
+<div class="mt-auto pt-8 pb-8 flex flex-col items-center gap-6">
+<a class="group flex items-center gap-2 text-zinc-400 hover:text-white transition-colors" href="#">
+<span class="text-sm font-medium decoration-violet-accent/60 underline underline-offset-4 decoration-2 group-hover:decoration-violet-accent transition-all">Help Center</span>
+<span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity -ml-1 text-violet-accent">arrow_outward</span>
+</a>
+<a class="text-sm font-medium text-zinc-500 hover:text-red-400 decoration-zinc-800 underline underline-offset-4 decoration-2 hover:decoration-red-400/50 transition-all" href="#">
+                Logout
+            </a>
+<p class="text-[10px] text-zinc-700 font-header tracking-widest mt-4">VERSION 1.0.1</p>
+</div>
+</div>
+</div>
+</body></html>
