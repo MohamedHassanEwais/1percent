@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#353534",
+              "secondary-fixed-dim": "#c0cf61",
+              "on-tertiary-fixed": "#001f26",
+              "on-primary": "#2d3400",
+              "on-background": "#e5e2e1",
+              "outline": "#909378",
+              "on-primary-container": "#5e6b00",
+              "primary-fixed-dim": "#bbd200",
+              "surface-bright": "#393939",
+              "on-secondary-container": "#e1f17e",
+              "tertiary-container": "#c9e8f1",
+              "surface-container": "#201f1f",
+              "error": "#ffb4ab",
+              "on-primary-fixed-variant": "#424b00",
+              "on-secondary": "#2d3400",
+              "on-tertiary-container": "#4c6971",
+              "surface-tint": "#bbd200",
+              "surface-dim": "#131313",
+              "on-surface-variant": "#c7c9ab",
+              "on-secondary-fixed": "#191e00",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-fixed-variant": "#424b00",
+              "on-primary-fixed": "#191e00",
+              "primary": "#ffffff",
+              "inverse-surface": "#e5e2e1",
+              "inverse-primary": "#586400",
+              "on-tertiary-fixed-variant": "#2e4b52",
+              "primary-container": "#d5f000",
+              "surface-container-high": "#2a2a2a",
+              "secondary-fixed": "#dcec79",
+              "on-surface": "#e5e2e1",
+              "on-error": "#690005",
+              "error-container": "#93000a",
+              "on-tertiary": "#17343b",
+              "inverse-on-surface": "#313030",
+              "secondary": "#c0cf61",
+              "secondary-container": "#626f01",
+              "primary-fixed": "#d5f000",
+              "tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#adccd4",
+              "surface-variant": "#353534",
+              "background": "#131313",
+              "surface": "#131313",
+              "surface-container-lowest": "#0e0e0e",
+              "tertiary-fixed": "#c9e8f1",
+              "on-error-container": "#ffdad6",
+              "outline-variant": "#464932"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 20px rgba(213, 240, 0, 0.15);
+        }
+        .asymmetric-gradient {
+            background: linear-gradient(135deg, #1c1b1b 0%, #131313 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar - Suppressed Shell Rule: Not shown as this is a focused task/onboarding entry -->
+<main class="min-h-screen flex flex-col items-center justify-center px-6 py-12 lg:px-24">
+<div class="max-w-4xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Left Content Area (Mobile Top / Desktop Right in RTL) -->
+<div class="lg:col-span-7 space-y-8 order-2 lg:order-1">
+<header class="space-y-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container/20 text-secondary-fixed text-sm font-medium tracking-wide">
+<span class="material-symbols-outlined text-sm" data-icon="bolt">bolt</span>
+<span>Delta Leap Intelligence</span>
+</div>
+<h1 class="text-5xl lg:text-7xl font-black tracking-tighter text-on-surface leading-tight">
+                        اختبار تحديد المستوى
+                    </h1>
+<p class="text-xl lg:text-2xl text-on-surface-variant font-medium max-w-xl leading-relaxed">
+                        نستخدم خوارزميات متطورة لتحديد نقطة <span class="text-primary-fixed font-bold tracking-widest italic">i+1</span> الخاصة بك، لضمان تعلم فعال وممتع.
+                    </p>
+</header>
+<div class="space-y-6">
+<!-- Bento Grid Info Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-6 rounded-xl bg-surface-container-high space-y-3">
+<span class="material-symbols-outlined text-primary-fixed text-3xl" data-icon="psychology">psychology</span>
+<h3 class="text-lg font-bold">تحدي ذكي</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">يتكيف الاختبار مع إجاباتك لحظياً لتقليل الوقت والجهد المبذول.</p>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-low space-y-3">
+<span class="material-symbols-outlined text-primary-fixed text-3xl" data-icon="rocket_launch">rocket_launch</span>
+<h3 class="text-lg font-bold">منهجية i+1</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">نضعك في المستوى الذي يفوق معرفتك الحالية بخطوة واحدة فقط.</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<button class="px-8 py-4 bg-gradient-to-tr from-primary-fixed to-primary-fixed-dim text-on-primary-fixed font-black text-lg rounded-lg neon-glow-primary active:scale-95 transition-all flex items-center justify-center gap-3">
+                        ابدأ الاختبار الآن
+                        <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<button class="px-8 py-4 bg-transparent text-primary-fixed border border-outline-variant/30 font-bold text-lg rounded-lg hover:bg-surface-container transition-colors flex items-center justify-center">
+                        عرض المنهج
+                    </button>
+</div>
+<p class="text-xs text-on-surface-variant/60 flex items-center gap-2">
+<span class="material-symbols-outlined text-xs" data-icon="timer">timer</span>
+                    يستغرق الاختبار حوالي 8-12 دقيقة تقريباً
+                </p>
+</div>
+<!-- Right Visual Area (Mobile Bottom / Desktop Left in RTL) -->
+<div class="lg:col-span-5 relative order-1 lg:order-2">
+<div class="relative aspect-square w-full max-w-md mx-auto">
+<!-- Decorative Background Glow -->
+<div class="absolute inset-0 bg-primary-fixed/5 blur-[100px] rounded-full"></div>
+<!-- Main Image/Graphic -->
+<div class="relative h-full w-full rounded-2xl overflow-hidden border border-outline-variant/10 shadow-2xl">
+<img alt="Abstract neon light patterns" class="w-full h-full object-cover grayscale opacity-60" data-alt="Abstract geometric shapes with neon green light trails on a dark charcoal background, moody and futuristic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGYRK7VQpEJ2gq1IhTgk0fbeGNO9NTqA9HJGaDmJbS58eTPvO8JnCc0T0vhCmuh0L5Hej3EJvmpLxs9LfRlMCQ_yzXwrabpd4a-P0lFpeNmay3NpE039qo8oUgW6kdZLT1K_HonUCOyOsMmvO_z_3uBxQU5bn4WZGxCD3PL5McKwks8t5RpNeg6hQyzOoR3LCCzXz4w7UW9pfEhJRHZhbp5zWiT0B4-Q60yhI1cr5Y13TusavQ3BubohP59gDaCgU-tc5KJtcCzOU"/>
+<!-- Overlay Glass Card -->
+<div class="absolute bottom-6 left-6 right-6 p-6 bg-surface-container-highest/60 backdrop-blur-xl rounded-xl border border-outline-variant/20">
+<div class="flex items-center gap-4 mb-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">الحالة الراهنة</p>
+<p class="text-sm font-bold">تحليل الكفاءة اللغوية</p>
+</div>
+</div>
+<!-- Progress Simulation -->
+<div class="space-y-2">
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed w-3/4 shadow-[0_0_8px_rgba(213,240,0,0.4)]"></div>
+</div>
+<div class="flex justify-between text-[10px] font-bold text-primary-fixed/80">
+<span>مبتدئ</span>
+<span>متقدم</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Badge -->
+<div class="absolute -top-4 -right-4 bg-surface-container-high p-4 rounded-xl border border-outline-variant/20 shadow-xl rotate-3">
+<div class="flex flex-col items-center">
+<span class="text-3xl font-black text-primary-fixed">100%</span>
+<span class="text-[10px] uppercase tracking-tighter text-on-surface-variant">دقة التحليل</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation Suppressed as per Task-Focused/Linear Journey Rule -->
+</body></html>

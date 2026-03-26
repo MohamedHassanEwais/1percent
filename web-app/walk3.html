@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-tint": "#bbd200",
+              "tertiary-fixed": "#c9e8f1",
+              "surface-container-highest": "#353534",
+              "primary-fixed-dim": "#bbd200",
+              "on-primary-fixed-variant": "#424b00",
+              "on-primary-fixed": "#191e00",
+              "surface-container-low": "#1c1b1b",
+              "inverse-primary": "#586400",
+              "secondary-fixed": "#dcec79",
+              "surface-container-high": "#2a2a2a",
+              "surface": "#131313",
+              "surface-container-lowest": "#0e0e0e",
+              "on-secondary-container": "#e1f17e",
+              "on-tertiary-container": "#4c6971",
+              "error-container": "#93000a",
+              "error": "#ffb4ab",
+              "secondary-container": "#626f01",
+              "surface-dim": "#131313",
+              "on-error-container": "#ffdad6",
+              "tertiary-container": "#c9e8f1",
+              "on-primary": "#2d3400",
+              "on-secondary-fixed": "#191e00",
+              "background": "#131313",
+              "secondary-fixed-dim": "#c0cf61",
+              "primary-container": "#d5f000",
+              "on-surface": "#e5e2e1",
+              "outline-variant": "#464932",
+              "on-background": "#e5e2e1",
+              "primary-fixed": "#d5f000",
+              "surface-variant": "#353534",
+              "on-error": "#690005",
+              "secondary": "#c0cf61",
+              "on-tertiary-fixed-variant": "#2e4b52",
+              "inverse-surface": "#e5e2e1",
+              "surface-container": "#201f1f",
+              "on-tertiary-fixed": "#001f26",
+              "on-surface-variant": "#c7c9ab",
+              "on-secondary-fixed-variant": "#424b00",
+              "on-secondary": "#2d3400",
+              "tertiary-fixed-dim": "#adccd4",
+              "outline": "#909378",
+              "on-primary-container": "#5e6b00",
+              "inverse-on-surface": "#313030",
+              "on-tertiary": "#17343b",
+              "tertiary": "#ffffff",
+              "surface-bright": "#393939",
+              "primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(227, 255, 0, 0.2);
+        }
+        .soundwave-bar {
+            width: 4px;
+            border-radius: 2px;
+            background: #d5f000;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col items-center justify-center p-6 selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden">
+<!-- Hero Content: Walkthrough Carousel 2 -->
+<div class="max-w-md w-full flex flex-col items-center text-center space-y-12">
+<!-- Visual Illustration Container (Asymmetric Bento-ish Style) -->
+<div class="relative w-full aspect-square max-w-[320px] flex items-center justify-center">
+<!-- Background Glow -->
+<div class="absolute inset-0 bg-primary-fixed/5 rounded-full blur-3xl"></div>
+<!-- Main Content Card (Surface Stacking) -->
+<div class="relative z-10 w-full h-full bg-surface-container-high rounded-[2.5rem] flex flex-col items-center justify-center overflow-hidden">
+<!-- Animated Sound Wave Representation -->
+<div class="flex items-end justify-center space-x-reverse space-x-1.5 h-32 mb-8">
+<div class="soundwave-bar h-12 opacity-40"></div>
+<div class="soundwave-bar h-20 opacity-60"></div>
+<div class="soundwave-bar h-32 opacity-100 neon-glow"></div>
+<div class="soundwave-bar h-24 opacity-80"></div>
+<div class="soundwave-bar h-16 opacity-50"></div>
+<div class="soundwave-bar h-28 opacity-90 neon-glow"></div>
+<div class="soundwave-bar h-14 opacity-40"></div>
+</div>
+<!-- Floating Icon Anchor -->
+<div class="absolute -top-4 right-8 p-6 bg-primary-fixed rounded-xl text-on-primary-fixed shadow-[0_8px_32px_rgba(213,240,0,0.3)] transform -rotate-6">
+<span class="material-symbols-outlined text-4xl" data-icon="mic" style="font-variation-settings: 'FILL' 1;">mic</span>
+</div>
+<!-- Decorative Detail -->
+<div class="absolute bottom-6 left-6 opacity-20 text-on-surface-variant font-mono text-[10px] tracking-widest uppercase">
+                    Frequency Analysis Active
+                </div>
+</div>
+</div>
+<!-- Text Content -->
+<div class="space-y-6 w-full px-4">
+<h1 class="text-4xl font-extrabold tracking-tight text-white leading-tight">
+                التظليل (Shadowing): <br/>
+<span class="text-primary-fixed">تحدث كالأصليين</span>
+</h1>
+<p class="text-lg text-on-surface-variant font-medium leading-relaxed max-w-[90%] mx-auto">
+                حاكي نبرة المتحدثين الأصليين لتحسين النطق والإيقاع الصوتي
+            </p>
+</div>
+<!-- Pagination Dots -->
+<div class="flex items-center space-x-reverse space-x-3 py-4">
+<div class="w-2.5 h-2.5 rounded-full bg-surface-container-highest"></div>
+<div class="w-10 h-2.5 rounded-full bg-primary-fixed neon-glow"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-surface-container-highest"></div>
+</div>
+<!-- Footer Action -->
+<div class="w-full pt-8">
+<button class="w-full py-5 bg-gradient-to-tr from-primary-fixed to-primary-fixed-dim text-on-primary-fixed text-lg font-bold rounded-xl active:scale-[0.98] transition-all duration-150 shadow-[0_12px_40px_rgba(213,240,0,0.15)] flex items-center justify-center group">
+<span>التالي</span>
+<span class="material-symbols-outlined mr-2 group-hover:translate-x-1 transition-transform" data-icon="arrow_back" style="transform: rotate(180deg);">arrow_back</span>
+</button>
+<button class="w-full mt-6 py-2 text-on-surface-variant hover:text-primary-fixed transition-colors font-medium">
+                تخطي الجولة
+            </button>
+</div>
+</div>
+<!-- Decorative Screen Background Elements -->
+<div class="fixed top-0 right-0 w-96 h-96 bg-primary-fixed/5 rounded-full blur-[120px] -mr-48 -mt-48 pointer-events-none"></div>
+<div class="fixed bottom-0 left-0 w-64 h-64 bg-secondary-container/5 rounded-full blur-[100px] -ml-32 -mb-32 pointer-events-none"></div>
+</body></html>

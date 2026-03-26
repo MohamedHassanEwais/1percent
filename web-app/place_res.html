@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#353534",
+              "secondary-fixed-dim": "#c0cf61",
+              "on-tertiary-fixed": "#001f26",
+              "on-primary": "#2d3400",
+              "on-background": "#e5e2e1",
+              "outline": "#909378",
+              "on-primary-container": "#5e6b00",
+              "primary-fixed-dim": "#bbd200",
+              "surface-bright": "#393939",
+              "on-secondary-container": "#e1f17e",
+              "tertiary-container": "#c9e8f1",
+              "surface-container": "#201f1f",
+              "error": "#ffb4ab",
+              "on-primary-fixed-variant": "#424b00",
+              "on-secondary": "#2d3400",
+              "on-tertiary-container": "#4c6971",
+              "surface-tint": "#bbd200",
+              "surface-dim": "#131313",
+              "on-surface-variant": "#c7c9ab",
+              "on-secondary-fixed": "#191e00",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-fixed-variant": "#424b00",
+              "on-primary-fixed": "#191e00",
+              "primary": "#ffffff",
+              "inverse-surface": "#e5e2e1",
+              "inverse-primary": "#586400",
+              "on-tertiary-fixed-variant": "#2e4b52",
+              "primary-container": "#d5f000",
+              "surface-container-high": "#2a2a2a",
+              "secondary-fixed": "#dcec79",
+              "on-surface": "#e5e2e1",
+              "on-error": "#690005",
+              "error-container": "#93000a",
+              "on-tertiary": "#17343b",
+              "inverse-on-surface": "#313030",
+              "secondary": "#c0cf61",
+              "secondary-container": "#626f01",
+              "primary-fixed": "#d5f000",
+              "tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#adccd4",
+              "surface-variant": "#353534",
+              "background": "#131313",
+              "surface": "#131313",
+              "surface-container-lowest": "#0e0e0e",
+              "tertiary-fixed": "#c9e8f1",
+              "on-error-container": "#ffdad6",
+              "outline-variant": "#464932"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .neon-glow {
+        box-shadow: 0 0 40px rgba(213, 240, 0, 0.15);
+      }
+      .lemon-gradient {
+        background: linear-gradient(45deg, #D5F000 0%, #BBD200 100%);
+      }
+      body {
+        background-color: #131313;
+        color: #e5e2e1;
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313] shadow-[0_4px_20px_rgba(227,255,0,0.05)] h-16 flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="text-[#D5F000] active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-2xl font-black text-[#D5F000] tracking-tighter uppercase">Delta Leap</h1>
+</div>
+<div class="flex items-center">
+<button class="text-[#D5F000] active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow pt-24 pb-32 px-6 max-w-4xl mx-auto w-full flex flex-col items-center justify-center">
+<!-- Results Header Section -->
+<section class="w-full text-right mb-12">
+<h2 class="text-5xl font-black mb-2 tracking-tight">نتيجتك</h2>
+<p class="text-on-surface-variant text-lg opacity-80 max-w-md ml-auto">لقد أكملت تقييم المستوى بنجاح. إليك مستوى إتقانك الحالي.</p>
+</section>
+<!-- The Hero Level Badge (Asymmetric Layout) -->
+<div class="relative w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-center mb-16">
+<!-- Visual Badge Container -->
+<div class="md:col-span-7 flex justify-center md:justify-end">
+<div class="relative group">
+<!-- Background Glow -->
+<div class="absolute -inset-4 bg-primary-fixed/20 blur-3xl rounded-full"></div>
+<!-- Main Level Card -->
+<div class="relative bg-surface-container-high p-12 rounded-[2rem] neon-glow flex flex-col items-center justify-center border border-outline-variant/10">
+<span class="text-primary-fixed font-black text-9xl tracking-tighter leading-none mb-4">i+1</span>
+<div class="h-1.5 w-32 bg-primary-fixed rounded-full shadow-[0_0_12px_rgba(213,240,0,0.6)]"></div>
+<p class="mt-6 text-primary font-bold text-xl tracking-wide uppercase">Advanced Beginner</p>
+</div>
+<!-- Decorative Floating Elements -->
+<div class="absolute -top-6 -right-6 bg-surface-container-lowest p-4 rounded-xl shadow-2xl border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary-fixed text-3xl" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</div>
+<!-- Level Description Text -->
+<div class="md:col-span-5 text-right flex flex-col gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl border-r-4 border-primary-fixed">
+<h3 class="text-primary-fixed font-bold text-lg mb-2">ماذا يعني هذا؟</h3>
+<p class="text-on-surface leading-relaxed">
+                        أنت الآن في مرحلة "i+1". هذا يعني أنك مستعد لاستيعاب المحتوى الذي يتجاوز مستواك الحالي بقليل، مما يضمن أسرع مسار لاكتساب اللغة بشكل طبيعي.
+                    </p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-highest/40 p-4 rounded-lg">
+<div class="text-primary-fixed font-black text-2xl">85%</div>
+<div class="text-sm text-on-surface-variant">فهم المسموع</div>
+</div>
+<div class="bg-surface-container-highest/40 p-4 rounded-lg">
+<div class="text-primary-fixed font-black text-2xl">B1</div>
+<div class="text-sm text-on-surface-variant">المستوى التقريبي</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Section -->
+<div class="w-full flex flex-col md:flex-row-reverse gap-6 items-center justify-between bg-surface-container-low p-8 rounded-2xl border border-outline-variant/5">
+<div class="text-right">
+<h4 class="text-xl font-bold mb-1">جاهز للقفزة القادمة؟</h4>
+<p class="text-on-surface-variant">تم تخصيص المنهج بناءً على هذه النتائج.</p>
+</div>
+<a class="lemon-gradient text-on-primary-fixed px-10 py-5 rounded-xl font-black text-lg tracking-tight hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-3 group shadow-[0_10px_30px_rgba(213,240,0,0.2)]" href="#">
+<span>الاستمرار إلى المنصة</span>
+<span class="material-symbols-outlined group-hover:translate-x-[-4px] transition-transform">arrow_back</span>
+</a>
+</div>
+<!-- Decorative Progress Visualizer -->
+<div class="w-full mt-16 overflow-hidden rounded-full h-1 bg-surface-container-highest relative">
+<div class="absolute inset-y-0 right-0 w-1/3 lemon-gradient shadow-[0_0_10px_rgba(213,240,0,0.4)]"></div>
+</div>
+<div class="w-full flex justify-between mt-4 text-[10px] font-black uppercase tracking-widest text-outline">
+<span>Level 10</span>
+<span class="text-primary-fixed">Level 3 (Current)</span>
+<span>Entry</span>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed for focused Transactional State as per rules, but showing TopAppBar as Anchor) -->
+<!-- Applying the "Destination Rule": This is a results screen, usually a sub-page, but to demonstrate layout, we include the shell if it were top-level. However, instructions say hide for "Success/Confirmation" splash screens. I will omit BottomNavBar to prioritize focus. -->
+<!-- Decorative Grain Texture Overlay -->
+<div class="pointer-events-none fixed inset-0 z-[100] opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+</body></html>

@@ -1,0 +1,442 @@
+[
+    {
+        "word": "b",
+        "phonetics": "/b/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/b/b__/b__gb/b__gb_1.mp3",
+        "definition": "Voiced bilabial plosive (Consonant)",
+        "exampleSentence": "<highlight>b</highlight>at, ru<highlight>bb</highlight>er, ca<highlight>b</highlight>",
+        "translation": "صوت الباء (b)",
+        "pos": "phoneme",
+        "rank": -44
+    },
+    {
+        "word": "d",
+        "phonetics": "/d/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/d/d__/d__gb/d__gb_1.mp3",
+        "definition": "Voiced alveolar plosive (Consonant)",
+        "exampleSentence": "<highlight>d</highlight>og, la<highlight>dd</highlight>er, be<highlight>d</highlight>",
+        "translation": "صوت الدال (d)",
+        "pos": "phoneme",
+        "rank": -43
+    },
+    {
+        "word": "f",
+        "phonetics": "/f/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/f/f__/f__gb/f__gb_1.mp3",
+        "definition": "Voiceless labiodental fricative (Consonant)",
+        "exampleSentence": "<highlight>f</highlight>ish, co<highlight>ff</highlight>ee, rou<highlight>gh</highlight>",
+        "translation": "صوت الفاء (f)",
+        "pos": "phoneme",
+        "rank": -42
+    },
+    {
+        "word": "g",
+        "phonetics": "/g/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/g/g__/g__gb/g__gb_1.mp3",
+        "definition": "Voiced velar plosive (Consonant)",
+        "exampleSentence": "<highlight>g</highlight>irl, e<highlight>gg</highlight>, gho<highlight>st</highlight>",
+        "translation": "صوت الجيم (g)",
+        "pos": "phoneme",
+        "rank": -41
+    },
+    {
+        "word": "h",
+        "phonetics": "/h/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/h/h__/h__gb/h__gb_1.mp3",
+        "definition": "Voiceless glottal fricative (Consonant)",
+        "exampleSentence": "<highlight>h</highlight>at, <highlight>wh</highlight>o",
+        "translation": "صوت الهاء (h)",
+        "pos": "phoneme",
+        "rank": -40
+    },
+    {
+        "word": "j",
+        "phonetics": "/dʒ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/d/d__/d__gb/d_zh_gb_1.mp3",
+        "definition": "Voiced postalveolar affricate (Consonant)",
+        "exampleSentence": "<highlight>j</highlight>elly, <highlight>g</highlight>iraffe, fri<highlight>dge</highlight>",
+        "translation": "صوت الجيم المعطشة (j)",
+        "pos": "phoneme",
+        "rank": -39
+    },
+    {
+        "word": "k",
+        "phonetics": "/k/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/k/k__/k__gb/k__gb_1.mp3",
+        "definition": "Voiceless velar plosive (Consonant)",
+        "exampleSentence": "<highlight>k</highlight>ite, <highlight>c</highlight>at, du<highlight>ck</highlight>",
+        "translation": "صوت الكاف (k)",
+        "pos": "phoneme",
+        "rank": -38
+    },
+    {
+        "word": "l",
+        "phonetics": "/l/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/l/l__/l__gb/l__gb_1.mp3",
+        "definition": "Alveolar lateral approximant (Consonant)",
+        "exampleSentence": "<highlight>l</highlight>eaf, be<highlight>ll</highlight>",
+        "translation": "صوت اللام (l)",
+        "pos": "phoneme",
+        "rank": -37
+    },
+    {
+        "word": "m",
+        "phonetics": "/m/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/m/m__/m__gb/m__gb_1.mp3",
+        "definition": "Bilabial nasal (Consonant)",
+        "exampleSentence": "<highlight>m</highlight>an, ha<highlight>mm</highlight>er, la<highlight>mb</highlight>",
+        "translation": "صوت الميم (m)",
+        "pos": "phoneme",
+        "rank": -36
+    },
+    {
+        "word": "n",
+        "phonetics": "/n/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/n/n__/n__gb/n__gb_1.mp3",
+        "definition": "Alveolar nasal (Consonant)",
+        "exampleSentence": "<highlight>n</highlight>ose, fu<highlight>nn</highlight>y, g<highlight>n</highlight>at",
+        "translation": "صوت النون (n)",
+        "pos": "phoneme",
+        "rank": -35
+    },
+    {
+        "word": "ng",
+        "phonetics": "/ŋ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/n/n__/n__gb/n_k_gb_1.mp3",
+        "definition": "Velar nasal (Consonant)",
+        "exampleSentence": "ri<highlight>ng</highlight>, si<highlight>ng</highlight>er, u<highlight>n</highlight>cle",
+        "translation": "صوت النون الغنة (ng)",
+        "pos": "phoneme",
+        "rank": -34
+    },
+    {
+        "word": "p",
+        "phonetics": "/p/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/p/p__/p__gb/p__gb_1.mp3",
+        "definition": "Voiceless bilabial plosive (Consonant)",
+        "exampleSentence": "<highlight>p</highlight>en, ha<highlight>pp</highlight>y",
+        "translation": "صوت البي (p)",
+        "pos": "phoneme",
+        "rank": -33
+    },
+    {
+        "word": "r",
+        "phonetics": "/r/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/r/r__/r__gb/r__gb_1.mp3",
+        "definition": "Alveolar approximant (Consonant)",
+        "exampleSentence": "<highlight>r</highlight>ed, ca<highlight>rr</highlight>ot, <highlight>wr</highlight>ong",
+        "translation": "صوت الراء (r)",
+        "pos": "phoneme",
+        "rank": -32
+    },
+    {
+        "word": "s",
+        "phonetics": "/s/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/s/s__/s__gb/s__gb_1.mp3",
+        "definition": "Voiceless alveolar fricative (Consonant)",
+        "exampleSentence": "<highlight>s</highlight>un, me<highlight>ss</highlight>, mou<highlight>se</highlight>, <highlight>c</highlight>ity",
+        "translation": "صوت السين (s)",
+        "pos": "phoneme",
+        "rank": -31
+    },
+    {
+        "word": "sh",
+        "phonetics": "/ʃ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/s/s__/s__gb/s_h_gb_1.mp3",
+        "definition": "Voiceless postalveolar fricative (Consonant)",
+        "exampleSentence": "<highlight>sh</highlight>ip, mi<highlight>ssi</highlight>on, <highlight>ch</highlight>ef",
+        "translation": "صوت الشين (sh)",
+        "pos": "phoneme",
+        "rank": -30
+    },
+    {
+        "word": "t",
+        "phonetics": "/t/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/t/t__/t__gb/t__gb_1.mp3",
+        "definition": "Voiceless alveolar plosive (Consonant)",
+        "exampleSentence": "<highlight>t</highlight>op, le<highlight>tt</highlight>er, walk<highlight>ed</highlight>",
+        "translation": "صوت التاء (t)",
+        "pos": "phoneme",
+        "rank": -29
+    },
+    {
+        "word": "ch",
+        "phonetics": "/tʃ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/t/t__/t__gb/t_sh_gb_1.mp3",
+        "definition": "Voiceless postalveolar affricate (Consonant)",
+        "exampleSentence": "<highlight>ch</highlight>ip, wa<highlight>tch</highlight>, fu<highlight>t</highlight>ure",
+        "translation": "صوت التش (ch)",
+        "pos": "phoneme",
+        "rank": -28
+    },
+    {
+        "word": "th (voiceless)",
+        "phonetics": "/θ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/t/t__/t__gb/t_h_gb_1.mp3",
+        "definition": "Voiceless dental fricative (Consonant)",
+        "exampleSentence": "<highlight>th</highlight>umb, ba<highlight>th</highlight>",
+        "translation": "صوت الثاء (th)",
+        "pos": "phoneme",
+        "rank": -27
+    },
+    {
+        "word": "th (voiced)",
+        "phonetics": "/ð/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/d/d__/d__gb/d_h_gb_1.mp3",
+        "definition": "Voiced dental fricative (Consonant)",
+        "exampleSentence": "<highlight>th</highlight>is, mo<highlight>th</highlight>er",
+        "translation": "صوت الذال (th)",
+        "pos": "phoneme",
+        "rank": -26
+    },
+    {
+        "word": "v",
+        "phonetics": "/v/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/v/v__/v__gb/v__gb_1.mp3",
+        "definition": "Voiced labiodental fricative (Consonant)",
+        "exampleSentence": "<highlight>v</highlight>an, o<highlight>f</highlight>, Ste<highlight>ph</highlight>en",
+        "translation": "صوت الڤي (v)",
+        "pos": "phoneme",
+        "rank": -25
+    },
+    {
+        "word": "w",
+        "phonetics": "/w/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/w/w__/w__gb/w__gb_1.mp3",
+        "definition": "Voiced labial-velar approximant (Consonant)",
+        "exampleSentence": "<highlight>w</highlight>in, <highlight>wh</highlight>y, q<highlight>u</highlight>ick",
+        "translation": "صوت الواو (w)",
+        "pos": "phoneme",
+        "rank": -24
+    },
+    {
+        "word": "y",
+        "phonetics": "/j/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/j/j__/j__gb/j__gb_1.mp3",
+        "definition": "Palatal approximant (Consonant)",
+        "exampleSentence": "<highlight>y</highlight>es, on<highlight>i</highlight>on, f<highlight>e</highlight>w",
+        "translation": "صوت الياء (y)",
+        "pos": "phoneme",
+        "rank": -23
+    },
+    {
+        "word": "z",
+        "phonetics": "/z/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/z/z__/z__gb/z__gb_1.mp3",
+        "definition": "Voiced alveolar fricative (Consonant)",
+        "exampleSentence": "<highlight>z</highlight>ebra, fi<highlight>zz</highlight>, ro<highlight>s</highlight>e",
+        "translation": "صوت الزين (z)",
+        "pos": "phoneme",
+        "rank": -22
+    },
+    {
+        "word": "zh",
+        "phonetics": "/ʒ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/z/z__/z__gb/z_h_gb_1.mp3",
+        "definition": "Voiced postalveolar fricative (Consonant)",
+        "exampleSentence": "vi<highlight>si</highlight>on, mea<highlight>s</highlight>ure, bei<highlight>ge</highlight>",
+        "translation": "صوت الجيم المخففة (zh)",
+        "pos": "phoneme",
+        "rank": -21
+    },
+    {
+        "word": "a (short)",
+        "phonetics": "/æ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/a/a__/a__gb/a__gb_2.mp3",
+        "definition": "Short Vowel",
+        "exampleSentence": "c<highlight>a</highlight>t, <highlight>a</highlight>pple",
+        "translation": "فتحة قصيرة (æ)",
+        "pos": "phoneme",
+        "rank": -20
+    },
+    {
+        "word": "e (short)",
+        "phonetics": "/e/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/e/e__/e__gb/e__gb_2.mp3",
+        "definition": "Short Vowel",
+        "exampleSentence": "p<highlight>e</highlight>g, br<highlight>ea</highlight>d, h<highlight>ea</highlight>d",
+        "translation": "كسرة قصيرة (e)",
+        "pos": "phoneme",
+        "rank": -19
+    },
+    {
+        "word": "i (short)",
+        "phonetics": "/ɪ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/i/i__/i__gb/i__gb_2.mp3",
+        "definition": "Short Vowel",
+        "exampleSentence": "p<highlight>i</highlight>g, g<highlight>y</highlight>m, b<highlight>u</highlight>sy",
+        "translation": "كسرة عميقة (ɪ)",
+        "pos": "phoneme",
+        "rank": -18
+    },
+    {
+        "word": "o (short)",
+        "phonetics": "/ɒ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/o/o__/o__gb/o__gb_2.mp3",
+        "definition": "Short Vowel",
+        "exampleSentence": "l<highlight>o</highlight>g, w<highlight>a</highlight>nt, b<highlight>e</highlight>cause",
+        "translation": "ضمة قصيرة (ɒ)",
+        "pos": "phoneme",
+        "rank": -17
+    },
+    {
+        "word": "u (short)",
+        "phonetics": "/ʌ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/u/u__/u__gb/u__gb_2.mp3",
+        "definition": "Short Vowel",
+        "exampleSentence": "b<highlight>u</highlight>s, c<highlight>o</highlight>me, bl<highlight>oo</highlight>d",
+        "translation": "سكون/فتحة مفخمة (ʌ)",
+        "pos": "phoneme",
+        "rank": -16
+    },
+    {
+        "word": "a (long)",
+        "phonetics": "/eɪ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/a/a__/a__gb/a__gb_1.mp3",
+        "definition": "Long Vowel (Diphthong)",
+        "exampleSentence": "tr<highlight>ay</highlight>, c<highlight>a</highlight>ke, br<highlight>ea</highlight>k",
+        "translation": "مد الألف (eɪ)",
+        "pos": "phoneme",
+        "rank": -15
+    },
+    {
+        "word": "e (long)",
+        "phonetics": "/iː/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/e/e__/e__gb/e__gb_1.mp3",
+        "definition": "Long Vowel",
+        "exampleSentence": "t<highlight>ee</highlight>, m<highlight>e</highlight>, th<highlight>e</highlight>se",
+        "translation": "مد الياء (iː)",
+        "pos": "phoneme",
+        "rank": -14
+    },
+    {
+        "word": "i (long)",
+        "phonetics": "/aɪ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/i/i__/i__gb/i__gb_1.mp3",
+        "definition": "Long Vowel (Diphthong)",
+        "exampleSentence": "l<highlight>igh</highlight>t, f<highlight>l</highlight>y, p<highlight>ie</highlight>",
+        "translation": "مد الآي (aɪ)",
+        "pos": "phoneme",
+        "rank": -13
+    },
+    {
+        "word": "o (long)",
+        "phonetics": "/əʊ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/o/o__/o__gb/o__gb_1.mp3",
+        "definition": "Long Vowel (Diphthong)",
+        "exampleSentence": "b<highlight>oa</highlight>t, n<highlight>o</highlight>, g<highlight>o</highlight>",
+        "translation": "مد الواو (əʊ)",
+        "pos": "phoneme",
+        "rank": -12
+    },
+    {
+        "word": "u (long)",
+        "phonetics": "/uː/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/u/u__/u__gb/u__gb_1.mp3",
+        "definition": "Long Vowel",
+        "exampleSentence": "m<highlight>oo</highlight>n, ch<highlight>ew</highlight>, bl<highlight>ue</highlight>",
+        "translation": "مد الأوو (uː)",
+        "pos": "phoneme",
+        "rank": -11
+    },
+    {
+        "word": "ar",
+        "phonetics": "/ɑː/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/a/a__/a__gb/a__gb_3.mp3",
+        "definition": "R-Controlled Vowel",
+        "exampleSentence": "c<highlight>ar</highlight>, f<highlight>a</highlight>ther, <highlight>ar</highlight>t",
+        "translation": "آه مفخمة (ɑː)",
+        "pos": "phoneme",
+        "rank": -10
+    },
+    {
+        "word": "or",
+        "phonetics": "/ɔː/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/o/o__/o__gb/o__gb_3.mp3",
+        "definition": "R-Controlled Vowel",
+        "exampleSentence": "d<highlight>oo</highlight>r, w<highlight>a</highlight>lk, s<highlight>aw</highlight>",
+        "translation": "أوه مفخمة (ɔː)",
+        "pos": "phoneme",
+        "rank": -9
+    },
+    {
+        "word": "ur",
+        "phonetics": "/ɜː/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/e/e__/e__gb/e__gb_3.mp3",
+        "definition": "R-Controlled Vowel",
+        "exampleSentence": "b<highlight>ur</highlight>n, f<highlight>ir</highlight>st, h<highlight>er</highlight>d",
+        "translation": "أر مفخمة (ɜː)",
+        "pos": "phoneme",
+        "rank": -8
+    },
+    {
+        "word": "ow",
+        "phonetics": "/aʊ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/o/o__/o__gb/o__gb_4.mp3",
+        "definition": "Diphthong",
+        "exampleSentence": "c<highlight>ow</highlight>, h<highlight>ou</highlight>se, sh<highlight>ou</highlight>t",
+        "translation": "آو (aʊ)",
+        "pos": "phoneme",
+        "rank": -7
+    },
+    {
+        "word": "oy",
+        "phonetics": "/ɔɪ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/o/o__/o__gb/o__gb_5.mp3",
+        "definition": "Diphthong",
+        "exampleSentence": "b<highlight>oy</highlight>, c<highlight>oi</highlight>n, s<highlight>oi</highlight>l",
+        "translation": "أوي (ɔɪ)",
+        "pos": "phoneme",
+        "rank": -6
+    },
+    {
+        "word": "air",
+        "phonetics": "/eə/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/e/e__/e__gb/e__gb_4.mp3",
+        "definition": "Diphthong / Triphthong",
+        "exampleSentence": "ch<highlight>air</highlight>, b<highlight>ear</highlight>, s<highlight>quare</highlight>",
+        "translation": "إير (eə)",
+        "pos": "phoneme",
+        "rank": -5
+    },
+    {
+        "word": "ear",
+        "phonetics": "/ɪə/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/i/i__/i__gb/i__gb_3.mp3",
+        "definition": "Diphthong / Triphthong",
+        "exampleSentence": "sp<highlight>ear</highlight>, d<highlight>eer</highlight>, h<highlight>ere</highlight>",
+        "translation": "يير (ɪə)",
+        "pos": "phoneme",
+        "rank": -4
+    },
+    {
+        "word": "ure",
+        "phonetics": "/ʊə/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/u/u__/u__gb/u__gb_3.mp3",
+        "definition": "Diphthong / Triphthong",
+        "exampleSentence": "c<highlight>ure</highlight>, p<highlight>ure</highlight>, t<highlight>our</highlight>ist",
+        "translation": "يوور (ʊə)",
+        "pos": "phoneme",
+        "rank": -3
+    },
+    {
+        "word": "uh (schwa)",
+        "phonetics": "/ə/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/a/a__/a__gb/a__gb_2.mp3",
+        "definition": "Schwa (Unstressed)",
+        "exampleSentence": "banan<highlight>a</highlight>, comput<highlight>er</highlight>, <highlight>th</highlight>e",
+        "translation": "شوا (ə)",
+        "pos": "phoneme",
+        "rank": -2
+    },
+    {
+        "word": "oo (short)",
+        "phonetics": "/ʊ/",
+        "audio": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/o/o__/o__gb/o__gb_3.mp3",
+        "definition": "Short Vowel",
+        "exampleSentence": "b<highlight>oo</highlight>k, p<highlight>u</highlight>t, c<highlight>oul</highlight>d",
+        "translation": "ضمة خفيفة (ʊ)",
+        "pos": "phoneme",
+        "rank": -1
+    }
+]

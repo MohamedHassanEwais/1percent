@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#353534",
+              "secondary-fixed-dim": "#c0cf61",
+              "on-tertiary-fixed": "#001f26",
+              "on-primary": "#2d3400",
+              "on-background": "#e5e2e1",
+              "outline": "#909378",
+              "on-primary-container": "#5e6b00",
+              "primary-fixed-dim": "#bbd200",
+              "surface-bright": "#393939",
+              "on-secondary-container": "#e1f17e",
+              "tertiary-container": "#c9e8f1",
+              "surface-container": "#201f1f",
+              "error": "#ffb4ab",
+              "on-primary-fixed-variant": "#424b00",
+              "on-secondary": "#2d3400",
+              "on-tertiary-container": "#4c6971",
+              "surface-tint": "#bbd200",
+              "surface-dim": "#131313",
+              "on-surface-variant": "#c7c9ab",
+              "on-secondary-fixed": "#191e00",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-fixed-variant": "#424b00",
+              "on-primary-fixed": "#191e00",
+              "primary": "#ffffff",
+              "inverse-surface": "#e5e2e1",
+              "inverse-primary": "#586400",
+              "on-tertiary-fixed-variant": "#2e4b52",
+              "primary-container": "#d5f000",
+              "surface-container-high": "#2a2a2a",
+              "secondary-fixed": "#dcec79",
+              "on-surface": "#e5e2e1",
+              "on-error": "#690005",
+              "error-container": "#93000a",
+              "on-tertiary": "#17343b",
+              "inverse-on-surface": "#313030",
+              "secondary": "#c0cf61",
+              "secondary-container": "#626f01",
+              "primary-fixed": "#d5f000",
+              "tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#adccd4",
+              "surface-variant": "#353534",
+              "background": "#131313",
+              "surface": "#131313",
+              "surface-container-lowest": "#0e0e0e",
+              "tertiary-fixed": "#c9e8f1",
+              "on-error-container": "#ffdad6",
+              "outline-variant": "#464932"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .neon-glow-primary {
+        box-shadow: 0 0 15px rgba(213, 240, 0, 0.3);
+      }
+      .glass-surface {
+        background: rgba(53, 53, 52, 0.6);
+        backdrop-filter: blur(20px);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-[#131313] shadow-[0_4px_20px_rgba(227,255,0,0.05)] flex justify-between items-center px-6 py-4 h-16">
+<div class="flex items-center gap-4">
+<button class="text-gray-400 hover:text-[#D5F000] transition-colors duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<div class="h-2 w-48 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed w-[65%] neon-glow-primary transition-all duration-500"></div>
+</div>
+<span class="text-xs font-bold text-[#D5F000] tracking-tight">12/18</span>
+</div>
+<div class="text-2xl font-black text-[#D5F000] tracking-tighter uppercase font-headline">Delta Leap</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#D5F000]" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-bold text-sm">450</span>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="pt-24 pb-32 px-6 max-w-3xl mx-auto">
+<!-- Question Header Section -->
+<section class="mb-12">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold tracking-widest uppercase">المستوى المتوسط</span>
+<span class="text-on-surface-variant text-sm font-medium">اختر الإجابة الصحيحة</span>
+</div>
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight mb-8">
+                ما هو المعنى الدقيق لكلمة <span class="text-[#D5F000] italic underline decoration-2 underline-offset-8">"الاستدامة"</span> في سياق الحفاظ على البيئة؟
+            </h1>
+<div class="rounded-xl overflow-hidden mb-12 shadow-2xl">
+<img alt="Context Visual" class="w-full h-64 object-cover opacity-80" data-alt="Modern abstract representation of ecological sustainability with glowing green neon circuits interwoven through deep dark forest leaves at night" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6jepDYoL4hd7-iy5StVHiMRpKN04LI_2jzxE_2VwTtchhzM6slc5e-avZcmyPRD3o3pfIPPm2WeqVXjKQg2lOMPsTaWx1XGnbflpEQpY6jRDK-vi-YqL6tW7NUXhuzpSyYREa2kL7SqNCpfLokEJcvFgQnqrqP9P3Nv8ymcgm4P90j-LpheoXJr5t5suqIqn16sY_0s68crAY_xO3TDiLn0bkdlJjAV_H2hTbUV7CZqS0TRAc76EJdC272eSf8ZhED6fDE4QCo1A"/>
+</div>
+</section>
+<!-- Quiz Options Bento-style Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Option 1 (Default) -->
+<button class="group relative flex items-center p-6 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-all duration-300 text-right active:scale-[0.98]">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center font-black text-on-surface-variant group-hover:text-primary-fixed transition-colors">أ</div>
+<div class="mr-4">
+<p class="text-lg font-bold">القدرة على الاستهلاك السريع للموارد</p>
+</div>
+</button>
+<!-- Option 2 (Selected State) -->
+<button class="group relative flex items-center p-6 bg-surface-container-highest ring-2 ring-primary-fixed rounded-xl transition-all duration-300 text-right neon-glow-primary active:scale-[0.98]">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center font-black text-on-primary-fixed">ب</div>
+<div class="mr-4">
+<p class="text-lg font-bold text-on-surface">تلبية احتياجات الحاضر دون المساس بقدرة الأجيال القادمة</p>
+</div>
+<div class="absolute left-6 text-primary-fixed">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</button>
+<!-- Option 3 (Default) -->
+<button class="group relative flex items-center p-6 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-all duration-300 text-right active:scale-[0.98]">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center font-black text-on-surface-variant group-hover:text-primary-fixed transition-colors">ج</div>
+<div class="mr-4">
+<p class="text-lg font-bold">التركيز فقط على التطور الصناعي والتقني</p>
+</div>
+</button>
+<!-- Option 4 (Default) -->
+<button class="group relative flex items-center p-6 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-all duration-300 text-right active:scale-[0.98]">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center font-black text-on-surface-variant group-hover:text-primary-fixed transition-colors">د</div>
+<div class="mr-4">
+<p class="text-lg font-bold">زيادة الإنتاج المحلي بأي ثمن ممكن</p>
+</div>
+</button>
+</div>
+</main>
+<!-- Bottom Action Shell -->
+<div class="fixed bottom-0 left-0 w-full glass-surface border-t border-[#464932]/20 z-50">
+<div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between gap-6">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-on-surface transition-colors font-bold">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>تلميح</span>
+</button>
+<div class="flex gap-4 items-center">
+<button class="hidden md:flex px-8 py-4 rounded-xl font-black text-on-surface-variant hover:text-on-surface transition-all">تخطي</button>
+<button class="bg-gradient-to-br from-primary-fixed to-primary-fixed-dim text-on-primary-fixed px-12 py-4 rounded-xl font-black text-lg shadow-[0_8px_32px_rgba(213,240,0,0.2)] hover:scale-[1.02] active:scale-95 transition-all">
+                    التحقق من الإجابة
+                </button>
+</div>
+</div>
+</div>
+<!-- Hidden Tablet/Desktop Nav Drawer Trigger -->
+<div class="hidden lg:block fixed right-8 top-24 space-y-4">
+<div class="p-3 bg-surface-container-high rounded-2xl flex flex-col items-center gap-6 shadow-xl">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-[#D5F000]">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a smiling middle eastern man with a well-groomed beard, studio lighting with a subtle dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsgMbtm0YqSqO_ya-z4TKt4a1_y2qUrrr3PgVaVfnG99D5Fo4IHGkl_Y2bxFLBzU0eyXs9FX-M8DUVMn-JKFH8t3kRopl3HYclfYW9-nzTV6IhrvzIVmfsIcMLEH3Vf-ZHMPIw7FZryg-m-peIQzuqFKR2fwsk9DJM1fTQM6UxTCLIR75FYqHXdW2D_402QvddTI3g-GEkfG7t39TmJHz-tjxdaOorn8EYyzb37D7KcM8l2S2k8HsclZDLCFZwtGnC7Zn-CujdXZc"/>
+</div>
+<div class="flex flex-col gap-6">
+<span class="material-symbols-outlined text-[#D5F000] cursor-pointer" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="material-symbols-outlined text-gray-500 hover:text-[#D5F000] cursor-pointer" data-icon="leaderboard">leaderboard</span>
+<span class="material-symbols-outlined text-gray-500 hover:text-[#D5F000] cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-gray-500 hover:text-[#D5F000] cursor-pointer" data-icon="settings">settings</span>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-tint": "#bbd200",
+              "tertiary-fixed": "#c9e8f1",
+              "surface-container-highest": "#353534",
+              "primary-fixed-dim": "#bbd200",
+              "on-primary-fixed-variant": "#424b00",
+              "on-primary-fixed": "#191e00",
+              "surface-container-low": "#1c1b1b",
+              "inverse-primary": "#586400",
+              "secondary-fixed": "#dcec79",
+              "surface-container-high": "#2a2a2a",
+              "surface": "#131313",
+              "surface-container-lowest": "#0e0e0e",
+              "on-secondary-container": "#e1f17e",
+              "on-tertiary-container": "#4c6971",
+              "error-container": "#93000a",
+              "error": "#ffb4ab",
+              "secondary-container": "#626f01",
+              "surface-dim": "#131313",
+              "on-error-container": "#ffdad6",
+              "tertiary-container": "#c9e8f1",
+              "on-primary": "#2d3400",
+              "on-secondary-fixed": "#191e00",
+              "background": "#131313",
+              "secondary-fixed-dim": "#c0cf61",
+              "primary-container": "#d5f000",
+              "on-surface": "#e5e2e1",
+              "outline-variant": "#464932",
+              "on-background": "#e5e2e1",
+              "primary-fixed": "#d5f000",
+              "surface-variant": "#353534",
+              "on-error": "#690005",
+              "secondary": "#c0cf61",
+              "on-tertiary-fixed-variant": "#2e4b52",
+              "inverse-surface": "#e5e2e1",
+              "surface-container": "#201f1f",
+              "on-tertiary-fixed": "#001f26",
+              "on-surface-variant": "#c7c9ab",
+              "on-secondary-fixed-variant": "#424b00",
+              "on-secondary": "#2d3400",
+              "tertiary-fixed-dim": "#adccd4",
+              "outline": "#909378",
+              "on-primary-container": "#5e6b00",
+              "inverse-on-surface": "#313030",
+              "on-tertiary": "#17343b",
+              "tertiary": "#ffffff",
+              "surface-bright": "#393939",
+              "primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .neon-glow-primary {
+        box-shadow: 0 0 20px rgba(213, 240, 0, 0.3);
+      }
+      .glass-panel {
+        background: rgba(53, 53, 52, 0.6);
+        backdrop-filter: blur(20px);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col items-center justify-center p-6 rtl">
+<!-- Main Content Canvas -->
+<main class="w-full max-w-lg mx-auto flex flex-col items-center space-y-12">
+<!-- Header Section -->
+<header class="text-center space-y-4">
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-primary-fixed leading-tight">
+                قاعدة الـ 95%: <br/>
+<span class="text-on-surface">منطقة الاكتساب الأمثل</span>
+</h1>
+<p class="text-lg text-on-surface-variant max-w-sm mx-auto leading-relaxed">
+                تعلم من خلال محتوى تفهمه بنسبة 95% على الأقل لضمان التقدم المستمر
+            </p>
+</header>
+<!-- The "Sweet Spot" Illustration (Asymmetric Bento Style) -->
+<section class="w-full relative group">
+<div class="grid grid-cols-12 gap-4">
+<!-- Main Gauge Card -->
+<div class="col-span-12 bg-surface-container-high rounded-xl p-8 flex flex-col items-center justify-center relative overflow-hidden border border-outline-variant/15">
+<!-- Background Ambient Glow -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-fixed/5 rounded-full blur-[80px]"></div>
+<!-- Comprehension Scale -->
+<div class="w-full space-y-8 relative z-10">
+<div class="flex justify-between items-end mb-2">
+<span class="text-sm font-label text-on-surface-variant">صعب جداً</span>
+<span class="text-2xl font-bold text-primary-fixed">95% - 98%</span>
+<span class="text-sm font-label text-on-surface-variant">سهل جداً</span>
+</div>
+<!-- The Slider Track -->
+<div class="h-4 w-full bg-surface-container-highest rounded-full relative overflow-hidden">
+<!-- Inactive Track -->
+<div class="absolute inset-0 bg-surface-container-lowest opacity-50"></div>
+<!-- Active Progress Zone -->
+<div class="absolute right-0 top-0 h-full w-[95%] bg-gradient-to-l from-primary-fixed to-primary-fixed-dim neon-glow-primary rounded-full"></div>
+<!-- The Indicator Dot -->
+<div class="absolute right-[95%] top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full border-4 border-primary-fixed-dim shadow-xl transition-all duration-500"></div>
+</div>
+<!-- Labels Grid -->
+<div class="grid grid-cols-3 gap-2 text-center pt-4">
+<div class="p-3 bg-surface-container-lowest/40 rounded-lg">
+<span class="block text-xs text-on-surface-variant mb-1">الإحباط</span>
+<span class="text-error font-bold">80%</span>
+</div>
+<div class="p-3 bg-primary-fixed/10 border border-primary-fixed/20 rounded-lg scale-110 shadow-lg">
+<span class="block text-xs text-primary-fixed mb-1">النمو</span>
+<span class="text-primary-fixed font-bold">95%</span>
+</div>
+<div class="p-3 bg-surface-container-lowest/40 rounded-lg">
+<span class="block text-xs text-on-surface-variant mb-1">الملل</span>
+<span class="text-on-surface font-bold">100%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Descriptive Insight Card -->
+<div class="col-span-12 flex items-center gap-4 bg-surface-container-low p-6 rounded-xl">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-fixed/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="lightbulb">lightbulb</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">لماذا 95%؟</h4>
+<p class="text-sm text-on-surface-variant">تسمح لك هذه النسبة باستنتاج الكلمات الجديدة من السياق دون الحاجة للترجمة الدائمة.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Progress and Actions -->
+<footer class="w-full flex flex-col items-center space-y-10 pb-12">
+<!-- Progress Dots -->
+<div class="flex items-center space-x-3 space-x-reverse">
+<div class="w-2.5 h-2.5 rounded-full bg-surface-container-highest"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-surface-container-highest"></div>
+<!-- Active Indicator -->
+<div class="w-8 h-2.5 rounded-full bg-primary-fixed neon-glow-primary"></div>
+</div>
+<!-- Start Now Button -->
+<button class="group relative w-full py-5 px-8 bg-gradient-to-tr from-primary-fixed to-primary-fixed-dim rounded-xl flex items-center justify-center space-x-4 space-x-reverse transition-all duration-300 hover:scale-[1.02] active:scale-95 neon-glow-primary">
+<span class="text-on-primary-fixed text-xl font-extrabold">ابدأ الآن</span>
+<span class="material-symbols-outlined text-on-primary-fixed group-hover:translate-x-[-4px] transition-transform" data-icon="arrow_back">arrow_back</span>
+</button>
+</footer>
+</main>
+<!-- Visual Polish: Decorative Grain & Gradient Overlays -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] contrast-150" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC3CRv5rj7v24gTiVRnA_iiMGusa_UQ7kGUA6hhIq2ibzB9Zk4RjbY-tHnSWTudyAs-DphMZoMZg4CgI2FUc8y3SG-YrfJDlpryrM-E_ZfNMJ_KdOZZ6JmEREjT-xF3j609tiviVgVZIhcSinKDdLehejqqzcu61CkuNpmr6_OCZ4cNzARJIq_Qyru7DFvDiUwZAXVUWXxfZmdlOomxShBcdxEiMq49qstmgBMBrE1zsD0EhCuGYZhpcOOosC6yFjUsuaiWQalGjW4')"></div>
+</body></html>

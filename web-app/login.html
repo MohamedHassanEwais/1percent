@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#353534",
+              "secondary-fixed-dim": "#c0cf61",
+              "on-tertiary-fixed": "#001f26",
+              "on-primary": "#2d3400",
+              "on-background": "#e5e2e1",
+              "outline": "#909378",
+              "on-primary-container": "#5e6b00",
+              "primary-fixed-dim": "#bbd200",
+              "surface-bright": "#393939",
+              "on-secondary-container": "#e1f17e",
+              "tertiary-container": "#c9e8f1",
+              "surface-container": "#201f1f",
+              "error": "#ffb4ab",
+              "on-primary-fixed-variant": "#424b00",
+              "on-secondary": "#2d3400",
+              "on-tertiary-container": "#4c6971",
+              "surface-tint": "#bbd200",
+              "surface-dim": "#131313",
+              "on-surface-variant": "#c7c9ab",
+              "on-secondary-fixed": "#191e00",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-fixed-variant": "#424b00",
+              "on-primary-fixed": "#191e00",
+              "primary": "#ffffff",
+              "inverse-surface": "#e5e2e1",
+              "inverse-primary": "#586400",
+              "on-tertiary-fixed-variant": "#2e4b52",
+              "primary-container": "#d5f000",
+              "surface-container-high": "#2a2a2a",
+              "secondary-fixed": "#dcec79",
+              "on-surface": "#e5e2e1",
+              "on-error": "#690005",
+              "error-container": "#93000a",
+              "on-tertiary": "#17343b",
+              "inverse-on-surface": "#313030",
+              "secondary": "#c0cf61",
+              "secondary-container": "#626f01",
+              "primary-fixed": "#d5f000",
+              "tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#adccd4",
+              "surface-variant": "#353534",
+              "background": "#131313",
+              "surface": "#131313",
+              "surface-container-lowest": "#0e0e0e",
+              "tertiary-fixed": "#c9e8f1",
+              "on-error-container": "#ffdad6",
+              "outline-variant": "#464932"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(213, 240, 0, 0.3);
+        }
+        .signature-gradient {
+            background: linear-gradient(45deg, #d5f000, #bbd200);
+        }
+        body {
+            background-color: #131313;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface overflow-x-hidden">
+<!-- Auth Shell Suppression: Nav is hidden for Login/Signup as per instructions -->
+<main class="min-h-screen flex items-center justify-center p-6 md:p-12 relative overflow-hidden">
+<!-- Background Asymmetric Elements -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary-fixed/5 rounded-full blur-[100px]"></div>
+<div class="absolute -bottom-24 -right-24 w-80 h-80 bg-secondary-container/10 rounded-full blur-[80px]"></div>
+<div class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+<!-- Hero Narrative Side (Asymmetric Layout) -->
+<div class="hidden md:flex flex-col space-y-8 pr-8">
+<div class="space-y-4">
+<span class="text-primary-fixed font-black text-4xl tracking-tighter uppercase block">Delta Leap</span>
+<h1 class="text-6xl font-black leading-[1.1] tracking-tight text-primary">
+                        أتقن اللغة<br/>بقفزة ذكية
+                    </h1>
+<p class="text-on-surface-variant text-xl leading-relaxed max-w-md">
+                        انضم إلى مجتمع "نيون سكولار" حيث يلتقي التركيز العميق مع الطاقة الذهنية المتجددة.
+                    </p>
+</div>
+<!-- Feature Visual (Bento-style Minimalist Card) -->
+<div class="bg-surface-container-low p-8 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-1 h-full bg-primary-fixed/20 group-hover:bg-primary-fixed transition-all duration-500"></div>
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+</div>
+<div class="text-on-surface font-bold text-lg">تعلم مدعوم بالذكاء الاصطناعي</div>
+</div>
+<div class="space-y-3">
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full w-3/4 signature-gradient neon-glow"></div>
+</div>
+<div class="flex justify-between text-xs text-on-surface-variant font-medium">
+<span>التقدم اليومي</span>
+<span>75%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Auth Form Side -->
+<div class="bg-surface-container-low p-8 md:p-12 rounded-xl shadow-[0_32px_64px_rgba(0,0,0,0.5)] border border-outline-variant/10">
+<div class="flex flex-col space-y-8">
+<div class="md:hidden flex flex-col items-center mb-4">
+<span class="text-primary-fixed font-black text-2xl tracking-tighter uppercase">Delta Leap</span>
+</div>
+<!-- Toggle Strategy -->
+<div class="flex bg-surface-container-lowest p-1 rounded-lg">
+<button class="flex-1 py-3 px-6 text-sm font-bold rounded-md bg-surface-container-high text-primary-fixed transition-all">
+                            تسجيل الدخول
+                        </button>
+<button class="flex-1 py-3 px-6 text-sm font-bold text-on-surface-variant hover:text-on-surface transition-all">
+                            إنشاء حساب
+                        </button>
+</div>
+<div class="space-y-6">
+<!-- Input Field: Email -->
+<div class="space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant tracking-widest uppercase px-1">البريد الإلكتروني</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-highest border-none rounded-lg py-4 px-12 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:outline-none focus:bg-surface-container-high transition-all" placeholder="name@example.com" type="email"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary-fixed transition-colors" data-icon="alternate_email">alternate_email</span>
+<div class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary-fixed transition-all duration-300 group-focus-within:w-full"></div>
+</div>
+</div>
+<!-- Input Field: Password -->
+<div class="space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant tracking-widest uppercase px-1">كلمة المرور</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-highest border-none rounded-lg py-4 px-12 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 focus:outline-none focus:bg-surface-container-high transition-all" placeholder="••••••••" type="password"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary-fixed transition-colors" data-icon="lock">lock</span>
+<div class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary-fixed transition-all duration-300 group-focus-within:w-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between text-sm">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-4 h-4 rounded border-none bg-surface-container-highest text-primary-fixed focus:ring-offset-0 focus:ring-0" type="checkbox"/>
+<span class="text-on-surface-variant group-hover:text-on-surface transition-colors">تذكرني</span>
+</label>
+<a class="text-primary-fixed font-medium hover:underline" href="#">نسيت كلمة المرور؟</a>
+</div>
+</div>
+<div class="space-y-4 pt-4">
+<button class="w-full py-4 rounded-lg signature-gradient text-on-primary-fixed font-black text-lg neon-glow active:scale-95 transition-all flex items-center justify-center gap-2">
+<span>تسجيل الدخول</span>
+<span class="material-symbols-outlined" data-icon="login">login</span>
+</button>
+<div class="relative py-4 flex items-center">
+<div class="flex-grow border-t border-outline-variant/20"></div>
+<span class="flex-shrink mx-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">أو عبر</span>
+<div class="flex-grow border-t border-outline-variant/20"></div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-3 py-3 rounded-lg bg-surface-container-high hover:bg-surface-container-highest transition-colors active:scale-95 duration-150 border border-outline-variant/10">
+<img alt="Google" class="w-5 h-5" data-alt="Google logo with vibrant brand colors on a white background icon style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPEzZhS6dej4-Z0jRWRmGkxEQ72jLDBnAn5m8VvPt1AHusz0hU8vQ3tcvHP7zifCDhxgIf_7NsTJdtzWgCKNEU48LxDnaTYy3wIc5-s261ekspSg8vesSfSE56HORO4ckP7YEev3Z0twxHctCpGA2c4A5d_A0OrtBZ8ORjm8cdZtoVOz8V6zX4MR6IOEETmGBLv8iX_Mof8UhHDg77TtM30bX3k7A-N1QQ3sQheSWewy9RD3vE5lJRJ937wFVrI_QbRfIzZ3bfzXg"/>
+<span class="text-sm font-bold">جوجل</span>
+</button>
+<button class="flex items-center justify-center gap-3 py-3 rounded-lg bg-surface-container-high hover:bg-surface-container-highest transition-colors active:scale-95 duration-150 border border-outline-variant/10">
+<span class="material-symbols-outlined text-on-surface" data-icon="apple" style="font-variation-settings: 'FILL' 1;">ios</span>
+<span class="text-sm font-bold">آبل</span>
+</button>
+</div>
+</div>
+<p class="text-center text-on-surface-variant text-xs pt-8 leading-relaxed">
+                        باستمرارك، أنت توافق على <a class="text-primary-fixed hover:underline" href="#">شروط الخدمة</a> و <a class="text-primary-fixed hover:underline" href="#">سياسة الخصوصية</a> الخاصة بـ Delta Leap.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Branding Element: Top Corner (Visual Anchor) -->
+<div class="fixed top-8 left-8 hidden md:block z-50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-fixed rounded-full flex items-center justify-center text-on-primary-fixed font-black text-xl italic">Δ</div>
+<div class="text-on-surface font-black tracking-widest text-xs uppercase opacity-40">Scholar System v4.0</div>
+</div>
+</div>
+</body></html>
