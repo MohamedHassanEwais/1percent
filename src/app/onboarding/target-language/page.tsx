@@ -34,7 +34,7 @@ export default function TargetLanguageSelection() {
 
   const handleStart = () => {
     // Navigate to placement test flow
-    router.push("/onboarding/placement/intro");
+    router.push("/onboarding/placement");
   };
 
   return (
