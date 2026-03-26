@@ -22,7 +22,7 @@ export default function PlacementTestFlow() {
 
   const handleFinish = () => {
     // Navigate to the main app dashboard
-    router.push("/");
+    router.push("/home");
   };
 
   return (

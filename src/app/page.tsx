@@ -2,17 +2,24 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/core/store/user-store";
 
 export default function SplashScreen() {
   const router = useRouter();
+  const { user } = useUserStore();
 
   useEffect(() => {
-    // Redirect to walkthrough after 3 seconds
+    // Redirect after 3 seconds based on auth status
     const timer = setTimeout(() => {
-      router.push("/walkthrough");
+      // Small delay allows Zustand persist to rehydrate
+      if (user?.uid) {
+        router.push("/home");
+      } else {
+        router.push("/walkthrough");
+      }
     }, 3000);
     return () => clearTimeout(timer);
-  }, [router]);
+  }, [router, user]);
 
   return (
     <main className="relative h-screen w-full flex flex-col items-center justify-center p-8 bg-background overflow-hidden selection:bg-accent selection:text-black">
