@@ -1,90 +1,90 @@
 "use client";
 
 import { VocabularyCard } from "@/core/domain/types";
-import { GlassCard } from "@/components/ui/GlassCard";
-import { NeonButton } from "@/components/ui/NeonButton";
 import { motion } from "framer-motion";
-import { Volume2, Eye } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { Volume2 } from "lucide-react";
+import { useEffect } from "react";
 
 export interface FlashcardFrontProps {
-    card: VocabularyCard;
-    onFlip: () => void;
-    status?: 'new' | 'learning' | 'review' | 'graduated';
+  card: VocabularyCard;
+  onFlip: () => void;
+  status?: 'new' | 'learning' | 'review' | 'graduated';
 }
 
 export function FlashcardFront({ card, onFlip, status = 'new' }: FlashcardFrontProps) {
-    // Auto-play audio on mount
-    useEffect(() => {
-        if (card.audioUrl) {
-            const audio = new Audio(card.audioUrl);
-            audio.play().catch(e => console.log("Audio play failed (interaction required):", e));
-        }
-    }, [card]);
+  // Auto-play audio on mount
+  useEffect(() => {
+    if (card.audioUrl) {
+      const audio = new Audio(card.audioUrl);
+      audio.play().catch(e => console.log("Audio play failed (interaction required):", e));
+    }
+  }, [card]);
 
-    return (
-        <motion.div
-            initial={{ rotateY: 90, opacity: 0 }}
-            animate={{ rotateY: 0, opacity: 1 }}
-            exit={{ rotateY: -90, opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="absolute inset-0 h-full w-full"
-        >
-            <GlassCard className="flex h-full flex-col justify-between p-8 border-[#CCFF00]/20 shadow-[0_0_30px_rgba(204,255,0,0.05)] relative">
+  return (
+    <motion.div
+      initial={{ rotateY: 90, opacity: 0 }}
+      animate={{ rotateY: 0, opacity: 1 }}
+      exit={{ rotateY: -90, opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="absolute inset-0 h-full w-full cursor-pointer group perspective-1000"
+      onClick={onFlip}
+    >
+      <div className="w-full h-full bg-[#1a1a1a] rounded-3xl relative overflow-hidden flex flex-col shadow-2xl border border-gray-800 transition-transform duration-300 group-hover:scale-[1.02]">
+        
+        {/* Background decorative glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent/10 rounded-full blur-[100px] pointer-events-none" />
 
-                {/* Status Badge */}
-                <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${status === 'new'
-                    ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400'
-                    : 'bg-orange-500/10 border-orange-500 text-orange-400'
-                    }`}>
-                    {status === 'new' ? 'New Word' : 'Review'}
-                </div>
+        {/* Top Status */}
+        <div className="absolute top-6 w-full px-6 flex justify-between items-center z-20 rtl">
+          <span className="text-gray-500 text-xs font-bold uppercase tracking-widest">
+            {status === 'new' ? 'كلمة جديدة' : 'مراجعة'}
+          </span>
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+            <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+            <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+          </div>
+        </div>
 
-                {/* Top: Audio Visuals */}
-                <div className="flex justify-center py-10">
-                    <div
-                        className="relative flex h-32 w-32 items-center justify-center rounded-full bg-white/5 shadow-inner cursor-pointer hover:bg-white/10 transition-colors group"
-                        onClick={(e) => {
-                            e.stopPropagation(); // Prevent flip if we want to be safe, though flip is on button below
-                            const audio = new Audio(card.audioUrl);
-                            audio.play().catch(console.error);
-                        }}
-                    >
-                        <Volume2 className="h-12 w-12 text-primary group-hover:scale-110 transition-transform" />
-                        {/* Simulated Audio Waves */}
-                        <div className="absolute inset-0 rounded-full border border-primary/30 animate-[ping_2s_infinite]" />
-                        <span className="absolute -bottom-8 text-xs text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">Tap to Replay</span>
-                    </div>
-                </div>
+        {/* Center Content */}
+        <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-8 p-8">
+          
+          {/* Audio Icon Button */}
+          <div 
+            className="flex items-center justify-center w-24 h-24 rounded-full bg-black/40 border border-gray-800 backdrop-blur-md shadow-lg shadow-black group-hover:bg-black/60 transition-all duration-500 relative"
+            onClick={(e) => {
+              e.stopPropagation(); // Replay audio without flipping
+              if (card.audioUrl) {
+                const audio = new Audio(card.audioUrl);
+                audio.play().catch(console.error);
+              }
+            }}
+          >
+            <Volume2 className="text-accent w-10 h-10 group-hover:scale-110 transition-transform duration-300" />
+            <div className="absolute inset-0 rounded-full border border-accent/20 animate-[ping_2s_infinite]" />
+          </div>
 
-                {/* Center: Content */}
-                <div className="flex-1 flex items-center justify-center">
-                    {card.pos === 'phoneme' ? (
-                        <div className="text-center">
-                            <h2 className="text-6xl font-bold text-white mb-4">{card.word}</h2>
-                            <p className="text-xl text-slate-400 font-mono">/{card.phonetic}/</p>
-                        </div>
-                    ) : (
-                        <p className="text-xl text-center leading-relaxed font-medium text-slate-300">
-                            {/* Simple replace logic for demo */}
-                            {card.exampleSentence.replace(/<highlight>.*?<\/highlight>/g, ' _______ ')}
-                        </p>
-                    )}
-                </div>
+          <div className="text-center mt-4 px-4">
+             {card.pos === 'phoneme' ? (
+                <h2 className="text-5xl font-bold text-white mb-2">{card.word}</h2>
+             ) : (
+                <p className="text-xl leading-relaxed text-gray-300 font-medium rtl" dir="rtl">
+                   {card.exampleSentence.replace(/<highlight>.*?<\/highlight>/g, ' ....... ')}
+                </p>
+             )}
+          </div>
 
-                {/* Bottom: Reveal Action */}
-                <div className="mt-8">
-                    <p className="text-center text-xs text-slate-500 uppercase tracking-widest mb-4">Tap to Reveal Meaning</p>
-                    <NeonButton
-                        onClick={onFlip}
-                        className="w-full"
-                        size="lg"
-                    >
-                        <Eye className="mr-2 h-4 w-4" /> REVEAL ANSWER
-                    </NeonButton>
-                </div>
+          {/* Tap Hint */}
+          <div className="absolute bottom-8 text-gray-500 text-xs font-medium uppercase tracking-[0.2em] animate-pulse">
+            انقر للقلب
+          </div>
+        </div>
 
-            </GlassCard>
-        </motion.div>
-    );
+        {/* Progress Bar Component mapping */}
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-white/5">
+          <div className="h-full bg-gradient-to-r from-yellow-600 to-accent w-1/3 shadow-[0_0_10px_rgba(250,250,51,0.5)]" />
+        </div>
+      </div>
+    </motion.div>
+  );
 }
