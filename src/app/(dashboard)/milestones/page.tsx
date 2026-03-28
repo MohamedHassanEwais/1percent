@@ -20,32 +20,32 @@ export default function MilestonesPage() {
     const milestones = [
         {
             id: 1,
-            title: "The Awakening",
-            desc: "Learn your first 100 words",
+            title: "اليقظة",
+            desc: "تعلّم أول 100 كلمة",
             completed: learnedCount >= 100,
             xp: 500,
             icon: "🥚"
         },
         {
             id: 2,
-            title: "Star Gazer",
-            desc: "Reach a 7-day streak",
+            title: "راصد النجوم",
+            desc: "حافظ على 7 أيام متتالية",
             completed: streak >= 7,
             xp: 300,
             icon: "🔭"
         },
         {
             id: 3,
-            title: "Velocity",
-            desc: "Reach 5000 XP",
+            title: "السرعة",
+            desc: "اجمع 5000 نقطة XP",
             completed: xp >= 5000,
             xp: 1000,
             icon: "🚀"
         },
         {
             id: 4,
-            title: "Supernova",
-            desc: "Unlock 1000 words",
+            title: "الانفجار",
+            desc: "افتح 1000 كلمة",
             completed: learnedCount >= 1000,
             xp: 5000,
             icon: "💥"
@@ -53,7 +53,7 @@ export default function MilestonesPage() {
         {
             id: 5,
             title: "Delta Leap Elite",
-            desc: "Master all 3000 words",
+            desc: "أتقن كل 3000 كلمة",
             completed: learnedCount >= 3000,
             xp: 10000,
             icon: "👑"
@@ -64,9 +64,9 @@ export default function MilestonesPage() {
         <div className="min-h-screen bg-black text-white p-6 pb-24 overflow-y-auto">
             <div className="text-center mb-8">
                 <h1 className="text-3xl font-heading font-black text-[#CCFF00] tracking-wider uppercase">
-                    Evolution
+                    الإنجازات
                 </h1>
-                <p className="text-slate-400 text-sm">Your Journey from Egg to Galaxy</p>
+                <p className="text-slate-400 text-sm">رحلتك من البداية إلى الإتقان</p>
             </div>
 
             <div className="relative space-y-8 pl-8 before:absolute before:left-[19px] before:top-0 before:h-full before:w-[2px] before:bg-white/10">
@@ -107,7 +107,7 @@ export default function MilestonesPage() {
                                 </div>
 
                                 <div className="mt-4 flex justify-between items-center border-t border-white/5 pt-3">
-                                    <span className="text-xs font-mono text-[#7C3AED] font-bold">Reward</span>
+                                    <span className="text-xs font-mono text-[#7C3AED] font-bold">المكافأة</span>
                                     <span className="text-sm font-bold text-white">{milestone.xp} XP</span>
                                 </div>
                             </GlassCard>
