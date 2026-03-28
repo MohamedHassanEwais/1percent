@@ -1,13 +1,13 @@
 "use client";
 
 import { useUserStore } from "@/core/store/user-store";
-import { ChevronRight, Volume2, Bell, Moon, Lock, Info, LogOut } from "lucide-react";
+import { ChevronRight, Volume2, Bell, Moon, Lock, Info, LogOut, BrainCircuit } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SettingsPage() {
     const router = useRouter();
-    const { clearUser } = useUserStore();
+    const { logout } = useUserStore();
     
     // UI state for toggles
     const [soundEnabled, setSoundEnabled] = useState(true);
@@ -15,7 +15,7 @@ export default function SettingsPage() {
 
     const handleLogout = () => {
         if (confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟")) {
-            clearUser();
+            logout();
             router.push("/");
         }
     };

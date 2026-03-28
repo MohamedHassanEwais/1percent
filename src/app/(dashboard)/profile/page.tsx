@@ -16,7 +16,7 @@ export default function ProfilePage() {
 
     const handleResetDB = async () => {
         if (confirm("سيؤدي هذا إلى حذف قاعدة البيانات المحلية (الكلمات والمراجعات) لإصلاح المشاكل. هل تريد الاستمرار؟")) {
-            const { db } = await import("@/core/db/dexie");
+            const { db } = await import("@/lib/db/dexie");
             await db.delete();
             window.location.reload();
         }
