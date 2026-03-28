@@ -4,10 +4,12 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense } from "react";
 import { Eye, Brain, ArrowLeft, Share2, X, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import { useUserStore } from "@/core/store/user-store";
 
 function SummaryContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { level } = useUserStore();
 
   // Parse stats from URL query, default to 0 if not provided
   const reviewed = Number(searchParams.get("reviewed") || "0");
@@ -48,15 +50,15 @@ function SummaryContent() {
           
           {/* Headline Text */}
           <div className="text-center mb-8 relative">
-            <h1 className="text-accent text-7xl md:text-8xl font-black leading-tight tracking-tighter drop-shadow-[0_0_15px_rgba(250,250,51,0.3)]">
-              +1%
+            <h1 className="text-accent text-7xl md:text-8xl font-black leading-tight tracking-tighter drop-shadow-[0_0_15px_rgba(250,250,51,0.3)]" dir="ltr">
+              Lvl {level}
             </h1>
-            <p className="text-white text-2xl font-light opacity-90 mt-2">مستوى متقدم</p>
+            <p className="text-white text-2xl font-light opacity-90 mt-2">تسجيل إتمام الجلسة</p>
           </div>
 
           {/* Body Text */}
           <p className="text-gray-400 text-base font-normal leading-relaxed text-center max-w-[280px] mb-10">
-            أداء رائع! أنت تستمر في دفع حدودك وتتحسن كل يوم نحو الإتقان.
+            أداء رائع! أضفنا نقاط الجلسة لرصيدك. استمر في البناء المعرفي كل يوم.
           </p>
 
           {/* Stats Card (Glassmorphic) */}
@@ -78,9 +80,11 @@ function SummaryContent() {
                     <span className="text-gray-400 text-xs text-right">كلمة لتثبيت الحفظ</span>
                   </div>
                 </div>
-                <div className="text-accent font-bold flex items-center gap-1 bg-accent/10 px-2 py-1 rounded text-sm shrink-0">
-                  <TrendingUp className="w-4 h-4 rtl:-scale-x-100" /> +1%
-                </div>
+                {reviewed > 0 && (
+                  <div className="text-accent font-bold flex items-center gap-1 bg-accent/10 px-2 py-1 rounded text-sm shrink-0">
+                    <TrendingUp className="w-4 h-4 rtl:-scale-x-100" /> +{Math.ceil(reviewed * 0.1)}%
+                  </div>
+                )}
               </div>
 
               {/* Stat Row 2 */}
@@ -94,9 +98,11 @@ function SummaryContent() {
                     <span className="text-gray-400 text-xs text-right">مفردات مكتسية حديثاً</span>
                   </div>
                 </div>
-                <div className="text-purple-400 font-bold flex items-center gap-1 bg-purple-500/10 px-2 py-1 rounded text-sm shrink-0">
-                  <TrendingUp className="w-4 h-4 rtl:-scale-x-100" /> +5%
-                </div>
+                {newLearned > 0 && (
+                  <div className="text-purple-400 font-bold flex items-center gap-1 bg-purple-500/10 px-2 py-1 rounded text-sm shrink-0">
+                    <TrendingUp className="w-4 h-4 rtl:-scale-x-100" /> +{Math.ceil(newLearned * 0.5)}%
+                  </div>
+                )}
               </div>
 
             </div>

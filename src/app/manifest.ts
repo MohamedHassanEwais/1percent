@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: '1 Percent',
-        short_name: '1 Percent',
+        name: 'Delta Leap',
+        short_name: 'Delta Leap',
         description: 'Master the Oxford 3000 words with Spaced Repetition.',
         start_url: '/',
         display: 'standalone',

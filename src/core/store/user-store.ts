@@ -9,6 +9,10 @@ interface UserState {
     nextLevelXp: number;
     milestones: string[]; // IDs of unlocked milestones
 
+    // Analytics
+    focusHours: number;
+    efficiencyScore: number;
+
     // Preferences
     targetLevel: CEFRLevel;
     maxUnlockedLevel: CEFRLevel;
@@ -35,6 +39,7 @@ interface UserState {
     setTargetLevel: (level: CEFRLevel) => void;
     syncUser: (userData: { uid: string; displayName: string | null; email: string | null; photoURL: string | null }) => void;
     logout: () => void;
+    updateAnalytics: (focusDelta: number, efficiencyDelta: number) => void;
 }
 
 export const useUserStore = create<UserState>()(
@@ -45,6 +50,8 @@ export const useUserStore = create<UserState>()(
             streak: 0,
             nextLevelXp: 500,
             milestones: [],
+            focusHours: 0,
+            efficiencyScore: 0,
             targetLevel: 'A0', // Default to Phonemes (A0)
             maxUnlockedLevel: 'A0',
 
@@ -59,12 +66,14 @@ export const useUserStore = create<UserState>()(
             xpToday: 0,
             lastStudyDate: null,
 
-            setUserData: (data) => set({
+            setUserData: (data) => set((state) => ({
                 xp: data.xp,
                 level: data.level,
                 streak: data.streak,
                 nextLevelXp: data.nextLevelXp,
                 milestones: data.milestones,
+                focusHours: state.focusHours, // Keep existing if not provided
+                efficiencyScore: state.efficiencyScore,
                 targetLevel: data.targetLevel,
                 maxUnlockedLevel: data.maxUnlockedLevel || 'A0', // Default for legacy data
                 user: {
@@ -73,7 +82,7 @@ export const useUserStore = create<UserState>()(
                     email: data.email,
                     photoURL: data.photoURL
                 }
-            }),
+            })),
 
             addXp: (amount) => set((state) => {
                 const newXp = state.xp + amount;
@@ -137,6 +146,11 @@ export const useUserStore = create<UserState>()(
                 }
                 return {};
             }),
+
+            updateAnalytics: (focusDelta, efficiencyDelta) => set((state) => ({
+                focusHours: state.focusHours + focusDelta,
+                efficiencyScore: state.efficiencyScore + efficiencyDelta
+            })),
 
             setTargetLevel: (level) => set({ targetLevel: level }),
 

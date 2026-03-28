@@ -4,15 +4,22 @@ import { Flame, Edit3, TrendingUp, Brain, ArrowLeft, BookOpen, Mic, ChevronRight
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useUserStore } from "@/core/store/user-store";
 import { db } from "@/lib/db";
 
 export default function DashboardHome() {
-  const [streak, setStreak] = useState(0);
-  
-  useEffect(() => {
-    // In the future, fetch actual user streak.
-    setStreak(12);
-  }, []);
+  const { xp, level, nextLevelXp, streak, dailyGoal, xpToday, focusHours, efficiencyScore } = useUserStore();
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null; // Prevent hydration mismatch
+
+  // Calculate dynamic progress values
+  const levelProgress = Math.min(100, Math.max(0, Math.floor((xp / nextLevelXp) * 100)));
+  const dailyProgress = Math.min(100, Math.max(0, Math.floor((xpToday / dailyGoal) * 100)));
+  const circleOffset = 264 - (264 * levelProgress) / 100;
+
 
   return (
     <div className="flex-1 flex flex-col items-center w-full px-4 pt-8 animate-in fade-in duration-500">
@@ -53,13 +60,13 @@ export default function DashboardHome() {
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
             {/* Track bg */}
             <circle cx="50" cy="50" r="42" fill="transparent" stroke="currentColor" strokeWidth="6" className="text-gray-800" />
-            {/* Progress (approx 1%) */}
-            <circle cx="50" cy="50" r="42" fill="transparent" stroke="currentColor" strokeWidth="6" strokeDasharray="264" strokeDashoffset="260" strokeLinecap="round" className="text-accent drop-shadow-[0_0_8px_rgba(250,250,51,0.6)]" />
+            {/* Progress Dynamic */}
+            <circle cx="50" cy="50" r="42" fill="transparent" stroke="currentColor" strokeWidth="6" strokeDasharray="264" strokeDashoffset={circleOffset} strokeLinecap="round" className="text-accent drop-shadow-[0_0_8px_rgba(250,250,51,0.6)] transition-all duration-1000 ease-out" />
           </svg>
           
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-4xl md:text-5xl font-black text-white tracking-tighter">١٪</span>
-            <span className="text-sm uppercase tracking-widest text-accent mt-2 font-bold">تراكمي</span>
+            <span className="text-4xl md:text-5xl font-black text-white tracking-tighter" dir="ltr">Lvl {level}</span>
+            <span className="text-sm uppercase tracking-widest text-accent mt-2 font-bold">{xp} / {nextLevelXp} XP</span>
           </div>
           
           <div className="absolute inset-0 rounded-full border border-gray-800 border-dashed animate-[spin_60s_linear_infinite]" />
@@ -88,7 +95,7 @@ export default function DashboardHome() {
                   <div>
                     <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">الهدف</p>
                     <p className="text-white text-2xl font-bold leading-none flex flex-row-reverse gap-1 items-end">
-                      ٧ <span className="text-sm font-normal text-gray-400">عناصر جديدة</span>
+                      {dailyGoal} <span className="text-sm font-normal text-gray-400">نقطة XP</span>
                     </p>
                   </div>
                   <Link href="/session">
@@ -111,11 +118,14 @@ export default function DashboardHome() {
           {/* Progress bar inside card */}
           <div className="mx-5 mb-5 mt-1">
             <div className="h-1.5 w-full bg-gray-800 rounded-full flex justify-end overflow-hidden">
-              <div className="h-full bg-accent w-[0%] transition-all duration-1000 shadow-[0_0_8px_rgba(250,250,51,0.5)]" />
+              <div 
+                className="h-full bg-accent transition-all duration-1000 shadow-[0_0_8px_rgba(250,250,51,0.5)]" 
+                style={{ width: `${dailyProgress}%` }}
+              />
             </div>
             <div className="flex flex-row-reverse justify-between mt-2">
-              <span className="text-[10px] text-gray-500">٠٪ مکتمل</span>
-              <span className="text-[10px] text-gray-500">المدة: ٥ دقائق</span>
+              <span className="text-[10px] text-gray-500">{dailyProgress}% مکتمل</span>
+              <span className="text-[10px] text-gray-500">{xpToday} XP اليوم</span>
             </div>
           </div>
         </div>
@@ -130,9 +140,12 @@ export default function DashboardHome() {
             <TrendingUp className="w-5 h-5" />
             <span className="text-xs uppercase font-medium tracking-wide">الكفاءة</span>
           </div>
-          <p className="text-2xl font-bold text-white">+١.٢٪</p>
+          <p className="text-2xl font-bold text-white ltr" dir="ltr">+{efficiencyScore.toFixed(1)}%</p>
           <div className="w-full bg-gray-800 h-1 rounded-full mt-2 flex justify-end">
-            <div className="w-[60%] h-full bg-green-400 rounded-full shadow-[0_0_10px_rgba(74,222,128,0.5)]" />
+            <div 
+               className="h-full bg-green-400 rounded-full shadow-[0_0_10px_rgba(74,222,128,0.5)] transition-all" 
+               style={{ width: `${Math.min(100, efficiencyScore * 5)}%` }}
+            />
           </div>
         </div>
 
@@ -142,9 +155,12 @@ export default function DashboardHome() {
             <Brain className="w-5 h-5" />
             <span className="text-xs uppercase font-medium tracking-wide">التركيز</span>
           </div>
-          <p className="text-2xl font-bold text-white">٤.٥ س</p>
+          <p className="text-2xl font-bold text-white ltr" dir="ltr">{focusHours.toFixed(1)} h</p>
           <div className="w-full bg-gray-800 h-1 rounded-full mt-2 flex justify-end">
-            <div className="w-[85%] h-full bg-blue-400 rounded-full shadow-[0_0_10px_rgba(96,165,250,0.5)]" />
+            <div 
+              className="h-full bg-blue-400 rounded-full shadow-[0_0_10px_rgba(96,165,250,0.5)] transition-all" 
+              style={{ width: `${Math.min(100, (focusHours / 10) * 100)}%` }}
+            />
           </div>
         </div>
       </div>

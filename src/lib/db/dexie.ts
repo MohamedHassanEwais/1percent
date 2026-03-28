@@ -1,7 +1,7 @@
 import Dexie, { type EntityTable } from 'dexie';
 import { VocabularyCard, WordProgress, UserProfile } from '../../core/domain/types';
 
-const db = new Dexie('1percent_db') as Dexie & {
+const db = new Dexie('deltaleap_db') as Dexie & {
     words: EntityTable<VocabularyCard, 'id'>;
     progress: EntityTable<WordProgress, 'wordId'>;
     user: EntityTable<UserProfile, 'uid'>;

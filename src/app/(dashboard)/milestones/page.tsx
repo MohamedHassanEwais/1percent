@@ -52,7 +52,7 @@ export default function MilestonesPage() {
         },
         {
             id: 5,
-            title: "The 1 Percent",
+            title: "Delta Leap Elite",
             desc: "Master all 3000 words",
             completed: learnedCount >= 3000,
             xp: 10000,

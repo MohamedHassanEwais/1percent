@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
 
 export const metadata: Metadata = {
-  title: "1 Percent | Better Every Day",
+  title: "Delta Leap | AI Language Mastery",
   description: "Master the Oxford 3000 words with Spaced Repetition.",
   manifest: "/manifest.json",
   icons: {
