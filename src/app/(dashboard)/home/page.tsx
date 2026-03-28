@@ -1,6 +1,6 @@
 "use client";
 
-import { Flame, Edit3, TrendingUp, Brain, ArrowLeft } from "lucide-react";
+import { Flame, Edit3, TrendingUp, Brain, ArrowLeft, BookOpen, Mic, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -122,7 +122,7 @@ export default function DashboardHome() {
       </div>
 
       {/* Secondary Stats */}
-      <div className="w-full max-w-2xl grid grid-cols-2 gap-4 mt-6 mb-12 rtl text-right">
+      <div className="w-full max-w-2xl grid grid-cols-2 gap-4 mt-6 mb-8 rtl text-right">
         
         {/* Stat 1 */}
         <div className="bg-[#1a1a1a] border border-gray-800 p-4 rounded-xl flex flex-col gap-2">
@@ -147,7 +147,37 @@ export default function DashboardHome() {
             <div className="w-[85%] h-full bg-blue-400 rounded-full shadow-[0_0_10px_rgba(96,165,250,0.5)]" />
           </div>
         </div>
+      </div>
 
+      {/* Other Engines */}
+      <div className="w-full max-w-2xl flex flex-col gap-4 mb-20 rtl text-right">
+        <h3 className="text-white text-lg font-bold">محركات التعلم الإضافية</h3>
+        
+        <Link href="/reader" className="group rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center justify-between hover:bg-white/10 transition-all">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-accent" />
+            </div>
+            <div>
+              <h4 className="text-white font-bold">القارئ المفهوم</h4>
+              <p className="text-xs text-gray-400 mt-1">تدرب على الفهم القرائي العام</p>
+            </div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors rtl:rotate-180" />
+        </Link>
+        
+        <Link href="/shadowing" className="group rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center justify-between hover:bg-white/10 transition-all">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+              <Mic className="w-6 h-6 text-purple-400" />
+            </div>
+            <div>
+              <h4 className="text-white font-bold">مختبر التظليل</h4>
+              <p className="text-xs text-gray-400 mt-1">قارن نطقك بالنطق الأصلي</p>
+            </div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors rtl:rotate-180" />
+        </Link>
       </div>
 
     </div>
