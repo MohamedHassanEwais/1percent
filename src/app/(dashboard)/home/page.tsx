@@ -1,6 +1,6 @@
 "use client";
 
-import { Flame, Edit3, TrendingUp, Brain, ArrowLeft, BookOpen, Mic, ChevronRight } from "lucide-react";
+import { Flame, Edit3, TrendingUp, Brain, ArrowLeft, BookOpen, Mic, ChevronRight, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -174,6 +174,19 @@ export default function DashboardHome() {
             <div>
               <h4 className="text-white font-bold">مختبر التظليل</h4>
               <p className="text-xs text-gray-400 mt-1">قارن نطقك بالنطق الأصلي</p>
+            </div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors rtl:rotate-180" />
+        </Link>
+
+        <Link href="/tutor" className="group rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center justify-between hover:bg-white/10 transition-all">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+              <MessageSquare className="w-6 h-6 text-blue-400" />
+            </div>
+            <div>
+              <h4 className="text-white font-bold">المعلم الذكي (AI)</h4>
+              <p className="text-xs text-gray-400 mt-1">تدرب على المحادثة المستهدفة</p>
             </div>
           </div>
           <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors rtl:rotate-180" />
