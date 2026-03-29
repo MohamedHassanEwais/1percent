@@ -1,8 +1,6 @@
 import { db } from "@/lib/db/dexie";
 import { calculateNextReview, initializeWordProgress } from "@/core/algorithms/srs";
 import { VocabularyCard, WordProgress, CEFRLevel } from "@/core/domain/types";
-import { SyncService } from "@/core/services/sync-service";
-import { auth } from "@/lib/firebase";
 import seedData from "@/lib/data/seed-v2.json"; // V2 Data
 
 export class WordsRepository {
@@ -403,10 +401,8 @@ export class WordsRepository {
 
         await db.progress.put(updatedProgress);
 
-        // Sync to Cloud if logged in
-        if (auth.currentUser) {
-            SyncService.pushProgress(auth.currentUser.uid, updatedProgress);
-        }
+        // Cloud sync is handled by SyncProvider (on app close/background)
+        // NO per-review Firestore writes — saves 400K+ writes/day at scale
     }
 
     /**

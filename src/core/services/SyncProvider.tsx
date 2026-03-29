@@ -1,68 +1,65 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { auth, db as firestore } from "@/lib/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { auth } from "@/lib/firebase";
+import { SyncService } from "./sync-service";
 import { useUserStore } from "@/core/store/user-store";
 
 /**
- * SyncProvider: Auto-pushes user profile changes (XP, level, streak, etc.) 
- * to Firestore when the user is authenticated and the data has been initialized.
+ * SyncProvider — "Write Once" Strategy
  * 
- * It uses a debounce to avoid spamming Firestore on every micro-change.
- * It also skips the initial push to prevent overwriting cloud data with local defaults.
+ * Triggers a full sync ONLY when:
+ * 1. App goes to background (visibilitychange → hidden)
+ * 2. User logs out (via settings)
+ * 3. Fallback timer every 6 hours (for users who never close the tab)
+ * 
+ * NO writes happen during active usage. Zero Firestore cost while studying.
  */
 export function SyncProvider() {
-    const { xp, level, streak, milestones, targetLevel, maxUnlockedLevel, user, focusHours, efficiencyScore } = useUserStore();
-    const isInitialMount = useRef(true);
-    const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const fallbackTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const { user } = useUserStore();
 
     useEffect(() => {
-        // Skip the first render to prevent overwriting cloud data 
-        // with initial/default values before AuthProvider has loaded cloud data.
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-            return;
-        }
+        // Only set up listeners if user is authenticated
+        if (!user.uid || !auth.currentUser) return;
 
-        // Only sync if user is authenticated
-        const currentUser = auth.currentUser;
-        if (!currentUser || !user.uid) return;
-
-        // Debounce: wait 2 seconds after the last change before syncing
-        if (debounceTimer.current) {
-            clearTimeout(debounceTimer.current);
-        }
-
-        debounceTimer.current = setTimeout(async () => {
-            try {
-                const userRef = doc(firestore, "users", currentUser.uid);
-                await setDoc(userRef, {
-                    xp,
-                    level,
-                    streak,
-                    milestones,
-                    targetLevel,
-                    maxUnlockedLevel,
-                    focusHours,
-                    efficiencyScore,
-                    displayName: user.displayName || currentUser.displayName || "مجهول",
-                    email: user.email || currentUser.email || null,
-                    photoURL: user.photoURL || currentUser.photoURL || null,
-                    lastSynced: new Date().toISOString(),
-                }, { merge: true });
-                console.log("[SyncProvider] ✅ Pushed profile to Firestore");
-            } catch (error) {
-                console.error("[SyncProvider] Failed to push:", error);
-            }
-        }, 2000);
-
-        return () => {
-            if (debounceTimer.current) {
-                clearTimeout(debounceTimer.current);
+        // 1. VISIBILITY CHANGE — sync when app goes to background/tab switches
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === "hidden") {
+                console.log("[SyncProvider] App went to background. Triggering sync...");
+                SyncService.fullSync();
             }
         };
-    }, [xp, level, streak, milestones, targetLevel, maxUnlockedLevel, user, focusHours, efficiencyScore]);
+
+        // 2. BEFORE UNLOAD — sync when tab/browser is closing
+        const handleBeforeUnload = () => {
+            // Note: async operations may not complete here, but we try anyway.
+            // The visibilitychange event (above) fires first and is more reliable.
+            SyncService.fullSync();
+        };
+
+        // 3. FALLBACK TIMER — sync every 6 hours for always-on tabs
+        const SIX_HOURS = 6 * 60 * 60 * 1000;
+        fallbackTimerRef.current = setInterval(() => {
+            console.log("[SyncProvider] 6-hour fallback timer triggered.");
+            SyncService.fullSync();
+        }, SIX_HOURS);
+
+        // Register listeners
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        console.log("[SyncProvider] ✅ Smart sync listeners registered.");
+
+        // Cleanup on unmount
+        return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            if (fallbackTimerRef.current) {
+                clearInterval(fallbackTimerRef.current);
+            }
+        };
+    }, [user.uid]);
 
     return null; // Logic only, no UI
 }

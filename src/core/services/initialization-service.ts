@@ -38,10 +38,8 @@ export class InitializationService {
             }
 
             // B. Trigger Background Sync
-            // We don't necessarily need to await this to show the dashboard, 
-            // but we SHOULD await it if we want the Galaxy/Stats to be accurate on first load.
-            // Let's await it for now to avoid "pop-in" of data, but consider making it background later.
-            await SyncService.pullProgress(firebaseUser.uid);
+            // Pull all progress from cloud (single document read)
+            await SyncService.pullAll(firebaseUser.uid);
 
             return {
                 userProfile,

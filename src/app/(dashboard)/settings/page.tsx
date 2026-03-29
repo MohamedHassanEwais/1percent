@@ -1,7 +1,8 @@
 "use client";
 
 import { useUserStore } from "@/core/store/user-store";
-import { ChevronRight, Volume2, Bell, Moon, Lock, Info, LogOut, BrainCircuit } from "lucide-react";
+import { SyncService } from "@/core/services/sync-service";
+import { ChevronRight, Volume2, Bell, Moon, Lock, Info, LogOut, BrainCircuit, CloudUpload, Loader2, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -12,9 +13,19 @@ export default function SettingsPage() {
     // UI state for toggles
     const [soundEnabled, setSoundEnabled] = useState(true);
     const [remindersEnabled, setRemindersEnabled] = useState(false);
+    const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'done' | 'error'>('idle');
 
-    const handleLogout = () => {
+    const handleManualSync = async () => {
+        setSyncStatus('syncing');
+        const success = await SyncService.fullSync();
+        setSyncStatus(success ? 'done' : 'error');
+        setTimeout(() => setSyncStatus('idle'), 3000);
+    };
+
+    const handleLogout = async () => {
         if (confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟")) {
+            // Sync before logout to ensure progress is saved
+            await SyncService.fullSync();
             logout();
             router.push("/");
         }
@@ -137,6 +148,36 @@ export default function SettingsPage() {
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+
+                    {/* Cloud Sync Section */}
+                    <div>
+                        <h3 className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3 pr-2 mt-4">المزامنة السحابية</h3>
+                        <div className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                            <button
+                                onClick={handleManualSync}
+                                disabled={syncStatus === 'syncing'}
+                                className="flex items-center gap-4 px-5 py-4 justify-between hover:bg-white/5 transition-colors active:scale-[0.98] disabled:opacity-60 w-full text-right"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className={`flex items-center justify-center rounded-xl shrink-0 w-10 h-10 ${syncStatus === 'done' ? 'bg-green-500/10 text-green-400' : syncStatus === 'error' ? 'bg-red-500/10 text-red-400' : 'bg-blue-500/10 text-blue-400'}`}>
+                                        {syncStatus === 'syncing' ? (
+                                            <Loader2 className="w-5 h-5 animate-spin" />
+                                        ) : syncStatus === 'done' ? (
+                                            <Check className="w-5 h-5" />
+                                        ) : (
+                                            <CloudUpload className="w-5 h-5" />
+                                        )}
+                                    </div>
+                                    <div className="flex flex-col text-right">
+                                        <p className="text-white text-base font-medium leading-normal">
+                                            {syncStatus === 'syncing' ? 'جاري المزامنة...' : syncStatus === 'done' ? 'تمت المزامنة ✅' : syncStatus === 'error' ? 'فشلت المزامنة' : 'مزامنة يدوية'}
+                                        </p>
+                                        <p className="text-gray-500 text-[10px] mt-0.5">رفع التقدم والكلمات إلى السحابة</p>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
                     </div>
 
