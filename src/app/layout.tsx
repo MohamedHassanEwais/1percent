@@ -28,8 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.variable, spaceGrotesk.variable, "font-sans bg-black text-slate-400 antialiased")}>
-        <SyncProvider />
         <AuthProvider>
+          <SyncProvider />
           {children}
         </AuthProvider>
       </body>

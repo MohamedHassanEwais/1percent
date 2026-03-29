@@ -1,42 +1,13 @@
 import { db as firestore, auth } from "@/lib/firebase";
-import { doc, setDoc, getDoc, collection, query, orderBy, limit, getDocs } from "firebase/firestore";
+import { doc, getDoc, collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { useUserStore } from "@/core/store/user-store";
-import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 
-export const useFirestoreSync = () => {
-    const { xp, level, streak, milestones, user } = useUserStore();
-
-    // 1. Listen for Auth State
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
-            if (authUser) {
-                console.log("User authenticated, sinking with cloud...");
-                await syncFromCloud(authUser.uid);
-            }
-        });
-        return () => unsubscribe();
-    }, []);
-
-    // 2. Push Local Changes to Cloud (Debounced ideally, but simple effect for now)
-    useEffect(() => {
-        const currentUser = auth.currentUser;
-        if (currentUser) {
-            const userRef = doc(firestore, "users", currentUser.uid);
-            setDoc(userRef, {
-                xp,
-                level,
-                streak,
-                milestones,
-                displayName: user.displayName || currentUser.displayName || "Anonymous",
-                photoURL: user.photoURL || currentUser.photoURL || null,
-                lastSynced: new Date()
-            }, { merge: true });
-        }
-    }, [xp, level, streak, milestones, user.displayName, user.photoURL]);
-};
-
-async function syncFromCloud(uid: string) {
+/**
+ * Pulls profile data from Firestore on login.
+ * Called by InitializationService or directly after auth state change.
+ * Uses "cloud wins if higher XP" conflict resolution.
+ */
+export async function syncFromCloud(uid: string) {
     const userRef = doc(firestore, "users", uid);
     const snap = await getDoc(userRef);
 
@@ -44,21 +15,26 @@ async function syncFromCloud(uid: string) {
         const data = snap.data();
         const store = useUserStore.getState();
 
-        // Simple Conflict Resolution: Cloud wins if it has more XP
-        // (Prevents overwriting cloud progress with empty local state on new device)
+        // Cloud wins if it has more XP (prevents overwriting cloud with empty local state on new device)
         if (data.xp > store.xp) {
             useUserStore.setState({
                 xp: data.xp,
                 level: data.level,
                 streak: data.streak,
-                milestones: data.milestones || []
+                milestones: data.milestones || [],
+                targetLevel: data.targetLevel || store.targetLevel,
+                maxUnlockedLevel: data.maxUnlockedLevel || store.maxUnlockedLevel,
+                focusHours: data.focusHours || store.focusHours,
+                efficiencyScore: data.efficiencyScore || store.efficiencyScore,
             });
-            console.log("Restored progress from cloud.");
+            console.log("[FirestoreSync] ✅ Restored progress from cloud (cloud had more XP).");
+        } else {
+            console.log("[FirestoreSync] Local data is ahead or equal, keeping local.");
         }
     }
 }
 
-export const SyncService = {
+export const FirestoreSyncService = {
     async getGlobalLeaderboard(limitCount = 50) {
         try {
             const usersRef = collection(firestore, "users");
@@ -73,10 +49,5 @@ export const SyncService = {
             console.error("Error fetching leaderboard:", error);
             return [];
         }
-    },
-
-    // Legacy mapping if needed
-    pushProgress: async (uid: string, progress: any) => {
-        // We might implement detailed progress sync later, currently words-repo handles it via db.progress
     }
 };
