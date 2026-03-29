@@ -2,16 +2,74 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Brain, Lock, AtSign, LogIn, Chrome, Apple } from "lucide-react";
+import { Brain, Lock, AtSign, LogIn, Chrome, Apple, Loader2 } from "lucide-react";
+import { auth } from "@/lib/firebase";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  updateProfile,
+} from "firebase/auth";
 
 export default function LoginScreen() {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const getErrorMessage = (code: string) => {
+    switch (code) {
+      case "auth/user-not-found": return "لا يوجد حساب بهذا البريد الإلكتروني.";
+      case "auth/wrong-password": return "كلمة المرور غير صحيحة.";
+      case "auth/invalid-credential": return "البريد أو كلمة المرور غير صحيحة.";
+      case "auth/email-already-in-use": return "هذا البريد مسجّل بالفعل. جرب تسجيل الدخول.";
+      case "auth/weak-password": return "كلمة المرور ضعيفة جداً (6 أحرف على الأقل).";
+      case "auth/invalid-email": return "صيغة البريد الإلكتروني غير صحيحة.";
+      case "auth/too-many-requests": return "محاولات كثيرة. حاول مرة أخرى لاحقاً.";
+      case "auth/popup-closed-by-user": return "تم إغلاق نافذة تسجيل الدخول.";
+      default: return "حدث خطأ. حاول مرة أخرى.";
+    }
+  };
+
+  const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate auth and route to target language selection
-    router.push("/onboarding/target-language");
+    setError(null);
+    setLoading(true);
+
+    try {
+      if (isLogin) {
+        await signInWithEmailAndPassword(auth, email, password);
+      } else {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        // Set a display name from the email prefix
+        await updateProfile(cred.user, {
+          displayName: email.split("@")[0],
+        });
+      }
+      // AuthProvider will handle the rest (sync user data, etc.)
+      router.push("/home");
+    } catch (err: any) {
+      setError(getErrorMessage(err.code));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError(null);
+    setLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      router.push("/home");
+    } catch (err: any) {
+      setError(getErrorMessage(err.code));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,7 +88,7 @@ export default function LoginScreen() {
               أتقن اللغة<br />بقفزة ذكية
             </h1>
             <p className="text-gray-400 text-xl leading-relaxed max-w-md">
-              انضم إلى مجتمع "نيون سكولار" حيث يلتقي التركيز العميق مع الطاقة الذهنية المتجددة.
+              انضم إلى نظام التعلم الذكي حيث يلتقي التركيز العميق مع الذكاء الاصطناعي لتسريع اكتسابك للغة.
             </p>
           </div>
 
@@ -66,20 +124,27 @@ export default function LoginScreen() {
             {/* Toggle Strategy */}
             <div className="flex bg-gray-900 p-1 rounded-lg">
               <button 
-                onClick={() => setIsLogin(true)}
+                onClick={() => { setIsLogin(true); setError(null); }}
                 className={`flex-1 py-3 px-6 text-sm font-bold rounded-md transition-all ${isLogin ? 'bg-surface text-accent shadow-md' : 'text-gray-500 hover:text-gray-300'}`}
               >
                 تسجيل الدخول
               </button>
               <button 
-                onClick={() => setIsLogin(false)}
+                onClick={() => { setIsLogin(false); setError(null); }}
                 className={`flex-1 py-3 px-6 text-sm font-bold rounded-md transition-all ${!isLogin ? 'bg-surface text-accent shadow-md' : 'text-gray-500 hover:text-gray-300'}`}
               >
                 إنشاء حساب
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Error Banner */}
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/30 rounded-lg py-3 px-4 text-red-400 text-sm font-medium text-right animate-in fade-in duration-300">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleEmailAuth} className="space-y-6">
               {/* Input Field: Email */}
               <div className="space-y-2 text-right">
                 <label className="block text-xs font-bold text-gray-400 tracking-widest uppercase px-1">البريد الإلكتروني</label>
@@ -87,7 +152,10 @@ export default function LoginScreen() {
                   <input 
                     type="email" 
                     required
-                    className="w-full bg-gray-900 border border-gray-800 rounded-lg py-4 px-12 text-white placeholder:text-gray-600 focus:ring-0 focus:outline-none focus:border-accent focus:bg-gray-800 transition-all text-right dir-rtl" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={loading}
+                    className="w-full bg-gray-900 border border-gray-800 rounded-lg py-4 px-12 text-white placeholder:text-gray-600 focus:ring-0 focus:outline-none focus:border-accent focus:bg-gray-800 transition-all text-right dir-rtl disabled:opacity-50" 
                     placeholder="name@example.com" 
                   />
                   <AtSign className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-accent transition-colors w-5 h-5 pointer-events-none" />
@@ -101,27 +169,31 @@ export default function LoginScreen() {
                   <input 
                     type="password" 
                     required
-                    className="w-full bg-gray-900 border border-gray-800 rounded-lg py-4 px-12 text-white placeholder:text-gray-600 focus:ring-0 focus:outline-none focus:border-accent focus:bg-gray-800 transition-all text-right dir-rtl" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    disabled={loading}
+                    minLength={6}
+                    className="w-full bg-gray-900 border border-gray-800 rounded-lg py-4 px-12 text-white placeholder:text-gray-600 focus:ring-0 focus:outline-none focus:border-accent focus:bg-gray-800 transition-all text-right dir-rtl disabled:opacity-50" 
                     placeholder="••••••••" 
                   />
                   <Lock className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-accent transition-colors w-5 h-5 pointer-events-none" />
                 </div>
               </div>
 
-              {isLogin && (
-                <div className="flex flex-row-reverse items-center justify-between text-sm">
-                  <label className="flex flex-row-reverse items-center justify-end gap-2 cursor-pointer group">
-                    <input type="checkbox" className="w-4 h-4 rounded border-gray-700 bg-gray-900 text-accent focus:ring-accent focus:ring-offset-background" />
-                    <span className="text-gray-400 group-hover:text-gray-200 transition-colors select-none">تذكرني</span>
-                  </label>
-                  <a href="#" className="text-accent font-medium hover:text-yellow-400 hover:underline">نسيت كلمة المرور؟</a>
-                </div>
-              )}
-
               <div className="space-y-4 pt-4">
-                <button type="submit" className="w-full py-4 rounded-lg bg-gradient-to-l from-accent to-yellow-500 text-black font-black text-lg active:scale-[0.98] hover:scale-[1.01] transition-all flex flex-row-reverse items-center justify-center gap-2 shadow-[0_0_20px_rgba(250,250,51,0.25)]">
-                  <span>{isLogin ? 'تسجيل الدخول' : 'إنشاء الحساب'}</span>
-                  <LogIn className="w-5 h-5 rotate-180" />
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full py-4 rounded-lg bg-gradient-to-l from-accent to-yellow-500 text-black font-black text-lg active:scale-[0.98] hover:scale-[1.01] transition-all flex flex-row-reverse items-center justify-center gap-2 shadow-[0_0_20px_rgba(250,250,51,0.25)] disabled:opacity-70 disabled:pointer-events-none"
+                >
+                  {loading ? (
+                    <Loader2 className="w-6 h-6 animate-spin" />
+                  ) : (
+                    <>
+                      <span>{isLogin ? 'تسجيل الدخول' : 'إنشاء الحساب'}</span>
+                      <LogIn className="w-5 h-5 rotate-180" />
+                    </>
+                  )}
                 </button>
 
                 <div className="relative py-4 flex items-center">
@@ -130,21 +202,21 @@ export default function LoginScreen() {
                   <div className="flex-grow border-t border-gray-800" />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <button type="button" className="flex flex-row-reverse items-center justify-center gap-3 py-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white transition-colors active:scale-95 duration-150 border border-gray-800">
-                    <Chrome className="w-5 h-5 text-gray-400" />
-                    <span className="text-sm font-bold">جوجل</span>
-                  </button>
-                  <button type="button" className="flex flex-row-reverse items-center justify-center gap-3 py-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white transition-colors active:scale-95 duration-150 border border-gray-800">
-                    <Apple className="w-5 h-5 text-gray-400" />
-                    <span className="text-sm font-bold">آبل</span>
-                  </button>
-                </div>
+                {/* Google Sign In */}
+                <button 
+                  type="button" 
+                  onClick={handleGoogleSignIn}
+                  disabled={loading}
+                  className="w-full flex flex-row-reverse items-center justify-center gap-3 py-3.5 rounded-lg bg-gray-900 hover:bg-gray-800 text-white transition-colors active:scale-95 duration-150 border border-gray-800 disabled:opacity-50"
+                >
+                  <Chrome className="w-5 h-5 text-gray-400" />
+                  <span className="text-sm font-bold">المتابعة مع جوجل</span>
+                </button>
               </div>
             </form>
 
-            <p className="text-center text-gray-500 text-xs pt-8 leading-relaxed max-w-sm mx-auto">
-              باستمرارك، أنت توافق على <a href="#" className="text-accent tracking-wide hover:underline">شروط الخدمة</a> و <a href="#" className="text-accent tracking-wide hover:underline">سياسة الخصوصية</a> الخاصة بـ Delta Leap.
+            <p className="text-center text-gray-500 text-xs pt-4 leading-relaxed max-w-sm mx-auto">
+              باستمرارك، أنت توافق على شروط الخدمة وسياسة الخصوصية الخاصة بـ Delta Leap.
             </p>
           </div>
         </div>
@@ -154,7 +226,7 @@ export default function LoginScreen() {
       <div className="fixed top-8 left-8 hidden md:block z-50 pointer-events-none">
         <div className="flex flex-row-reverse items-center justify-end gap-3">
           <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-black font-black text-xl italic shadow-lg">Δ</div>
-          <div className="text-white font-black tracking-widest text-xs uppercase opacity-40">Scholar System v4.0</div>
+          <div className="text-white font-black tracking-widest text-xs uppercase opacity-40">Delta Leap v4.0</div>
         </div>
       </div>
     </main>
