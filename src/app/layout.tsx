@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { SyncProvider } from "@/core/services/SyncProvider";
+import { LanguageProvider } from "@/core/providers/LanguageProvider";
 
 import AuthProvider from "@/components/providers/AuthProvider";
 
@@ -26,12 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(inter.variable, spaceGrotesk.variable, "font-sans bg-black text-slate-400 antialiased")}>
-        <AuthProvider>
-          <SyncProvider />
-          {children}
-        </AuthProvider>
+    <html lang="ar" dir="rtl">
+      <body className={cn(inter.variable, spaceGrotesk.variable, "font-sans bg-background text-slate-300 antialiased")}>
+        <LanguageProvider>
+            <AuthProvider>
+            <SyncProvider />
+            {children}
+            </AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

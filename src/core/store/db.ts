@@ -7,6 +7,9 @@ export interface CoreItem {
     level: string; // A0, A1, A2, B1, B2, C1, C2
     pos: 'word' | 'phrase' | 'phoneme'; // Differentiates item types
     translation?: string;
+    phase: 1 | 2 | 3;
+    phonetic?: boolean;
+    audioUrl?: string;
 }
 
 export interface Progress {
@@ -28,8 +31,8 @@ export class DeltaLeapDB extends Dexie {
 
     constructor() {
         super('DeltaLeapDB');
-        this.version(1).stores({
-            core_words: 'id, rank, level, normalized, pos',
+        this.version(2).stores({
+            core_words: 'id, rank, level, normalized, pos, phase',
             progress: 'wordId, status, nextReview',
             user: 'uid'
         });
