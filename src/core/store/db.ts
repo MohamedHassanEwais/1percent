@@ -14,10 +14,12 @@ export interface CoreItem {
 
 export interface Progress {
     wordId: string;
-    status: 'new' | 'learning' | 'mastered';
+    status: 'new' | 'learning' | 'review' | 'mastered';
     nextReview: number; // Timestamp for Spaced Repetition (SRS)
     interval: number;
     easeFactor: number;
+    repetitions?: number;
+    history?: { date: number; rating: number; interval: number }[];
 }
 
 export interface UserPersist {

@@ -1,4 +1,5 @@
 import { db, type CoreItem, type Progress } from '../store/db';
+import { processReview } from './srs-algorithm';
 
 export class ProgressionService {
     static readonly TARGET_MASTERY_PCT = 0.95; // 95% mastery rule
@@ -77,5 +78,30 @@ export class ProgressionService {
         
         const newWords = tierWords.filter(w => !learnedIds.has(w.id)).slice(0, limit);
         return newWords;
+    }
+
+    /**
+     * Submit a review rating for a word, updating its Spaced Repetition status
+     */
+    static async submitReview(wordId: string, rating: 1 | 2 | 3 | 4) {
+        let progress = await db.progress.get(wordId);
+        
+        if (!progress) {
+            progress = {
+                wordId,
+                status: 'new',
+                interval: 0,
+                easeFactor: 2.5,
+                repetitions: 0,
+                nextReview: 0,
+                history: []
+            } as unknown as Progress;
+        }
+
+        const updatedProgress = processReview(progress as any, rating);
+        
+        // Save back to local DB
+        await db.progress.put(updatedProgress as unknown as Progress);
+        return updatedProgress;
     }
 }
